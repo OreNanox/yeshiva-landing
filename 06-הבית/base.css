@@ -1,0 +1,271 @@
+/* ============================================================
+   ישיבת יראנו ניסים · נתניה
+   שלד משותף לכל הווריאציות. כל וריאציה דורסת רק אסימונים.
+   ============================================================ */
+
+:root {
+  --measure: 34rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.1875rem;
+  --step-2: clamp(1.35rem, 2.4vw, 1.6rem);
+  --step-3: clamp(1.7rem, 3.4vw, 2.3rem);
+  --step-4: clamp(2.3rem, 6.4vw, 4rem);
+  --radius: 2px;
+  --logo-light: block;
+  --logo-dark: none;
+  --hero-tint: 0.55;
+  --hero-min: 78vh;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent-warm); color: var(--on-accent); }
+
+:focus-visible { outline: 2px solid var(--accent-warm); outline-offset: 3px; border-radius: var(--radius); }
+
+img { max-width: 100%; display: block; }
+
+.wrap { width: min(100% - 2.5rem, 62rem); margin-inline: auto; }
+.col  { width: min(100%, var(--measure)); }
+
+/* ---------- הירו ---------- */
+
+.hero { position: relative; padding-block: clamp(2.5rem, 6vh, 4rem) clamp(3.5rem, 9vh, 6rem); overflow: hidden; }
+.hero > .wrap { position: relative; z-index: 2; }
+
+.hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+.hero-bg::after { content: ""; position: absolute; inset: 0; background: var(--hero-veil); }
+
+/* מצב א — תמונה מלאה ברקע */
+body.hero-full .hero { min-height: var(--hero-min); display: flex; align-items: flex-end; padding-block: clamp(5rem, 14vh, 9rem) clamp(3rem, 8vh, 5rem); }
+
+/* מצב ב — ללא תמונה, טיפוגרפי בלבד */
+body.hero-none .hero-bg { display: none; }
+
+/* מצב ג — פיצול: טקסט לצד תמונה */
+body.hero-split .hero-bg { display: none; }
+body.hero-split .hero-inner { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+@media (min-width: 62rem) { body.hero-split .hero-inner { grid-template-columns: 1.05fr .95fr; } }
+body.hero-split .hero-shot { border: 1px solid var(--rule-strong); box-shadow: var(--shadow); }
+
+/* מצב ד — תמונה ממוסגרת מתחת לטקסט */
+body.hero-frame .hero-bg { display: none; }
+body.hero-frame .hero-shot { margin-top: clamp(2.5rem, 6vh, 4rem); border: 1px solid var(--rule); }
+
+body:not(.hero-split):not(.hero-frame) .hero-shot { display: none; }
+
+.logo { width: clamp(10rem, 22vw, 14.5rem); height: auto; margin-bottom: clamp(1.75rem, 4.5vh, 3rem); }
+.logo-l { display: var(--logo-light); }
+.logo-d { display: var(--logo-dark); }
+
+.eyebrow {
+  font-size: .8125rem; letter-spacing: .14em; font-weight: 600;
+  color: var(--accent); display: flex; align-items: center; gap: .8rem; margin: 0 0 1.5rem;
+}
+.eyebrow::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to left, var(--rule-strong), transparent); max-width: 9rem; }
+
+h1 {
+  font-family: var(--font-display); font-size: var(--step-4); line-height: 1.05;
+  font-weight: 700; letter-spacing: -.015em; text-wrap: balance; margin: 0 0 1.5rem;
+}
+h1 .quiet { display: block; color: var(--quiet); font-weight: 400; }
+
+.lede { font-size: var(--step-1); color: var(--text-soft); max-width: 30rem; margin: 0 0 2.5rem; text-wrap: pretty; }
+
+.hero-meta { display: flex; flex-wrap: wrap; gap: 1.5rem 2.75rem; padding-top: 2.2rem; border-top: 1px solid var(--rule); margin: 2.6rem 0 0; }
+.fact { display: flex; flex-direction: column; gap: .15rem; }
+.fact dt { font-size: .75rem; letter-spacing: .12em; color: var(--text-faint); font-weight: 600; }
+.fact dd { margin: 0; font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+
+/* ---------- כפתורים ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; font: inherit; font-weight: 600;
+  padding: .9rem 2.1rem; border-radius: var(--radius); border: 1px solid transparent; cursor: pointer;
+  text-decoration: none; transition: background-color .18s ease, border-color .18s ease, transform .18s ease, color .18s ease;
+}
+.btn-primary { background: var(--accent-warm); color: var(--on-accent); border-color: var(--accent-warm); }
+.btn-primary:hover { background: var(--accent-hi); border-color: var(--accent-hi); }
+.btn-primary:active { transform: translateY(1px); }
+
+/* ---------- חלקים ---------- */
+
+section { padding-block: clamp(3.5rem, 8vh, 5.5rem); }
+.bordered { border-top: 1px solid var(--rule); }
+
+h2 { font-family: var(--font-display); font-size: var(--step-3); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; margin: 0 0 1.4rem; }
+h3 { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.25; font-weight: 700; margin: 0 0 .5rem; text-wrap: balance; }
+p { margin: 0 0 1.2rem; text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+.soft { color: var(--text-soft); }
+
+.pull {
+  font-family: var(--font-display); font-size: var(--step-2); line-height: 1.4;
+  border-inline-start: 2px solid var(--accent-warm); padding-inline-start: 1.5rem; margin: 2.5rem 0; text-wrap: pretty;
+}
+
+.marks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+.marks li { position: relative; padding-inline-start: 1.6rem; color: var(--text-soft); }
+.marks li::before { content: ""; position: absolute; inset-inline-start: 0; top: .72em; width: .5rem; height: 1px; background: var(--accent-warm); }
+
+/* ---------- רצועת תמונות ---------- */
+
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1px; background: var(--rule); border-block: 1px solid var(--rule); }
+.strip figure { margin: 0; position: relative; background: var(--bg); }
+.strip img { width: 100%; height: clamp(12rem, 26vh, 17rem); object-fit: cover; }
+.strip figcaption { position: absolute; inset-inline-start: 0; inset-block-end: 0; padding: .7rem 1rem; font-size: .8rem; letter-spacing: .06em; color: #fff; background: linear-gradient(to top, rgba(0,0,0,.72), transparent); width: 100%; }
+
+/* ---------- רבנים ומסגרת ---------- */
+
+.rabbis { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1.75rem 2.5rem; margin-top: 2.25rem; }
+.rabbi { border-top: 1px solid var(--rule); padding-top: 1.1rem; }
+.rabbi .name { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin: 0; }
+.rabbi .role { font-size: .85rem; color: var(--text-faint); margin: .15rem 0 0; letter-spacing: .04em; }
+
+.frame { border: 1px solid var(--rule-strong); border-inline-start: 2px solid var(--accent-warm); background: var(--bg-raised); padding: 1.75rem 1.9rem; margin-top: 2.5rem; box-shadow: var(--shadow); }
+.frame h3 { margin-bottom: .55rem; }
+.frame p { color: var(--text-soft); margin: 0; }
+
+/* ---------- טופס ---------- */
+
+.form-section { background: var(--bg-sunken); border-top: 1px solid var(--rule); }
+.form-shell { background: var(--bg-raised); border: 1px solid var(--rule); box-shadow: var(--shadow); padding: clamp(1.75rem, 4.5vw, 3.25rem); margin-top: 2.75rem; max-width: 44rem; }
+.field { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.75rem; }
+.field:last-of-type { margin-bottom: 0; }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0 1.5rem; }
+label { font-weight: 600; font-size: .95rem; display: flex; align-items: baseline; gap: .45rem; flex-wrap: wrap; }
+.req { color: var(--accent); font-size: .8rem; }
+.hint { font-size: .85rem; color: var(--text-faint); font-weight: 400; }
+
+input, textarea, select {
+  font: inherit; font-size: 1rem; color: var(--text); background: var(--field-bg);
+  border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: .7rem .85rem; width: 100%;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+input:hover, textarea:hover, select:hover { border-color: var(--text-faint); }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent-warm); box-shadow: 0 0 0 3px var(--glow); }
+textarea { resize: vertical; min-height: 7.5rem; line-height: 1.7; }
+
+select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-faint) 50%), linear-gradient(135deg, var(--text-faint) 50%, transparent 50%);
+  background-position: left 1.15rem top 55%, left .85rem top 55%;
+  background-size: .32rem .32rem, .32rem .32rem; background-repeat: no-repeat; padding-inline-start: 2.2rem;
+}
+
+.counter { font-size: .8rem; color: var(--text-faint); font-variant-numeric: tabular-nums; align-self: flex-start; }
+.counter.over { color: var(--warn); font-weight: 600; }
+
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+.form-note { font-size: .875rem; color: var(--text-faint); margin: 0; flex: 1 1 14rem; }
+
+.status { margin-top: 1.5rem; padding: 1rem 1.15rem; border-inline-start: 2px solid var(--warn); background: var(--bg-sunken); font-size: .95rem; display: none; }
+.status.show { display: block; }
+.done { text-align: center; padding: 2rem 0; display: none; }
+.done.show { display: block; }
+.done p { color: var(--text-soft); max-width: 26rem; margin-inline: auto; }
+
+/* ---------- כותרת תחתונה ---------- */
+
+footer { border-top: 1px solid var(--rule); padding-block: 3rem 4rem; font-size: .9rem; color: var(--text-faint); }
+.foot-grid { display: flex; flex-wrap: wrap; gap: 1.75rem 3rem; justify-content: space-between; }
+footer a { color: var(--text-soft); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+footer a:hover { color: var(--accent); border-color: var(--accent); }
+.sig { font-family: var(--font-display); font-size: 1.15rem; color: var(--text); font-weight: 700; margin: 0 0 .2rem; }
+
+/* ---------- סרגל דילוג בין העיצובים ---------- */
+
+.switcher { position: fixed; inset-block-end: 0; inset-inline: 0; z-index: 50; background: var(--bg-raised); border-top: 1px solid var(--rule-strong); padding: .5rem .75rem; display: flex; gap: .35rem; justify-content: center; flex-wrap: wrap; box-shadow: 0 -4px 20px rgba(0,0,0,.12); }
+.switcher a { font-size: .8rem; font-weight: 600; text-decoration: none; color: var(--text-soft); border: 1px solid var(--rule); padding: .2rem .6rem; border-radius: var(--radius); }
+.switcher a:hover { border-color: var(--accent-warm); color: var(--accent); }
+.switcher a[aria-current] { background: var(--accent-warm); color: var(--on-accent); border-color: var(--accent-warm); }
+body { padding-bottom: 3.5rem; }
+
+/* ============================================================
+   התאמה למסכים קטנים
+   ------------------------------------------------------------
+   הכלל: בטלפון לא כופים גובה מסך על ההירו. שורת הכתובת של
+   הדפדפן בנייד משנה את גובה החלון תוך כדי גלילה, וגובה
+   שנמדד ב-vh קופץ. התוכן קובע את הגובה במקום.
+   ============================================================ */
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* --- טאבלט ומטה --- */
+@media (max-width: 48rem) {
+  body.hero-full .hero {
+    min-height: auto;
+    padding-block: clamp(3rem, 9vh, 4.5rem) clamp(2.5rem, 7vh, 3.5rem);
+    display: block;
+  }
+
+  .hero-bg::after { background: var(--hero-veil-sm, var(--hero-veil)); }
+
+  /* סרגל העיצובים — גלילה אופקית במקום עשר שורות */
+  .switcher {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: .45rem .6rem;
+    gap: .4rem;
+  }
+  .switcher::-webkit-scrollbar { display: none; }
+  .switcher a { flex: 0 0 auto; padding: .45rem .8rem; }
+
+  .strip img { height: clamp(10rem, 30vw, 14rem); }
+}
+
+/* --- טלפון --- */
+@media (max-width: 34rem) {
+  .wrap { width: calc(100% - 1.9rem); }
+
+  .hero-meta { gap: 1.15rem 1.9rem; padding-top: 1.7rem; margin-top: 2rem; }
+  .fact dd { font-size: 1.1rem; }
+
+  .lede { margin-bottom: 2rem; }
+
+  /* כפתור ראשי ברוחב מלא — יעד מגע נדיב */
+  .btn-primary { width: 100%; padding-block: 1rem; }
+  .form-foot .btn-primary { width: 100%; }
+  .form-foot { flex-direction: column; align-items: stretch; gap: 1rem; }
+
+  .strip { grid-template-columns: 1fr; }
+
+  .form-shell { padding: 1.35rem 1.15rem; }
+  .field { margin-bottom: 1.4rem; }
+  textarea { min-height: 6.5rem; }
+
+  .pull { margin: 2rem 0; padding-inline-start: 1.1rem; }
+  .frame { padding: 1.35rem 1.25rem; }
+
+  .foot-grid { flex-direction: column; gap: 1.4rem; }
+}
+
+/* --- מסכים צרים במיוחד --- */
+@media (max-width: 22.5rem) {
+  :root { --step-4: 2rem; --step-3: 1.5rem; --step-0: 1rem; }
+  .wrap { width: calc(100% - 1.4rem); }
+  .logo { width: 9rem; }
+}
+
+/* --- טלפון בשכיבה --- */
+@media (max-height: 30rem) and (orientation: landscape) {
+  body.hero-full .hero { min-height: auto; }
+  .logo { margin-bottom: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; animation: none !important; } }
