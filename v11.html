@@ -116,10 +116,23 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .q-dot{width:.55rem;height:.55rem;border-radius:50%;background:rgba(228,188,98,.25);border:0;cursor:pointer;transition:.25s;padding:0}
 .q-dot.on{background:var(--gold);transform:scale(1.35)}
 
-/* ===== story: centered narrative + wide framed image ===== */
+/* ===== story: centered narrative + crossfading gallery ===== */
 .frame{margin:3.4rem auto 0;max-width:52rem;position:relative}
-.frame img{width:100%;display:block;border-radius:6px;filter:saturate(.92)}
 .frame::before{content:"";position:absolute;inset:1.2rem -1.2rem -1.2rem 1.2rem;border:1px solid var(--line);border-radius:6px;z-index:-1}
+.gal{position:relative;aspect-ratio:3/2;border-radius:6px;overflow:hidden}
+.gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease;filter:saturate(.94)}
+.gal img.on{opacity:1}
+.gal-cap{position:absolute;inset-inline:0;bottom:0;padding:2.2rem 1.4rem 1.1rem;color:#F1EADC;font-size:.95rem;
+  background:linear-gradient(180deg,transparent,rgba(10,22,38,.85));text-align:center;z-index:2}
+.gal-dots{display:flex;gap:.55rem;justify-content:center;margin-top:1.2rem}
+
+/* ===== full-bleed photo band ===== */
+.band{position:relative;isolation:isolate;padding-block:clamp(7rem,20vh,12rem);text-align:center;overflow:hidden}
+.band-bg{position:absolute;inset:0;z-index:-2;background:url("img/harav-field.jpg") center 32%/cover no-repeat}
+.band-veil{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--ink) 0%,rgba(10,22,38,.55) 22%,rgba(10,22,38,.55) 78%,var(--ink) 100%)}
+.band h2{color:#F5EFE2;text-shadow:0 2px 20px rgba(10,22,38,.8)}
+.band .prose{color:#DCE3EB;text-shadow:0 1px 12px rgba(10,22,38,.85)}
+.band .kicker{text-shadow:0 1px 10px rgba(10,22,38,.9)}
 
 /* ===== rabbis ===== */
 .rav-hero{max-width:34rem;margin:3.2rem auto 1.4rem;background:linear-gradient(180deg,var(--raised),var(--deep));border:1px solid var(--gold);border-radius:6px;padding:2.8rem 2rem;position:relative;transition:.28s ease}
@@ -241,11 +254,29 @@ footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--faint);
     <div class="kicker rv">הבית שממנו זה צומח</div>
     <h2 class="rv">הכול התחיל בליל שבת אחד, עם שני בחורים.</h2>
     <p class="prose rv">לפני יותר מעשרים שנה התיישב הרב רפאל רובין ללמוד בליל שבת עם שני בחורים. השיעור הזה לא הפסיק מאז — הוא גדל מפעם בשבוע לכל יום, ומהשיעור נבנה בית שלם: קהילה, פעילות לכל הגילאים, ופעילות הנוער "הלב היהודי" שאלפי בחורים עברו בה.<br/><br/><strong>הישיבה החדשה היא לא מוסד שנבנה יש מאין — היא הקומה הבאה של אותו בית.</strong></p>
-    <div class="frame rv"><img src="img/shiur.jpg" alt="השיעור של הרב רפאל רובין" loading="lazy" /></div>
+    <div class="frame rv">
+      <div class="gal" id="storyGal">
+        <img src="img/shiur.jpg" alt="השיעור של הרב רפאל רובין" class="on" data-cap="השיעור של ליל שבת — הלב שממנו הכול צמח" />
+        <img src="img/harav-hug.jpg" alt="הרב רפאל רובין מחבק בחור" loading="lazy" data-cap="הקשר כאן אישי. כל בחור — בשמו, בסיפור שלו" />
+        <img src="img/harav-field.jpg" alt="הרב רפאל רובין מדבר עם קבוצת נוער במגרש" loading="lazy" data-cap="״הלב היהודי״ — עשרים שנה עם הנוער של נתניה, גם על הדשא" />
+        <div class="gal-cap" id="galCap">השיעור של ליל שבת — הלב שממנו הכול צמח</div>
+      </div>
+      <div class="gal-dots q-dots" id="galDots" style="margin-top:1.2rem"></div>
+    </div>
   </div>
 </section>
 
-<section id="rabbis" style="padding-top:0">
+<div class="band">
+  <div class="band-bg" aria-hidden="true"></div>
+  <div class="band-veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="kicker rv" style="color:var(--gold-soft)">רגע אחד מהשטח</div>
+    <h2 class="rv">כשהרב מדבר — גם מגרש כדורגל<br/>נהיה בית מדרש.</h2>
+    <p class="prose rv">ככה נראית פעילות ״הלב היהודי״: לא מחכים שהבחור יגיע לבית המדרש — באים אליו. עשרים שנה, אלפי בחורים, והדלת עוד פתוחה.</p>
+  </div>
+</div>
+
+<section id="rabbis">
   <div class="wrap">
     <div class="kicker rv">ההנהגה</div>
     <h2 class="rv">גדלו כאן כבחורים. עומדים כאן כרבנים.</h2>
@@ -354,6 +385,21 @@ footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--faint);
   }
   function restart(){clearInterval(timer);timer=setInterval(function(){go((cur+1)%slides.length)},5200)}
   restart();
+
+  /* story gallery crossfade */
+  var gImgs=[].slice.call(document.querySelectorAll('#storyGal img')),
+      gCap=document.getElementById('galCap'),gDots=document.getElementById('galDots'),gCur=0,gTimer;
+  gImgs.forEach(function(_,i){
+    var b=document.createElement('button');b.className='q-dot'+(i?'':' on');b.setAttribute('aria-label','תמונה '+(i+1));
+    b.onclick=function(){gGo(i);gRestart()};gDots.appendChild(b);
+  });
+  function gGo(i){
+    gImgs[gCur].classList.remove('on');gDots.children[gCur].classList.remove('on');
+    gCur=i;gImgs[gCur].classList.add('on');gDots.children[gCur].classList.add('on');
+    gCap.textContent=gImgs[gCur].dataset.cap;
+  }
+  function gRestart(){clearInterval(gTimer);gTimer=setInterval(function(){gGo((gCur+1)%gImgs.length)},4600)}
+  gRestart();
 
   /* form */
   var SUBMIT_ENDPOINT=""; var FALLBACK_EMAIL="office@nanox.co.il";
