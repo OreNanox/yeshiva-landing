@@ -88,6 +88,16 @@ h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.4rem,7.5vw,4.6rem);
 .core-t{font-family:"Assistant",sans-serif;fill:#9FB2C8;pointer-events:none}
 .compass{font-family:"Rubik",sans-serif;fill:#5F7590}
 .legend{margin-top:1rem;color:var(--faint);font-size:.78rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.fgal{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem;margin:0 0 1.2rem}
+.fgal a{display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;background:var(--panel2);transition:.2s ease}
+.fgal a:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.fgal img{width:100%;display:block;aspect-ratio:3/2;object-fit:cover}
+.fgal span{display:block;padding:.5rem .8rem;font-size:.78rem;color:var(--soft)}
+.hgal{display:flex;gap:.9rem;justify-content:center;margin-top:2.6rem;flex-wrap:wrap}
+.hgal a{width:min(17rem,80vw);border:1px solid var(--line);border-radius:10px;overflow:hidden;text-decoration:none;background:var(--panel);transition:.2s ease}
+.hgal a:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.45)}
+.hgal img{width:100%;display:block;aspect-ratio:3/2;object-fit:cover}
+.hgal span{display:block;padding:.5rem .8rem;font-size:.78rem;color:var(--soft)}
 .rlegend{display:grid;grid-template-columns:1fr 1fr;gap:.45rem 1.2rem;margin-top:1.1rem}
 @media (max-width:640px){.rlegend{grid-template-columns:1fr}}
 .lg-item{display:flex;gap:.6rem;align-items:baseline;font-size:.88rem;color:var(--soft)}
@@ -115,6 +125,11 @@ footer b{color:var(--soft);font-family:var(--disp)}
       <div class="stat"><b>6,500</b><span>מ״ר בנוי</span></div>
       <div class="stat"><b>25+</b><span>מפעלות תורה וחסד</span></div>
       <div class="stat"><b>20+</b><span>שנות בית מדרש</span></div>
+    </div>
+    <div class="hgal">
+      <a href="img/renders/kirya-tower.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-tower.jpg" alt="חזית המגדל"/><span>חזית המגדל בשעה הכחולה</span></a>
+      <a href="img/renders/kirya-aerial.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-aerial.jpg" alt="מבט אווירי"/><span>מבט אווירי על הקריה מול הים</span></a>
+      <a href="img/renders/kirya-tower-2.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-tower-2.jpg" alt="המגדל מהרחוב"/><span>המגדל מגובה הרחוב</span></a>
     </div>
   </div>
 </header>
@@ -225,7 +240,7 @@ footer b{color:var(--soft);font-family:var(--disp)}
 <script>
 /* zones: [name, pct, note] */
 var LEVELS=[
- {no:"גג",name:"מרחב השמחה הפתוח",tag:"תחת כיפת השמיים: חופות בשקיעה, סוכת ענק בחג, התכנסויות בין הזמנים.",area:420,special:true,zones:[
+ {no:"גג",name:"מרחב השמחה הפתוח",tag:"תחת כיפת השמיים: חופות בשקיעה, סוכת ענק בחג, התכנסויות בין הזמנים.",area:420,special:true,imgs:[["img/renders/kirya-chuppah.jpg","חופה על הגג בשקיעה — הפרדה מלאה"]],zones:[
    ["רחבת חופות ואירועים",60,"במה ניידת, תאורה חגיגית"],
    ["אזור הסוכה הגדולה",25,"תשתית קבועה לסכך"],
    ["גינה ופינות ישיבה",10,""],
@@ -251,7 +266,7 @@ var LEVELS=[
    ["שישה חדרי תפילה",70,"ממניין של 15 עד 60 מתפללים"],
    ["מבואה וספריית סידורים",18,"לוח מניינים דיגיטלי"],
    ["שירות",12,""]]},
- {no:"8",name:"הפנימייה",tag:"״לינה במתחם״ — בית של בחורים אחרי צבא.",area:420,zones:[
+ {no:"8",name:"הפנימייה",tag:"״לינה במתחם״ — בית של בחורים אחרי צבא.",area:420,imgs:[["img/renders/kirya-dorm.jpg","חדר פנימייה — נוף לים, ספרים ומנורות פליז"]],zones:[
    ["17 חדרי מגורים",72,"2–3 בחורים בחדר"],
    ["אגף הכנסת אורחים",15,"רבנים ומרצים בשבתות"],
    ["מועדון קומה",8,""],
@@ -277,7 +292,7 @@ var LEVELS=[
    ["כיתות מודולריות",45,"דף יומי, הלכה · ערב: מקצועות"],
    ["חדרי חברותות",12,""],
    ["שירות",8,""]]},
- {no:"2–3",name:"בית המדרש הגדול",tag:"הלב הפועם — היכל בחלל כפול בגובה שתי קומות, מאות לומדים.",area:840,special:true,zones:[
+ {no:"2–3",name:"בית המדרש הגדול",tag:"הלב הפועם — היכל בחלל כפול בגובה שתי קומות, מאות לומדים.",area:840,special:true,imgs:[["img/renders/kirya-beitmidrash.jpg","היכל בית המדרש — ארון הקודש, הבימה ומאות לומדים"]],zones:[
    ["היכל בית המדרש",62,"חלל כפול גובה, ארון קודש מפואר"],
    ["חדרי שיעורים היקפיים",24,"בקומה 3, סביב ההיכל"],
    ["כניסות ומבואות",14,""]]},
@@ -286,7 +301,7 @@ var LEVELS=[
    ["משרדי העמותה",40,"הנהלה, הנהלת חשבונות, רכזים"],
    ["חדר ישיבות משותף",8,""],
    ["מטבחון ושירות",7,""]]},
- {no:"קרקע",name:"הלובי והכולל",tag:"לובי הייטק מפואר — והדבר הראשון ששומעים בו: קול התורה של הכולל.",area:420,special:true,zones:[
+ {no:"קרקע",name:"הלובי והכולל",tag:"לובי הייטק מפואר — והדבר הראשון ששומעים בו: קול התורה של הכולל.",area:420,special:true,imgs:[["img/renders/kirya-lobby.jpg","לובי ההייטק — קיר ה-LED מול הכולל שמאחורי הזכוכית"],["img/renders/kirya-tower.jpg","חזית המגדל והכניסה הראשית בשעה הכחולה"]],zones:[
    ["כולל אברכים",32,"חבורות הלכה, דיינות וש״ס"],
    ["לובי הייטק + חדר הסיפור",18,"מסכי ענק, ארכיון 20 השנה"],
    ["כיתות לימוד",15,""],
@@ -299,7 +314,7 @@ var LEVELS=[
    ["גלריית עזרת נשים",60,"מקיפה את האולם משלושה כיוונים"],
    ["מבואה נפרדת ושירותים",25,"כניסה ומדרגות נפרדות מהרחוב"],
    ["טכני",15,""]]},
- {no:"2-",name:"אולם ההרצאות הגדול",tag:"חלל גבוה בגובה שתי קומות: כנסי חיזוק, ערבי זיכוי הרבים — והלוגיסטיקה של קופת יראנו ניסים.",area:420,special:true,zones:[
+ {no:"2-",name:"אולם ההרצאות הגדול",tag:"חלל גבוה בגובה שתי קומות: כנסי חיזוק, ערבי זיכוי הרבים — והלוגיסטיקה של קופת יראנו ניסים.",area:420,special:true,imgs:[["img/renders/kirya-auditorium.jpg","אולם ההרצאות — הרב על הבמה מול קהל מלא"]],zones:[
    ["אולם ההרצאות",55,"במה, מאות מקומות, חלל כפול"],
    ["במה ואחורי במה",8,"הגברה, תאורה, שידור לאולפן"],
    ["מטבח הגשה",10,""],
@@ -397,7 +412,12 @@ function select(i){
   [].forEach.call(stack.querySelectorAll('.lvl'),function(el,j){el.classList.toggle('on',j===i)});
   [].forEach.call(document.querySelectorAll('.band'),function(el){el.classList.toggle('on',+el.dataset.i===i)});
   var svg=planSVG(L);
+  var gal='';
+  if(L.imgs){gal='<div class="fgal">'+L.imgs.map(function(im){
+    return '<a href="'+im[0]+'" target="_blank" rel="noopener"><img src="'+im[0]+'" alt="'+im[1]+'" loading="lazy"/><span>'+im[1]+' · לחצו להגדלה</span></a>';
+  }).join('')+'</div>'}
   detail.innerHTML='<div class="d-no">מפלס '+L.no+'</div><div class="d-title">'+L.name+'</div><p class="d-tag">'+L.tag+'</p>'
+    +gal
     +'<div class="plan-wrap">'+svg+'</div>'
     +'<div class="rlegend">'+planSVG.legend+'</div>'
     +'<div class="legend"><span>שטח נטו במפלס: ~'+L.area+' מ״ר</span><span>הדמיה סכמטית — הבסיס לתכנון אדריכלי מפורט</span></div>';
