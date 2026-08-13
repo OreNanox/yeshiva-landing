@@ -57,6 +57,14 @@ h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.4rem,7.5vw,4.6rem);
   border:1px solid rgba(228,188,98,.4);border-radius:4px;padding:.1rem .2rem;flex-shrink:0}
 .lvl .nm{font-weight:600;font-size:.9rem;line-height:1.3}
 .lvl.special .no{background:rgba(228,188,98,.12)}
+/* building elevation */
+.elev{margin:0 0 1rem;padding:.4rem .2rem .6rem;border-bottom:1px solid var(--line)}
+.elev svg{width:100%;height:auto;display:block}
+.band{fill:rgba(13,23,40,.9);stroke:#22385A;stroke-width:.5;cursor:pointer;transition:.2s}
+.band:hover{stroke:var(--gold);fill:rgba(228,188,98,.08)}
+.band.on{fill:rgba(228,188,98,.22);stroke:var(--gold);filter:drop-shadow(0 0 3px rgba(228,188,98,.6))}
+.deco{pointer-events:none}
+.elev-cap{text-align:center;color:var(--faint);font-size:.72rem;margin-top:.4rem}
 
 .detail{background:linear-gradient(180deg,var(--panel),var(--bg));border:1px solid var(--line);border-radius:10px;padding:clamp(1.2rem,3vw,2rem)}
 .d-no{color:var(--gold);font-family:var(--disp);font-weight:700;letter-spacing:.24em;font-size:.85rem}
@@ -102,7 +110,80 @@ footer b{color:var(--soft);font-family:var(--disp)}
 </header>
 
 <div class="wrap explorer">
-  <div class="stack" id="stack"><h3>חתך הבניין</h3></div>
+  <div class="stack" id="stack"><h3>חתך הבניין</h3>
+  <div class="elev">
+  <svg viewBox="0 0 140 196" xmlns="http://www.w3.org/2000/svg">
+    <!-- crown glow -->
+    <ellipse cx="60" cy="22" rx="30" ry="5" fill="rgba(228,188,98,.10)" class="deco"/>
+    <!-- rooftop pergola -->
+    <g class="deco" stroke="#E4BC62" stroke-width=".7">
+      <line x1="32" y1="26" x2="32" y2="20"/><line x1="46" y1="26" x2="46" y2="20"/>
+      <line x1="60" y1="26" x2="60" y2="20"/><line x1="74" y1="26" x2="74" y2="20"/><line x1="88" y1="26" x2="88" y2="20"/>
+      <line x1="29" y1="20" x2="91" y2="20" stroke-width="1"/>
+    </g>
+    <rect class="band" data-i="0"  x="28" y="26" width="64" height="8"/>
+    <rect class="band" data-i="1"  x="28" y="34" width="64" height="9"/>
+    <rect class="band" data-i="2"  x="28" y="43" width="64" height="8"/>
+    <rect class="band" data-i="3"  x="28" y="51" width="64" height="8"/>
+    <rect class="band" data-i="4"  x="28" y="59" width="64" height="8"/>
+    <rect class="band" data-i="5"  x="28" y="67" width="64" height="8"/>
+    <rect class="band" data-i="6"  x="28" y="75" width="64" height="8"/>
+    <rect class="band" data-i="7"  x="28" y="83" width="64" height="9"/>
+    <rect class="band" data-i="8"  x="28" y="92" width="64" height="8"/>
+    <rect class="band" data-i="9"  x="28" y="100" width="64" height="8"/>
+    <!-- podium: beit midrash + offices + ground -->
+    <rect class="band" data-i="10" x="20" y="108" width="80" height="20"/>
+    <rect class="band" data-i="11" x="20" y="128" width="80" height="9"/>
+    <rect class="band" data-i="12" x="14" y="137" width="92" height="13"/>
+    <!-- facade deco -->
+    <g class="deco">
+      <!-- glass fins on tower -->
+      <g stroke="rgba(228,188,98,.28)" stroke-width=".4">
+        <line x1="36" y1="27" x2="36" y2="108"/><line x1="44" y1="27" x2="44" y2="108"/>
+        <line x1="52" y1="27" x2="52" y2="108"/><line x1="60" y1="27" x2="60" y2="108"/>
+        <line x1="68" y1="27" x2="68" y2="108"/><line x1="76" y1="27" x2="76" y2="108"/><line x1="84" y1="27" x2="84" y2="108"/>
+      </g>
+      <!-- window lights -->
+      <g stroke="rgba(234,240,247,.28)" stroke-width="1">
+        <line x1="31" y1="39" x2="89" y2="39"/><line x1="31" y1="47" x2="89" y2="47"/>
+        <line x1="31" y1="55" x2="89" y2="55"/><line x1="31" y1="63" x2="89" y2="63"/>
+        <line x1="31" y1="71" x2="89" y2="71"/><line x1="31" y1="79" x2="89" y2="79"/>
+        <line x1="31" y1="96" x2="89" y2="96"/><line x1="31" y1="104" x2="89" y2="104"/>
+      </g>
+      <!-- yeshiva floor gold band -->
+      <rect x="28" y="83" width="64" height="9" fill="rgba(228,188,98,.14)" stroke="#E4BC62" stroke-width=".5"/>
+      <line x1="31" y1="87.5" x2="89" y2="87.5" stroke="rgba(240,209,140,.7)" stroke-width="1.2"/>
+      <!-- beit midrash arched windows -->
+      <g fill="rgba(228,188,98,.16)" stroke="#E4BC62" stroke-width=".55">
+        <path d="M27 126 v-9 a5 5 0 0 1 10 0 v9 z"/>
+        <path d="M42 126 v-9 a5 5 0 0 1 10 0 v9 z"/>
+        <path d="M57 126 v-11 a6 6 0 0 1 12 0 v11 z" stroke-width=".8"/>
+        <path d="M74 126 v-9 a5 5 0 0 1 10 0 v9 z"/>
+        <path d="M89 126 v-9 a4.5 4.5 0 0 1 9 0 v9 z"/>
+      </g>
+      <!-- entrance portal -->
+      <rect x="52" y="139" width="16" height="11" fill="rgba(228,188,98,.2)" stroke="#F0D18C" stroke-width=".7"/>
+      <line x1="46" y1="139" x2="74" y2="139" stroke="#E4BC62" stroke-width="1.4"/>
+      <text x="60" y="135" text-anchor="middle" fill="#E4BC62" font-size="4" font-family="Rubik">◆</text>
+      <!-- ground line + hatching -->
+      <line x1="2" y1="150" x2="138" y2="150" stroke="#9FB2C8" stroke-width=".6"/>
+      <g stroke="rgba(159,178,200,.4)" stroke-width=".4">
+        <line x1="4" y1="150" x2="8" y2="154"/><line x1="10" y1="150" x2="14" y2="154"/>
+        <line x1="126" y1="150" x2="130" y2="154"/><line x1="132" y1="150" x2="136" y2="154"/>
+      </g>
+    </g>
+    <!-- underground (cut-away) -->
+    <rect class="band" data-i="13" x="20" y="152" width="80" height="9" stroke-dasharray="2 1.2"/>
+    <rect class="band" data-i="14" x="20" y="161" width="80" height="17" stroke-dasharray="2 1.2"/>
+    <g class="deco">
+      <line x1="30" y1="174" x2="90" y2="174" stroke="rgba(228,188,98,.5)" stroke-width="1"/>
+      <text x="60" y="171" text-anchor="middle" fill="rgba(228,188,98,.6)" font-size="3" font-family="Assistant">אולם ההרצאות</text>
+      <text x="60" y="158.6" text-anchor="middle" fill="rgba(159,178,200,.65)" font-size="2.6" font-family="Assistant">גלריית עזרת נשים</text>
+    </g>
+  </svg>
+  <div class="elev-cap">הצעת נפח ראשונית — לחצו על קומה בציור</div>
+  </div>
+  </div>
   <div class="detail" id="detail"></div>
 </div>
 
@@ -245,9 +326,13 @@ LEVELS.forEach(function(L,i){
   b.onclick=function(){select(i)};
   stack.appendChild(b);
 });
+[].forEach.call(document.querySelectorAll('.band'),function(el){
+  el.addEventListener('click',function(){select(+el.dataset.i)});
+});
 function select(i){
   var L=LEVELS[i];
   [].forEach.call(stack.querySelectorAll('.lvl'),function(el,j){el.classList.toggle('on',j===i)});
+  [].forEach.call(document.querySelectorAll('.band'),function(el){el.classList.toggle('on',+el.dataset.i===i)});
   detail.innerHTML='<div class="d-no">מפלס '+L.no+'</div><div class="d-title">'+L.name+'</div><p class="d-tag">'+L.tag+'</p>'
     +'<div class="plan-wrap">'+planSVG(L)+'</div>'
     +'<div class="legend"><span>שטח נטו במפלס: ~'+L.area+' מ״ר</span><span>הדמיה סכמטית — הבסיס לתכנון אדריכלי מפורט</span></div>';
