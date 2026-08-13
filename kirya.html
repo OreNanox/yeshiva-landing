@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>קריית יראנו ניסים · מצגת התוכנית</title>
+<meta name="description" content="קריית יראנו ניסים — מגדל של תורה, חסד וקהילה בנתניה. 15 מפלסים, מצגת אינטראקטיבית." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="יראנו ניסים" />
+<meta property="og:title" content="קריית יראנו ניסים · מצגת התוכנית" />
+<meta property="og:description" content="מגדל של תורה, חסד וקהילה — 15 מפלסים, מהאולם התת-קרקעי ועד הגג. לחצו על כל קומה לצפייה בתכנון" />
+<meta property="og:url" content="https://orenanox.github.io/yeshiva-landing/kirya.html" />
+<meta property="og:image" content="https://orenanox.github.io/yeshiva-landing/img/binyan.jpg" />
+<meta property="og:locale" content="he_IL" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05090F;--panel:#0A1220;--panel2:#0D1728;--line:#16273F;
+  --text:#EAF0F7;--soft:#9FB2C8;--faint:#5F7590;
+  --gold:#E4BC62;--gold-soft:#F0D18C;--glow:rgba(228,188,98,.35);
+  --sans:"Assistant",system-ui,sans-serif;--disp:"Rubik",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold);color:var(--bg)}
+
+/* tech grid backdrop */
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background-image:linear-gradient(rgba(22,39,63,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(22,39,63,.35) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(ellipse 90% 80% at 50% 0%,#000 30%,transparent 75%)}
+
+.wrap{width:min(100% - 2.5rem,76rem);margin-inline:auto}
+
+/* hero */
+header{padding:clamp(3.5rem,9vh,6rem) 0 clamp(2rem,5vh,3rem);text-align:center}
+.over{color:var(--gold);letter-spacing:.34em;font-size:.85rem;font-weight:600;margin-bottom:1.4rem}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.4rem,7.5vw,4.6rem);margin:0 0 .8rem;line-height:1.1;
+   background:linear-gradient(180deg,#fff,#C8D6E8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--soft);max-width:38rem;margin:0 auto;font-size:clamp(1rem,1.8vw,1.15rem)}
+.pasuk{margin-top:1.6rem;color:var(--gold-soft);font-size:1.05rem;font-weight:500}
+.stats{display:flex;justify-content:center;gap:clamp(1.2rem,4vw,3.5rem);margin-top:2.6rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat b{display:block;font-family:var(--disp);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:var(--gold)}
+.stat span{color:var(--faint);font-size:.85rem}
+
+/* explorer */
+.explorer{display:grid;grid-template-columns:minmax(15rem,21rem) 1fr;gap:1.4rem;align-items:start;padding-bottom:4rem}
+@media (max-width:860px){.explorer{grid-template-columns:1fr}}
+
+/* stack */
+.stack{background:linear-gradient(180deg,var(--panel),transparent);border:1px solid var(--line);border-radius:10px;padding:1rem;position:sticky;top:1rem}
+@media (max-width:860px){.stack{position:static}}
+.stack h3{font-family:var(--disp);font-size:.85rem;color:var(--faint);letter-spacing:.2em;font-weight:600;margin:.2rem .4rem 0.8rem;text-align:center}
+.lvl{display:flex;align-items:center;gap:.7rem;width:100%;text-align:right;background:var(--panel2);border:1px solid var(--line);
+  color:var(--text);border-radius:6px;padding:.5rem .8rem;margin-bottom:.4rem;cursor:pointer;transition:.18s ease;font-family:var(--sans)}
+.lvl:hover{border-color:var(--gold);transform:translateX(-3px)}
+.lvl.on{border-color:var(--gold);background:linear-gradient(90deg,rgba(228,188,98,.14),var(--panel2));box-shadow:0 0 18px var(--glow)}
+.lvl .no{font-family:var(--disp);font-weight:800;font-size:.85rem;color:var(--gold);min-width:2.6rem;text-align:center;
+  border:1px solid rgba(228,188,98,.4);border-radius:4px;padding:.1rem .2rem;flex-shrink:0}
+.lvl .nm{font-weight:600;font-size:.92rem;line-height:1.3}
+.lvl .tag2{display:block;color:var(--faint);font-size:.72rem;font-weight:400}
+.lvl.special .no{background:rgba(228,188,98,.12)}
+
+/* detail */
+.detail{background:linear-gradient(180deg,var(--panel),var(--bg));border:1px solid var(--line);border-radius:10px;padding:clamp(1.2rem,3vw,2.2rem);min-height:34rem}
+.d-no{color:var(--gold);font-family:var(--disp);font-weight:700;letter-spacing:.24em;font-size:.85rem}
+.d-title{font-family:var(--disp);font-weight:800;font-size:clamp(1.5rem,3.6vw,2.3rem);margin:.3rem 0 .4rem;line-height:1.2}
+.d-tag{color:var(--soft);margin:0 0 1.6rem;max-width:44rem}
+.map{display:flex;flex-wrap:wrap;gap:.55rem;border:1px dashed rgba(228,188,98,.3);border-radius:8px;padding:.6rem;background:rgba(10,18,32,.6)}
+.zone{position:relative;border:1px solid var(--line);border-radius:5px;padding:.9rem .9rem .7rem;min-height:6.4rem;
+  background:linear-gradient(160deg,rgba(228,188,98,.07),rgba(13,23,40,.9));display:flex;flex-direction:column;justify-content:space-between;
+  transition:.18s ease}
+.zone:hover{border-color:var(--gold);box-shadow:0 0 16px rgba(228,188,98,.18);transform:translateY(-2px)}
+.zone b{font-family:var(--disp);font-weight:700;font-size:.98rem;line-height:1.35}
+.zone i{font-style:normal;color:var(--gold);font-size:.78rem;font-family:var(--disp);font-weight:600}
+.zone .zn{color:var(--faint);font-size:.78rem;line-height:1.5;margin-top:.3rem}
+.d-notes{margin-top:1.4rem;color:var(--soft);font-size:.92rem;border-right:2px solid var(--gold);padding-right:1rem}
+.legend{margin-top:1.2rem;color:var(--faint);font-size:.78rem;text-align:left}
+
+footer{border-top:1px solid var(--line);padding:2rem 0 2.6rem;text-align:center;color:var(--faint);font-size:.85rem}
+footer b{color:var(--soft);font-family:var(--disp)}
+.rv{opacity:0;transform:translateY(22px);transition:.7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="over rv in">נתניה · בהנהגת הרב רפאל רובין שליט״א</div>
+    <h1 class="rv in">קריית יראנו ניסים</h1>
+    <p class="sub rv in">מגדל של תורה, חסד וקהילה — מהאולם התת־קרקעי ועד החופה על הגג.<br/>לחצו על כל מפלס כדי לראות את התכנון שלו.</p>
+    <div class="pasuk rv in">״וְעָשׂוּ לִי מִקְדָּשׁ — וְשָׁכַנְתִּי בְּתוֹכָם״</div>
+    <div class="stats rv in">
+      <div class="stat"><b>15</b><span>מפלסים</span></div>
+      <div class="stat"><b>6,500</b><span>מ״ר בנוי</span></div>
+      <div class="stat"><b>25+</b><span>מפעלות תורה וחסד</span></div>
+      <div class="stat"><b>20+</b><span>שנות בית מדרש</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap explorer">
+  <div class="stack" id="stack"><h3>חתך הבניין</h3></div>
+  <div class="detail" id="detail"></div>
+</div>
+
+<footer>
+  <div class="wrap"><b>קריית יראנו ניסים</b> · מסמך תכנון פנימי להצגה · העמותה למען מפעלות יראנו ניסים — נתניה</footer>
+</footer>
+
+<script>
+var NET=420;
+var LEVELS=[
+ {no:"גג",name:"מרחב השמחה הפתוח",tag:"תחת כיפת השמיים: חופות בשקיעה מול הים, סוכת ענק בחג, והתכנסויות בין הזמנים.",area:420,special:true,zones:[
+   ["רחבת חופות ואירועים",60,"במה ניידת, תאורה חגיגית, מעקות זכוכית"],
+   ["אזור הסוכה הגדולה",25,"תשתית קבועה לסכך ולדפנות"],
+   ["גינה ופינות ישיבה",10,"צמחייה, ספסלים, פינות לימוד באוויר"],
+   ["טכני",5,"מערכות מיזוג ופיר מעליות"]]},
+ {no:"12",name:"אולם השמחות",tag:"בריתות, בר מצוות, סיומי מסכת וחתונות — במחירי סבסוד לקהילה. האולם שמחזיק את הבית כולו.",area:420,zones:[
+   ["אולם השמחות",60,"כ־300 מקומות בישיבה, רחבת ריקודים"],
+   ["מטבח קייטרינג",20,"כשרות מהודרת, כניסת ספקים נפרדת"],
+   ["מבואה וקבלת פנים",20,"עמדת צ׳ק־אין, פינת צילום, שירותים"]]},
+ {no:"11",name:"קומת הרווחה",tag:"נפש בריאה בגוף בריא — לבחורים אחרי צבא זה חלק מהבית, לא מותרות.",area:420,zones:[
+   ["חדר כושר · גברים",40,"ציוד מלא, עם נוף — קומה 11"],
+   ["חדר ניגונים אקוסטי",20,"כלי נגינה, חזרות ההרכב, הקלטות"],
+   ["גמ״ח ציוד רפואי",15,"כיסאות גלגלים, בלוני חמצן, עריסות"],
+   ["מלתחות ומקלחות",15,""],
+   ["שירות",10,""]]},
+ {no:"10",name:"קומת ההנהגה",tag:"המטה של כל המפעלות — וריקה בלילה: חיץ שקט בין הפנימייה לאולם.",area:420,zones:[
+   ["משרדי העמותה",22,"הנהלה, הנהלת חשבונות, תיאום מול רשויות"],
+   ["מטה קופת יראנו ניסים",20,"ועדת צדקה, גבאים, קבלת בקשות בדיסקרטיות"],
+   ["חדרי רבנים ובית הוראה",20,"קבלת קהל + קו הלכה טלפוני"],
+   ["בית דין לממונות",13,"דיונים, בוררות וגישור"],
+   ["מוקד תורמים",15,"קמפיינים, קופות, הוראות קבע"],
+   ["טכנולוגיה כשרה",10,"סינונים, ייעוץ דיגיטלי להורים"]]},
+ {no:"9",name:"קומת הערב והקהילה",tag:"נדלקת אחר הצהריים: נוער, משפחה, משתחררים — הדלת הרחבה של הבית.",area:420,zones:[
+   ["מדרשיית נוער",28,"פינות ישיבה, משחקים, שיחות בגובה העיניים"],
+   ["אבות ובנים",15,"לימוד משפחתי, תהילים, פרסים"],
+   ["שידוכים והדרכת חתנים",18,"מרכז המשפחה — משידוך ועד חתונה"],
+   ["מרכז משתחררים",17,"זכויות, פיקדון, מענקים — הגשר לישיבה"],
+   ["תצוגת הגמ״חים",22,"ביגודית, גמ״ח נדוניה, ספרייה מושאלת"]]},
+ {no:"8",name:"מרכז התפילה — השטיבלאך",tag:"מניינים רצופים מוותיקין עד ערבית מאוחרת; סליחות באלול, בית לכל מתפלל.",area:420,zones:[
+   ["שישה חדרי תפילה",70,"בגדלים שונים — ממניין של 15 עד 60"],
+   ["מבואה וספריית סידורים",18,"לוח מניינים דיגיטלי, שטענדרים"],
+   ["שירות",12,""]]},
+ {no:"7",name:"הפנימייה",tag:"״לינה במתחם״ — לא פנימייה של ילדים, בית של בחורים אחרי צבא.",area:420,zones:[
+   ["17 חדרי מגורים",72,"2–3 בחורים בחדר, מקלחת בכל חדר"],
+   ["אגף הכנסת אורחים",15,"רבנים ומרצים המגיעים לשבתות"],
+   ["מועדון קומה",8,"פינת קפה, ספות, מכונת כביסה"],
+   ["שירות",5,""]]},
+ {no:"6",name:"קומת השולחן",tag:"חדר האוכל של הלומדים — ובאגף נפרד ומכובד: בית התמחוי של הקופה.",area:420,zones:[
+   ["חדר אוכל",45,"לישיבה, לכולל ולאירועי שבת"],
+   ["בית תמחוי",22,"כניסה וישיבה נפרדות — שמירה על כבוד"],
+   ["הגשה וחימום",15,"מוזן מהמטבח המרכזי במעלית שירות"],
+   ["שטיפה ושירות",18,""]]},
+ {no:"5",name:"ישיבת יראנו ניסים",tag:"הישיבה לבוגרי צבא — קומה שלמה עם זהות משלה. ״תן לעצמך שנה״.",area:420,special:true,zones:[
+   ["בית המדרש של הישיבה",50,"הלב של הקומה — לימוד בגובה של מבוגרים"],
+   ["כיתות שיעור",25,"גמרא, הלכה ופנימיות במקביל"],
+   ["חדרי רבנים",15,"שיחות אישיות — הדלת פתוחה"],
+   ["פינת קפה לבחורים",10,"הפסקות, חברותא על כוס קפה"]]},
+ {no:"4",name:"קומת המדיה וההפצה",tag:"זיכוי הרבים של הדור הבא: מהשיעור המוקלט ועד האפליקציה.",area:420,zones:[
+   ["אולפן הקלטות ושידור",25,"שיעורים בשידור חי, פודקאסטים"],
+   ["הוצאה לאור ועריכה",30,"ספרים, עלוני שבת, חידושי תורה"],
+   ["חממת תוכן דיגיטלי",25,"בוגרי הישיבה מייצרים תוכן לרשת"],
+   ["חדרי עבודה",12,""],
+   ["שירות",8,""]]},
+ {no:"3",name:"קומת הלימוד וההשתלמות",tag:"ביום — שיעורים לכל רמה; בערב — הכשרה מקצועית לבחורים. אותן כיתות, שימוש כפול.",area:420,zones:[
+   ["ספרייה תורנית",35,"אוצר ספרים + עמדות אוצר החכמה חסומות"],
+   ["כיתות מודולריות",45,"דף יומי, הלכה, מוסר · ערב: מקצועות"],
+   ["חדרי חברותות",12,"לימוד שקט בזוגות"],
+   ["שירות",8,""]]},
+ {no:"1–2",name:"בית המדרש הגדול",tag:"הלב הפועם — חלל כפול בגובה שתי קומות, מאות לומדים, עזרת נשים משקיפה.",area:840,special:true,zones:[
+   ["היכל בית המדרש",55,"חלל כפול גובה, ארון קודש, מאות מקומות"],
+   ["עזרת נשים — גלריה",20,"משקיפה אל ההיכל, כניסה נפרדת"],
+   ["חדרי שיעורים היקפיים",18,"בקומה 2, סביב הגלריה"],
+   ["כניסות ומבואות",7,""]]},
+ {no:"קרקע",name:"הלובי והכולל",tag:"הדבר הראשון שכל נכנס פוגש — קול התורה. הכולל בקומת הכניסה, והלובי מספר את סיפור הבית.",area:420,special:true,zones:[
+   ["כולל אברכים",45,"חבורות הלכה, דיינות וש״ס — בקדמת הבית"],
+   ["לובי מפואר + חדר הסיפור",30,"ארכיון 20 השנה: תמונות, הקלטות, מסמכים"],
+   ["עמדת סת״ם",8,"בדיקת תפילין ומזוזות לציבור"],
+   ["דלפק קופה וגמ״ח",10,"איסוף דיסקרטי בכניסה צדדית"],
+   ["קפה ועלונים",7,""]]},
+ {no:"1-",name:"גלריית הנשים של האולם",tag:"חצי קומה — עזרת נשים משקיפה אל אולם הכנסים: מקום מלא לנשים בכל כנס.",area:210,zones:[
+   ["גלריית נשים",55,"משקיפה אל האולם, כניסה ומדרגות נפרדות"],
+   ["מבואת ביניים ושירותים",30,""],
+   ["טכני",15,""]]},
+ {no:"2-",name:"אולם הכנסים הגדול",tag:"חלל גבוה בגובה שתי קומות: כנסי חיזוק המוניים, ערבי זיכוי הרבים — והלוגיסטיקה של קופת יראנו ניסים.",area:420,special:true,zones:[
+   ["אולם הכנסים",55,"חלל כפול גובה, במה, מאות מקומות"],
+   ["במה ואחורי במה",8,"הגברה, תאורה, שידור לאולפן"],
+   ["מטבח הגשה",10,"מזין את האולם ואת כל הבניין"],
+   ["מחסן ואריזה — קופת יראנו ניסים",20,"סלי מזון, קמחא דפסחא, ערבי אריזת מתנדבים"],
+   ["טכני",7,""]]}
+];
+
+var stack=document.getElementById('stack'),detail=document.getElementById('detail');
+LEVELS.forEach(function(L,i){
+  var b=document.createElement('button');
+  b.className='lvl'+(L.special?' special':'');
+  b.innerHTML='<span class="no">'+L.no+'</span><span class="nm">'+L.name+'<span class="tag2">'+(L.zones[0][0])+(L.zones.length>1?' ועוד':'')+'</span></span>';
+  b.onclick=function(){select(i)};
+  stack.appendChild(b);
+});
+function select(i){
+  var L=LEVELS[i];
+  [].forEach.call(stack.querySelectorAll('.lvl'),function(el,j){el.classList.toggle('on',j===i)});
+  var zh=L.zones.map(function(z){
+    var sq=Math.round(L.area*z[1]/100);
+    var basis=Math.max(z[1],14);
+    return '<div class="zone" style="flex-grow:'+z[1]+';flex-basis:'+basis+'%"><div><b>'+z[0]+'</b>'+(z[2]?'<div class="zn">'+z[2]+'</div>':'')+'</div><i>~'+sq+' מ״ר · '+z[1]+'%</i></div>';
+  }).join('');
+  detail.innerHTML='<div class="d-no">מפלס '+L.no+'</div><div class="d-title">'+L.name+'</div><p class="d-tag">'+L.tag+'</p><div class="map">'+zh+'</div><div class="legend">שטח נטו במפלס: ~'+L.area+' מ״ר · החלוקה סכמטית — לתכנון אדריכלי מפורט</div>';
+}
+select(11); /* start on the Great Beit Midrash */
+
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.2});
+document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
