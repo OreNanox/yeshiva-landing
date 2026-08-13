@@ -87,8 +87,8 @@ for(var s=-1;s<=1;s+=2){
     var aw=(i===0)?4.2:3.2, ah=(i===0)?8:6.4;
     var arch=new THREE.Mesh(new THREE.BoxGeometry(aw,ah,.4),M.warmGlow);
     arch.position.set(i*6.4,17.5+(ah-6.4)*.2,s*13.6);EXT.add(arch);
-    var top=new THREE.Mesh(new THREE.CylinderGeometry(aw/2,aw/2,.4,20,1,false,0,Math.PI),M.warmGlow);
-    top.rotation.set(Math.PI/2,0,0);top.position.set(i*6.4,17.5+ah/2+(ah-6.4)*.2,s*13.6);EXT.add(top);
+    var archTop=new THREE.Mesh(new THREE.CylinderGeometry(aw/2,aw/2,.4,20,1,false,0,Math.PI),M.warmGlow);
+    archTop.rotation.set(Math.PI/2,0,0);archTop.position.set(i*6.4,17.5+ah/2+(ah-6.4)*.2,s*13.6);EXT.add(archTop);
   }
 }
 /* entrance portal */
