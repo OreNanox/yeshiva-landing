@@ -10,9 +10,9 @@
 <meta property="og:title" content="תן לעצמך שנה · ישיבת יראנו ניסים" />
 <meta property="og:description" content="ישיבה חדשה לבוגרי צבא 21–24, בבית שצומח בנתניה כבר עשרים שנה. ההרשמה לזמן חשוון תשפ״ז פתוחה." />
 <meta property="og:url" content="https://orenanox.github.io/yeshiva-landing/v11.html" />
-<meta property="og:image" content="https://orenanox.github.io/yeshiva-landing/img/shiur.jpg" />
-<meta property="og:image:width" content="1500" />
-<meta property="og:image:height" content="964" />
+<meta property="og:image" content="https://orenanox.github.io/yeshiva-landing/img/harav-og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="1500" />
 <meta property="og:locale" content="he_IL" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,13 +61,14 @@ nav .nwrap{width:min(100% - 3rem,72rem);margin-inline:auto;display:flex;align-it
 .navcta:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 8px 24px rgba(228,188,98,.25)}
 
 /* ===== hero: full-bleed, slow zoom, everything centered (principles 1,2,6) ===== */
-header{position:relative;min-height:100svh;display:grid;place-items:center;isolation:isolate;overflow:hidden;text-align:center}
-.hero-bg{position:absolute;inset:-4%;z-index:-2;background:url("img/shiur.jpg") center 22%/cover no-repeat;animation:kenburns 24s ease-in-out infinite alternate}
-@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09)}}
+header{position:relative;min-height:100svh;display:flex;align-items:flex-end;justify-content:center;isolation:isolate;overflow:hidden;text-align:center}
+.hero-bg{position:absolute;inset:-4%;z-index:-2;background:url("img/harav.jpg") center 16%/cover no-repeat;animation:kenburns 26s ease-in-out infinite alternate}
+@media (max-width:768px){.hero-bg{background-position:center 10%}}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
 .hero-veil{position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(ellipse 90% 70% at 50% 42%, rgba(10,22,38,.25) 0%, rgba(10,22,38,.72) 62%, var(--ink) 100%),
-             linear-gradient(180deg, rgba(10,22,38,.5), rgba(10,22,38,.35) 45%, var(--ink) 97%)}
-.hero-inner{padding:7rem 1.5rem 5rem;max-width:56rem}
+  background:radial-gradient(ellipse 100% 62% at 50% 28%, rgba(10,22,38,0) 0%, rgba(10,22,38,.42) 58%, rgba(10,22,38,.9) 100%),
+             linear-gradient(180deg, rgba(10,22,38,.34), rgba(10,22,38,.18) 34%, rgba(10,22,38,.82) 72%, var(--ink) 100%)}
+.hero-inner{padding:34svh 1.5rem 4.5rem;max-width:56rem}
 .hero-over{color:var(--gold);letter-spacing:.28em;font-size:clamp(.8rem,1.6vw,.95rem);font-weight:500;margin-bottom:2rem}
 .lede{color:var(--soft);font-size:clamp(1.08rem,2vw,1.3rem);max-width:38rem;margin:0 auto 3rem}
 .cta-row{display:flex;gap:1.1rem;justify-content:center;flex-wrap:wrap}
@@ -213,12 +214,12 @@ footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--faint);
     <div class="wrap">
       <div class="q-track" id="qTrack">
         <div class="q-slide on">
-          <img class="q-face" src="img/shiur.jpg" alt="" />
+          <img class="q-face" src="img/harav-face.jpg" alt="הרב רפאל רובין" />
           <blockquote>"תן לעצמך שנה. תגלה מי אתה. תחזור הביתה."</blockquote>
           <cite>הרב רפאל רובין שליט״א · ראש הישיבה</cite>
         </div>
         <div class="q-slide">
-          <img class="q-face" src="img/yad.jpg" alt="" />
+          <img class="q-face" src="img/harav-mic.jpg" alt="" style="object-position:center 12%" />
           <blockquote>"לא באנו להגיד לך בוא תלמד גמרא. באנו לשאול איתך את השאלה שהצבא לא שאל."</blockquote>
           <cite>מתוך שיחת הפתיחה</cite>
         </div>
@@ -247,6 +248,7 @@ footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--faint);
     <div class="kicker rv">ההנהגה</div>
     <h2 class="rv">גדלו כאן כבחורים. עומדים כאן כרבנים.</h2>
     <div class="rav-hero rv">
+      <img src="img/harav-face.jpg" alt="הרב רפאל רובין שליט״א" style="width:8.5rem;height:8.5rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;margin-bottom:1.4rem" />
       <div class="tag">הנהגה רוחנית</div>
       <h3>הרב רפאל רובין שליט״א</h3>
       <p>מייסד המתחם ומנהיגו למעלה מעשרים שנה. השיעור שלו בליל שבת הוא הלב שממנו נבנה הכול — והישיבה היא הקומה הבאה שלו.</p>
