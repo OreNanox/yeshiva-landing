@@ -88,6 +88,13 @@ h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.4rem,7.5vw,4.6rem);
 .core-t{font-family:"Assistant",sans-serif;fill:#9FB2C8;pointer-events:none}
 .compass{font-family:"Rubik",sans-serif;fill:#5F7590}
 .legend{margin-top:1rem;color:var(--faint);font-size:.78rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.rlegend{display:grid;grid-template-columns:1fr 1fr;gap:.45rem 1.2rem;margin-top:1.1rem}
+@media (max-width:640px){.rlegend{grid-template-columns:1fr}}
+.lg-item{display:flex;gap:.6rem;align-items:baseline;font-size:.88rem;color:var(--soft)}
+.lg-item b{color:var(--text);font-weight:600}
+.lg-no{flex-shrink:0;width:1.35rem;height:1.35rem;border-radius:50%;background:var(--gold);color:#05090F;
+  font-family:var(--disp);font-weight:800;font-size:.8rem;display:inline-flex;align-items:center;justify-content:center;transform:translateY(.2rem)}
+.lg-note{color:var(--faint)}
 footer{border-top:1px solid var(--line);padding:2rem 0 2.6rem;text-align:center;color:var(--faint);font-size:.85rem}
 footer b{color:var(--soft);font-family:var(--disp)}
 </style>
@@ -320,18 +327,30 @@ function planSVG(L){
   var s='<svg viewBox="0 0 '+W+' '+(H+6)+'" xmlns="http://www.w3.org/2000/svg">';
   s+='<rect x="1.6" y="1.6" width="'+(W-3.2)+'" height="'+(H-3.2)+'" class="outline"/>';
   s+='<rect x="2.6" y="2.6" width="'+(W-5.2)+'" height="'+(H-5.2)+'" class="outline2"/>';
-  rooms.forEach(function(r){
+  var legend='';
+  rooms.forEach(function(r,idx){
+    var num=idx+1, sq=Math.round(L.area*r.z[1]/100);
     var big=r.w*r.h>340, med=r.w*r.h>150;
-    s+='<g><rect x="'+r.x.toFixed(1)+'" y="'+r.y.toFixed(1)+'" width="'+r.w.toFixed(1)+'" height="'+r.h.toFixed(1)+'" class="room"><title>'+esc(r.z[0])+' · ~'+Math.round(L.area*r.z[1]/100)+' מ״ר</title></rect>';
-    var cx=r.x+r.w/2, cy=r.y+r.h/2;
-    var fs=big?3.1:(med?2.5:1.9);
+    var fs=big?3:(med?2.4:2);
     var name=r.z[0];
-    if(name.length>16&&!big){name=name.slice(0,15)+'…'}
-    s+='<text x="'+cx+'" y="'+(cy-0.6)+'" text-anchor="middle" class="room-label" font-size="'+fs+'">'+esc(name)+'</text>';
-    s+='<text x="'+cx+'" y="'+(cy+fs+0.4)+'" text-anchor="middle" class="room-sq" font-size="'+(fs*0.76)+'">~'+Math.round(L.area*r.z[1]/100)+' מ״ר</text>';
-    if(big&&r.z[2]){s+='<text x="'+cx+'" y="'+(cy+fs*2.3)+'" text-anchor="middle" class="room-note" font-size="1.9">'+esc(r.z[2])+'</text>'}
+    var nameW=name.length*fs*0.62;
+    var fitsName=(nameW < r.w-4) && (r.h > fs*4.2);
+    s+='<g><rect x="'+r.x.toFixed(1)+'" y="'+r.y.toFixed(1)+'" width="'+r.w.toFixed(1)+'" height="'+r.h.toFixed(1)+'" class="room"><title>'+esc(name)+' · ~'+sq+' מ״ר</title></rect>';
+    var cx=r.x+r.w/2, cy=r.y+r.h/2;
+    if(fitsName){
+      /* number badge in corner + name centered */
+      s+='<circle cx="'+(r.x+r.w-3.2)+'" cy="'+(r.y+3.2)+'" r="2" fill="#E4BC62"/><text x="'+(r.x+r.w-3.2)+'" y="'+(r.y+4)+'" text-anchor="middle" font-size="2.2" font-weight="700" fill="#05090F" font-family="Rubik">'+num+'</text>';
+      s+='<text x="'+cx+'" y="'+(cy-0.4)+'" text-anchor="middle" class="room-label" font-size="'+fs+'">'+esc(name)+'</text>';
+      s+='<text x="'+cx+'" y="'+(cy+fs+0.6)+'" text-anchor="middle" class="room-sq" font-size="'+(fs*0.74)+'">~'+sq+' מ״ר</text>';
+    }else{
+      /* small room: number badge only (+sqm if there is room) */
+      s+='<circle cx="'+cx+'" cy="'+(cy-0.5)+'" r="2.4" fill="#E4BC62"/><text x="'+cx+'" y="'+(cy+0.45)+'" text-anchor="middle" font-size="2.6" font-weight="700" fill="#05090F" font-family="Rubik">'+num+'</text>';
+      if(r.h>10&&r.w>10){s+='<text x="'+cx+'" y="'+(cy+4.4)+'" text-anchor="middle" class="room-sq" font-size="1.9">~'+sq+' מ״ר</text>'}
+    }
     s+='</g>';
+    legend+='<div class="lg-item"><span class="lg-no">'+num+'</span><span><b>'+esc(name)+'</b> · ~'+sq+' מ״ר'+(r.z[2]?' <span class="lg-note">— '+esc(r.z[2])+'</span>':'')+'</span></div>';
   });
+  planSVG.legend=legend;
   /* service core */
   s+='<rect x="43" y="'+(H-11)+'" width="14" height="8.4" class="core"/>';
   s+='<text x="50" y="'+(H-6.4)+'" text-anchor="middle" class="core-t" font-size="1.9">גרעין: מעליות ומדרגות</text>';
@@ -377,8 +396,10 @@ function select(i){
   var L=LEVELS[i];
   [].forEach.call(stack.querySelectorAll('.lvl'),function(el,j){el.classList.toggle('on',j===i)});
   [].forEach.call(document.querySelectorAll('.band'),function(el){el.classList.toggle('on',+el.dataset.i===i)});
+  var svg=planSVG(L);
   detail.innerHTML='<div class="d-no">מפלס '+L.no+'</div><div class="d-title">'+L.name+'</div><p class="d-tag">'+L.tag+'</p>'
-    +'<div class="plan-wrap">'+planSVG(L)+'</div>'
+    +'<div class="plan-wrap">'+svg+'</div>'
+    +'<div class="rlegend">'+planSVG.legend+'</div>'
     +'<div class="legend"><span>שטח נטו במפלס: ~'+L.area+' מ״ר</span><span>הדמיה סכמטית — הבסיס לתכנון אדריכלי מפורט</span></div>';
 }
 select(10); /* בית המדרש הגדול */
