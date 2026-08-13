@@ -60,9 +60,10 @@ h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.4rem,7.5vw,4.6rem);
 /* building elevation */
 .elev{margin:0 0 1rem;padding:.4rem .2rem .6rem;border-bottom:1px solid var(--line)}
 .elev svg{width:100%;height:auto;display:block}
-.band{fill:rgba(13,23,40,.9);stroke:#22385A;stroke-width:.5;cursor:pointer;transition:.2s}
-.band:hover{stroke:var(--gold);fill:rgba(228,188,98,.08)}
-.band.on{fill:rgba(228,188,98,.22);stroke:var(--gold);filter:drop-shadow(0 0 3px rgba(228,188,98,.6))}
+.band{fill:url(#glassG);stroke:#2A4062;stroke-width:.45;cursor:pointer;transition:.2s}
+.band.stone{fill:url(#stoneG)}
+.band:hover{stroke:var(--gold)}
+.band.on{stroke:var(--gold);stroke-width:.9;filter:drop-shadow(0 0 4px rgba(228,188,98,.8))}
 .deco{pointer-events:none}
 .elev-cap{text-align:center;color:var(--faint);font-size:.72rem;margin-top:.4rem}
 
@@ -95,11 +96,13 @@ footer b{color:var(--soft);font-family:var(--disp)}
 
 <header>
   <div class="wrap">
+    <img src="img/logo-dark.png" alt="יראנו ניסים" style="height:clamp(4.5rem,10vw,6.5rem);width:auto;margin-bottom:1.4rem;filter:drop-shadow(0 0 18px rgba(228,188,98,.25))" />
     <div class="over">נתניה · בהנהגת הרב רפאל רובין שליט״א</div>
     <h1>קריית יראנו ניסים</h1>
     <p class="sub">מגדל של תורה, חסד וקהילה — מאולם ההרצאות התת־קרקעי ועד החופה על הגג.<br/>לחצו על מפלס — ותקבלו את הדמיית התוכנית שלו.</p>
     <div class="pasuk">״וְעָשׂוּ לִי מִקְדָּשׁ — וְשָׁכַנְתִּי בְּתוֹכָם״</div>
     <div class="notice">המגדל מתוכנן לציבור הגברים · לנשים ייבנה מבנה נפרד בקריה — מרכז האישה, ובו כל הפעילות והשירותים לנשים</div>
+    <div style="margin-top:1.6rem"><a href="kirya3d.html" style="display:inline-block;text-decoration:none;font-family:var(--disp);font-weight:700;color:#05090F;background:var(--gold);border-radius:99px;padding:.75rem 2rem;font-size:1rem;box-shadow:0 0 24px rgba(228,188,98,.35)">🏗️ כניסה למודל התלת־ממד — סובבו את המגדל והיכנסו לבית המדרש</a></div>
     <div class="stats">
       <div class="stat"><b>15</b><span>מפלסים</span></div>
       <div class="stat"><b>6,500</b><span>מ״ר בנוי</span></div>
@@ -113,8 +116,29 @@ footer b{color:var(--soft);font-family:var(--disp)}
   <div class="stack" id="stack"><h3>חתך הבניין</h3>
   <div class="elev">
   <svg viewBox="0 0 140 196" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0E1B31"/><stop offset=".65" stop-color="#0A1424"/><stop offset="1" stop-color="#070D17"/>
+      </linearGradient>
+      <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#1B2E4C"/><stop offset=".45" stop-color="#0F1D33"/><stop offset=".55" stop-color="#182B47"/><stop offset="1" stop-color="#0B1626"/>
+      </linearGradient>
+      <linearGradient id="stoneG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#33455F"/><stop offset="1" stop-color="#1E2C40"/>
+      </linearGradient>
+      <linearGradient id="sheenG" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="rgba(255,255,255,0)"/><stop offset=".5" stop-color="rgba(210,228,255,.10)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
+      <radialGradient id="glowG" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="rgba(240,209,140,.5)"/><stop offset="1" stop-color="rgba(240,209,140,0)"/>
+      </radialGradient>
+    </defs>
+    <!-- dusk sky -->
+    <rect x="0" y="0" width="140" height="150" fill="url(#skyG)" class="deco"/>
+    <circle cx="118" cy="18" r="4" fill="rgba(232,238,246,.75)" class="deco"/>
+    <circle cx="116.6" cy="17" r="3.4" fill="#0E1B31" class="deco"/>
     <!-- crown glow -->
-    <ellipse cx="60" cy="22" rx="30" ry="5" fill="rgba(228,188,98,.10)" class="deco"/>
+    <ellipse cx="60" cy="22" rx="34" ry="7" fill="url(#glowG)" class="deco"/>
     <!-- rooftop pergola -->
     <g class="deco" stroke="#E4BC62" stroke-width=".7">
       <line x1="32" y1="26" x2="32" y2="20"/><line x1="46" y1="26" x2="46" y2="20"/>
@@ -132,23 +156,23 @@ footer b{color:var(--soft);font-family:var(--disp)}
     <rect class="band" data-i="8"  x="28" y="92" width="64" height="8"/>
     <rect class="band" data-i="9"  x="28" y="100" width="64" height="8"/>
     <!-- podium: beit midrash + offices + ground -->
-    <rect class="band" data-i="10" x="20" y="108" width="80" height="20"/>
-    <rect class="band" data-i="11" x="20" y="128" width="80" height="9"/>
-    <rect class="band" data-i="12" x="14" y="137" width="92" height="13"/>
+    <rect class="band stone" data-i="10" x="20" y="108" width="80" height="20"/>
+    <rect class="band stone" data-i="11" x="20" y="128" width="80" height="9"/>
+    <rect class="band stone" data-i="12" x="14" y="137" width="92" height="13"/>
+    <!-- lit windows grid (generated) -->
+    <g id="wins" class="deco"></g>
     <!-- facade deco -->
     <g class="deco">
+      <rect x="28" y="26" width="64" height="82" fill="url(#sheenG)"/>
+      <line x1="40" y1="108" x2="40" y2="137" stroke="rgba(10,18,30,.55)" stroke-width=".4"/>
+      <line x1="60" y1="108" x2="60" y2="112" stroke="rgba(10,18,30,.55)" stroke-width=".4"/>
+      <line x1="80" y1="108" x2="80" y2="137" stroke="rgba(10,18,30,.55)" stroke-width=".4"/>
+      <ellipse cx="60" cy="150" rx="34" ry="3.4" fill="url(#glowG)"/>
       <!-- glass fins on tower -->
       <g stroke="rgba(228,188,98,.28)" stroke-width=".4">
         <line x1="36" y1="27" x2="36" y2="108"/><line x1="44" y1="27" x2="44" y2="108"/>
         <line x1="52" y1="27" x2="52" y2="108"/><line x1="60" y1="27" x2="60" y2="108"/>
         <line x1="68" y1="27" x2="68" y2="108"/><line x1="76" y1="27" x2="76" y2="108"/><line x1="84" y1="27" x2="84" y2="108"/>
-      </g>
-      <!-- window lights -->
-      <g stroke="rgba(234,240,247,.28)" stroke-width="1">
-        <line x1="31" y1="39" x2="89" y2="39"/><line x1="31" y1="47" x2="89" y2="47"/>
-        <line x1="31" y1="55" x2="89" y2="55"/><line x1="31" y1="63" x2="89" y2="63"/>
-        <line x1="31" y1="71" x2="89" y2="71"/><line x1="31" y1="79" x2="89" y2="79"/>
-        <line x1="31" y1="96" x2="89" y2="96"/><line x1="31" y1="104" x2="89" y2="104"/>
       </g>
       <!-- yeshiva floor gold band -->
       <rect x="28" y="83" width="64" height="9" fill="rgba(228,188,98,.14)" stroke="#E4BC62" stroke-width=".5"/>
@@ -329,6 +353,26 @@ LEVELS.forEach(function(L,i){
 [].forEach.call(document.querySelectorAll('.band'),function(el){
   el.addEventListener('click',function(){select(+el.dataset.i)});
 });
+/* generate lit window grid on the tower */
+(function(){
+  var g=document.getElementById('wins');if(!g)return;
+  var NS='http://www.w3.org/2000/svg';
+  var rows=[35.5,44.2,52.2,60.2,68.2,76.2,84.6,93.2,101.2];
+  rows.forEach(function(y,r){
+    for(var c=0;c<7;c++){
+      var lit=((r*7+c)*13)%17<9;               /* deterministic mix of lit/dark */
+      var gold=(r===6);                          /* yeshiva floor glows gold */
+      var rect=document.createElementNS(NS,'rect');
+      rect.setAttribute('x',(31.4+c*8.35).toFixed(1));
+      rect.setAttribute('y',y);
+      rect.setAttribute('width','6.1');rect.setAttribute('height','4.6');
+      rect.setAttribute('rx','.3');
+      rect.setAttribute('fill',gold?'rgba(240,209,140,.85)':(lit?'rgba(245,223,169,.7)':'rgba(20,34,56,.9)'));
+      if(lit||gold){rect.setAttribute('stroke','rgba(240,209,140,.35)');rect.setAttribute('stroke-width','.2')}
+      g.appendChild(rect);
+    }
+  });
+})();
 function select(i){
   var L=LEVELS[i];
   [].forEach.call(stack.querySelectorAll('.lvl'),function(el,j){el.classList.toggle('on',j===i)});

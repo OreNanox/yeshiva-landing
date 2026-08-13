@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>קריית יראנו ניסים · מודל תלת־ממד</title>
+<meta name="description" content="מודל תלת־ממד אינטראקטיבי של קריית יראנו ניסים — סובבו, התקרבו, והיכנסו לבית המדרש" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="קריית יראנו ניסים · מודל תלת־ממד" />
+<meta property="og:description" content="סובבו את המגדל, היכנסו לבית המדרש — מודל אינטראקטיבי" />
+<meta property="og:url" content="https://orenanox.github.io/yeshiva-landing/kirya3d.html" />
+<meta property="og:image" content="https://orenanox.github.io/yeshiva-landing/img/binyan.jpg" />
+<meta property="og:locale" content="he_IL" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:#05090F;color:#EAF0F7;font-family:"Assistant",sans-serif;overflow:hidden}
+#c{position:fixed;inset:0;display:block}
+.top{position:fixed;top:0;inset-inline:0;padding:.9rem 1.2rem;display:flex;align-items:center;gap:.9rem;z-index:5;
+  background:linear-gradient(180deg,rgba(5,9,15,.85),transparent)}
+.top img{height:2.6rem}
+.top b{font-family:"Rubik";font-weight:900;font-size:1.15rem}
+.top span{color:#9FB2C8;font-size:.8rem}
+.ui{position:fixed;bottom:1.1rem;inset-inline:0;display:flex;justify-content:center;gap:.7rem;z-index:5;flex-wrap:wrap;padding-inline:1rem}
+.ui button{font-family:"Assistant";font-weight:700;font-size:.95rem;color:#EAF0F7;background:rgba(13,23,40,.85);
+  border:1px solid #22385A;border-radius:99px;padding:.65rem 1.5rem;cursor:pointer;transition:.2s;backdrop-filter:blur(6px)}
+.ui button:hover{border-color:#E4BC62}
+.ui button.on{background:#E4BC62;color:#05090F;border-color:#E4BC62}
+.hint{position:fixed;bottom:4.3rem;inset-inline:0;text-align:center;color:#5F7590;font-size:.78rem;z-index:5}
+.back{position:fixed;top:1rem;left:1rem;z-index:6;color:#9FB2C8;text-decoration:none;font-size:.85rem;border:1px solid #22385A;border-radius:99px;padding:.4rem 1rem;background:rgba(13,23,40,.7)}
+.back:hover{color:#E4BC62;border-color:#E4BC62}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="top"><img src="img/logo-dark.png" alt=""/><div><b>קריית יראנו ניסים</b><br/><span>מודל תלת־ממד רעיוני · גררו לסיבוב, גלגלו לזום</span></div></div>
+<a class="back" href="kirya.html">→ חזרה לתוכניות</a>
+<div class="hint" id="hint">מבט חוץ — שימו לב לקשתות בית המדרש ולפרגולת החופות על הגג</div>
+<div class="ui">
+  <button id="bExt" class="on">המגדל מבחוץ</button>
+  <button id="bInt">בתוך בית המדרש</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+var renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+var scene=new THREE.Scene();
+scene.background=new THREE.Color(0x05090F);
+scene.fog=new THREE.Fog(0x05090F,120,340);
+var camera=new THREE.PerspectiveCamera(50,1,0.1,600);
+
+/* ---------- materials ---------- */
+function mat(c,o){var m=new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.85,metalness:.1},o||{}));return m}
+var M={
+  stone:mat(0x223349,{roughness:.9}),
+  glass:mat(0x0D1B30,{roughness:.25,metalness:.5}),
+  goldGlow:new THREE.MeshBasicMaterial({color:0xE4BC62}),
+  warmGlow:new THREE.MeshBasicMaterial({color:0xF0D18C}),
+  gold:mat(0xC9A254,{metalness:.7,roughness:.3}),
+  wood:mat(0x6B4A2C,{roughness:.8}),
+  woodDark:mat(0x4C3018,{roughness:.85}),
+  cream:mat(0xD8CDB8,{roughness:.9}),
+  floor:mat(0x8A6D48,{roughness:.7}),
+  carpet:mat(0x27405E,{roughness:1}),
+  white:mat(0xE8E2D4)
+};
+function box(g,w,h,d,m,x,y,z,ry){var o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);if(ry)o.rotation.y=ry;g.add(o);return o}
+
+/* ---------- lights ---------- */
+scene.add(new THREE.HemisphereLight(0x38507A,0x0A0F18,.85));
+var dl=new THREE.DirectionalLight(0xFFE8C0,.7);dl.position.set(60,90,40);scene.add(dl);
+
+/* ================= EXTERIOR ================= */
+var EXT=new THREE.Group();scene.add(EXT);
+/* ground */
+var ground=new THREE.Mesh(new THREE.CylinderGeometry(150,150,1,48),mat(0x0A1322,{roughness:1}));
+ground.position.y=-.5;EXT.add(ground);
+var grid=new THREE.GridHelper(300,42,0x16273F,0x101E33);grid.position.y=.02;EXT.add(grid);
+/* podium: ground+offices+BM = h 0..24 */
+box(EXT,40,8,30,M.stone,0,4,0);          /* ground floor, wider */
+box(EXT,36,5,27,M.stone,0,10.5,0);       /* offices */
+box(EXT,36,11,27,M.stone,0,18.5,0);      /* beit midrash double height */
+/* BM arched windows: 5 arches on front + back */
+for(var s=-1;s<=1;s+=2){
+  for(var i=-2;i<=2;i++){
+    var aw=(i===0)?4.2:3.2, ah=(i===0)?8:6.4;
+    var arch=new THREE.Mesh(new THREE.BoxGeometry(aw,ah,.4),M.warmGlow);
+    arch.position.set(i*6.4,17.5+(ah-6.4)*.2,s*13.6);EXT.add(arch);
+    var top=new THREE.Mesh(new THREE.CylinderGeometry(aw/2,aw/2,.4,20,1,false,0,Math.PI),M.warmGlow);
+    top.rotation.set(Math.PI/2,0,0);top.position.set(i*6.4,17.5+ah/2+(ah-6.4)*.2,s*13.6);EXT.add(top);
+  }
+}
+/* entrance portal */
+box(EXT,9,6.5,.6,M.goldGlow,0,3.3,15.2);
+box(EXT,13,.8,2.2,M.gold,0,7.2,15.6);
+/* tower: floors 4..12 => h24..96, slimmer */
+var tower=box(EXT,28,72,21,M.glass,0,60,0);
+/* floor light strips */
+for(var f=0;f<9;f++){
+  var y=24+8*f+7.6;
+  var strip=new THREE.Mesh(new THREE.BoxGeometry(28.3,.25,21.3),new THREE.MeshBasicMaterial({color:0x9FB2C8,transparent:true,opacity:.35}));
+  strip.position.y=y;EXT.add(strip);
+}
+/* yeshiva floor gold band (floor 6 => y40..48) */
+var band=new THREE.Mesh(new THREE.BoxGeometry(28.6,8,21.6),new THREE.MeshBasicMaterial({color:0xE4BC62,transparent:true,opacity:.16}));
+band.position.y=44;EXT.add(band);
+box(EXT,28.7,.5,21.7,M.goldGlow,0,48,0);
+/* gold fins */
+for(var i=-3;i<=3;i++){box(EXT,.35,72,.35,M.gold,i*4,60,10.8);box(EXT,.35,72,.35,M.gold,i*4,60,-10.8)}
+/* rooftop pergola */
+box(EXT,24,.6,17,M.stone,0,96.4,0);
+for(var i=-2;i<=2;i++){box(EXT,.5,4.5,.5,M.gold,i*9,99,6);box(EXT,.5,4.5,.5,M.gold,i*9,99,-6)}
+box(EXT,20,.4,13.5,M.gold,0,101.4,0);
+var crown=new THREE.PointLight(0xE4BC62,1.2,60);crown.position.set(0,104,0);EXT.add(crown);
+/* underground cut-away hint: glowing slab outlines */
+var ug=new THREE.Mesh(new THREE.BoxGeometry(36,10,26),new THREE.MeshBasicMaterial({color:0xE4BC62,wireframe:true,transparent:true,opacity:.16}));
+ug.position.y=-6;EXT.add(ug);
+var entL=new THREE.PointLight(0xF0D18C,1,40);entL.position.set(0,6,20);EXT.add(entL);
+
+/* ================= INTERIOR: BEIT MIDRASH ================= */
+var INT=new THREE.Group();INT.visible=false;scene.add(INT);
+var RW=46,RD=34,RH=13;
+/* floor + carpet aisle */
+box(INT,RW,.4,RD,M.floor,0,-.2,0);
+box(INT,6,.06,RD,M.carpet,0,.06,0);
+/* walls */
+box(INT,RW,RH,.6,M.cream,0,RH/2,-RD/2);
+box(INT,RW,RH,.6,M.cream,0,RH/2,RD/2);
+box(INT,.6,RH,RD,M.cream,-RW/2,RH/2,0);
+box(INT,.6,RH,RD,M.cream,RW/2,RH/2,0);
+box(INT,RW,.6,RD,mat(0xBFB49E),0,RH,0);
+/* columns */
+for(var i=-1;i<=1;i+=2){for(var j=-1;j<=1;j+=2){
+  var col=new THREE.Mesh(new THREE.CylinderGeometry(.7,.8,RH,14),M.cream);
+  col.position.set(i*13,RH/2,j*9);INT.add(col);
+}}
+/* aron kodesh wall (front = -z) */
+box(INT,10,9,1.2,M.woodDark,0,4.5,-RD/2+.9);
+box(INT,7,7,.6,M.gold,0,4,-RD/2+1.6);
+box(INT,6,6,.3,M.warmGlow,0,3.8,-RD/2+2);   /* parochet glow */
+box(INT,11,.8,2.4,M.gold,0,9.2,-RD/2+1.4);  /* crown ledge */
+var nerTamid=new THREE.Mesh(new THREE.SphereGeometry(.28,12,12),M.goldGlow);
+nerTamid.position.set(0,10.6,-RD/2+2);INT.add(nerTamid);
+/* steps to aron */
+box(INT,12,.4,3,M.wood,0,.2,-RD/2+3);
+box(INT,10,.4,2,M.wood,0,.6,-RD/2+2.6);
+/* bima in center */
+box(INT,7,.7,5.5,M.wood,0,.35,1);
+box(INT,4.5,1,3,M.woodDark,0,1.2,1);
+box(INT,5,.15,3.4,M.gold,0,1.75,1);
+for(var i=-1;i<=1;i+=2){for(var j=-1;j<=1;j+=2){box(INT,.25,2.6,.25,M.gold,i*3.2,1.3,1+j*2.5)}}
+/* study tables: 4 rows x 2 cols each side of aisle */
+function shtender(x,z,ry){
+  var g=new THREE.Group();
+  box(g,3.6,.18,1.3,M.wood,0,1.55,0);      /* slanted-ish top */
+  box(g,3.4,.9,.14,M.wood,0,1,0.55);       /* modesty panel */
+  box(g,.16,1.5,.16,M.woodDark,-1.5,.75,-.4);box(g,.16,1.5,.16,M.woodDark,1.5,.75,-.4);
+  box(g,.16,1.5,.16,M.woodDark,-1.5,.75,.5);box(g,.16,1.5,.16,M.woodDark,1.5,.75,.5);
+  box(g,3.6,.35,1.1,M.white,0,1.73,-.05);  /* open sefarim */
+  box(g,3.8,.45,.55,M.wood,0,.55,-1.35);   /* bench */
+  g.position.set(x,0,z);if(ry)g.rotation.y=ry;INT.add(g)
+}
+for(var r=0;r<4;r++){for(var c=0;c<2;c++){
+  shtender(6+c*6.5,-8+r*5,0);
+  shtender(-6-c*6.5,-8+r*5,0);
+}}
+/* back learning tables along +z */
+shtender(10,13,Math.PI);shtender(-10,13,Math.PI);shtender(0,13.5,Math.PI);
+/* hanging brass lamps */
+for(var i=-1;i<=1;i++){for(var j=0;j<2;j++){
+  var z=-6+j*10;
+  box(INT,.06,3.2,.06,M.gold,i*10,RH-1.6,z);
+  var lamp=new THREE.Mesh(new THREE.SphereGeometry(.55,14,14),M.warmGlow);
+  lamp.position.set(i*10,RH-3.4,z);INT.add(lamp);
+  var pl=new THREE.PointLight(0xF0D18C,.55,26);pl.position.set(i*10,RH-3.6,z);INT.add(pl);
+}}
+/* windows with arches on side walls (glow) */
+for(var i=-1;i<=1;i++){for(var s=-1;s<=1;s+=2){
+  box(INT,3,4.6,.3,M.warmGlow,s*(RW/2-.5),7,i*9.5);
+}}
+var aronLight=new THREE.PointLight(0xF0D18C,1,30);aronLight.position.set(0,7,-RD/2+4);INT.add(aronLight);
+scene.add(new THREE.AmbientLight(0x24303F,.5));
+
+/* ---------- custom orbit ---------- */
+var MODE='ext';
+var view={ext:{tx:0,ty:34,tz:0,r:130,th:.7,ph:1.15,min:50,max:240},
+          int:{tx:0,ty:4.5,tz:0,r:27,th:2.6,ph:1.25,min:8,max:34}};
+var cur=Object.assign({},view.ext);
+function applyCam(){
+  var v=cur;
+  camera.position.set(v.tx+v.r*Math.sin(v.ph)*Math.sin(v.th), v.ty+v.r*Math.cos(v.ph), v.tz+v.r*Math.sin(v.ph)*Math.cos(v.th));
+  camera.lookAt(v.tx,v.ty,v.tz);
+}
+var drag=false,px=0,py=0;
+function down(x,y){drag=true;px=x;py=y}
+function move(x,y){if(!drag)return;cur.th-=(x-px)*.006;cur.ph-=(y-py)*.004;
+  cur.ph=Math.max(.25,Math.min(1.52,cur.ph));px=x;py=y}
+addEventListener('mousedown',function(e){if(e.target.tagName==='CANVAS')down(e.clientX,e.clientY)});
+addEventListener('mousemove',function(e){move(e.clientX,e.clientY)});
+addEventListener('mouseup',function(){drag=false});
+addEventListener('touchstart',function(e){if(e.target.tagName==='CANVAS')down(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
+addEventListener('touchmove',function(e){move(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
+addEventListener('touchend',function(){drag=false});
+addEventListener('wheel',function(e){cur.r=Math.max(cur.min,Math.min(cur.max,cur.r+e.deltaY*.06))},{passive:true});
+
+/* mode switch */
+var bExt=document.getElementById('bExt'),bInt=document.getElementById('bInt'),hint=document.getElementById('hint');
+function setMode(m){
+  MODE=m;EXT.visible=(m==='ext');INT.visible=(m==='int');
+  cur=Object.assign({},view[m]);
+  bExt.classList.toggle('on',m==='ext');bInt.classList.toggle('on',m==='int');
+  hint.textContent=m==='ext'?'מבט חוץ — שימו לב לקשתות בית המדרש ולפרגולת החופות על הגג'
+                            :'היכל בית המדרש — ארון הקודש, הבימה, השטענדרים ומנורות הפליז';
+}
+bExt.onclick=function(){setMode('ext')};
+bInt.onclick=function(){setMode('int')};
+
+function resize(){var w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+addEventListener('resize',resize);resize();
+(function loop(){
+  requestAnimationFrame(loop);
+  if(!drag)cur.th+=0.0012;   /* gentle auto-rotate */
+  applyCam();renderer.render(scene,camera);
+})();
+</script>
+</body>
+</html>
