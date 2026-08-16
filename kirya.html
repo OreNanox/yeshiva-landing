@@ -254,6 +254,19 @@ footer b{color:var(--soft);font-family:var(--disp)}
   <div class="wrap"><b>קריית יראנו ניסים</b> · מסמך תכנון פנימי להצגה · העמותה למען מפעלות יראנו ניסים — נתניה</div>
 </footer>
 
+<button id="musicBtn" title="מנגינה" style="position:fixed;bottom:1.2rem;left:1.2rem;z-index:60;width:3.2rem;height:3.2rem;border-radius:50%;border:1px solid var(--gold);background:rgba(10,18,32,.85);color:var(--gold);font-size:1.25rem;cursor:pointer;box-shadow:0 0 18px rgba(228,188,98,.25)">🎵</button>
+<script>
+(function(){
+  var a=null,playing=false,btn=document.getElementById('musicBtn');
+  btn.addEventListener('click',function(){
+    if(!a){a=new Audio('media/kirya-theme.mp3');a.loop=true;a.volume=0.8}
+    if(playing){a.pause();btn.textContent='🎵';btn.style.opacity='1'}
+    else{a.play().catch(function(){});btn.textContent='⏸';btn.style.opacity='.85'}
+    playing=!playing;
+  });
+})();
+</script>
+
 <script>
 /* zones: [name, pct, note] */
 var LEVELS=[
