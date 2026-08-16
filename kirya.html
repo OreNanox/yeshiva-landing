@@ -97,6 +97,8 @@ h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.4rem,7.5vw,4.6rem);
 .fgal a:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
 .fgal img{width:100%;display:block;aspect-ratio:3/2;object-fit:cover}
 .fgal span{display:block;padding:.5rem .8rem;font-size:.78rem;color:var(--soft)}
+.torah{display:block;margin-top:.55rem;padding-top:.5rem;border-top:1px solid rgba(228,188,98,.25);color:var(--gold-soft);font-style:normal;font-size:.8rem;line-height:1.75}
+.torah small{color:var(--faint);font-size:.72rem}
 .hgal{display:flex;gap:.9rem;justify-content:center;margin-top:2.6rem;flex-wrap:wrap}
 .hgal a{width:min(17rem,80vw);border:1px solid var(--line);border-radius:10px;overflow:hidden;text-decoration:none;background:var(--panel);transition:.2s ease}
 .hgal a:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.45)}
@@ -144,15 +146,22 @@ footer b{color:var(--soft);font-family:var(--disp)}
 <div class="wrap" style="padding-bottom:2.5rem">
   <div style="text-align:center;margin:.6rem 0 1.4rem">
     <div class="d-no">שְׂפַת הָעִיצוּב שֶׁל הַמִּגְדָּל</div>
-    <div style="font-family:var(--disp);font-weight:800;font-size:clamp(1.35rem,3.2vw,2rem);margin-top:.3rem">ארבע הצעות — להכרעת ראש הישיבה</div>
-    <div style="color:var(--faint);font-size:.9rem;margin-top:.3rem">לחצו על תמונה להגדלה · הבחירה תקבע את שפת כל ההדמיות והתכנון</div>
+    <div style="font-family:var(--disp);font-weight:800;font-size:clamp(1.35rem,3.2vw,2rem);margin-top:.3rem">חמש הצעות — להכרעת ראש הישיבה</div>
+    <div style="color:var(--gold-soft);font-size:1rem;margin-top:.6rem;font-weight:500">״וְעָשׂוּ לִי מִקְדָּשׁ וְשָׁכַנְתִּי בְּתוֹכָם״ <span style="color:var(--faint);font-size:.85rem">(שמות כה, ח)</span></div>
+    <div style="color:var(--soft);font-size:.92rem;margin-top:.4rem;max-width:44rem;margin-inline:auto">חמש ההצעות — חמישה פירושים לאותו פסוק: כיצד נראה בית שהשכינה שורה בו, בשפה של דור המחר.</div>
+    <div style="color:var(--faint);font-size:.9rem;margin-top:.5rem">לחצו על תמונה להגדלה · הבחירה תקבע את שפת כל ההדמיות והתכנון</div>
   </div>
   <div class="fgal" style="grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))">
-    <a href="img/renders/kirya-hitech-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-hitech-concept.jpg" alt="אופציה א"/><span><b style="color:var(--gold)">אופציה א׳ · ההייטקית</b> — צריח לבן-כסוף, קווי אור LED בכל קומה וכתר דיגיטלי זוהר ללוגו</span></a>
-    <a href="img/renders/kirya-modern-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-modern-concept.jpg" alt="אופציה ב"/><span><b style="color:var(--gold)">אופציה ב׳ · זכוכית וברונזה</b> — נפחי זכוכית כהה עם רפפות ברונזה חמות וגגון מרחף</span></a>
-    <a href="img/renders/kirya-scroll-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-scroll-concept.jpg" alt="אופציה ג"/><span><b style="color:var(--gold)">אופציה ג׳ · המגילה</b> — מגדל פיסולי מהפכני: סרטי חזית לבנים מסתחררים כמגילה נפתחת סביב זכוכית זהב זוהרת</span></a>
-    <a href="img/renders/kirya-sefertorah-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-sefertorah-concept.jpg" alt="אופציה ד"/><span><b style="color:var(--gold)">אופציה ד׳ · ספר התורה</b> — שני עצי חיים לבנים ויריעת קלף מזכוכית קמורה ביניהם, עמודות אור כעמודי הכתב</span></a>
-    <a href="img/renders/kirya-solid-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-solid-concept.jpg" alt="אופציה ה"/><span><b style="color:var(--gold)">אופציה ה׳ · האבן הצחורה</b> — מונוליט לבן-פנינה בקפלי בד עדינים, תפרי זכוכית זהב זוהרים וכתר מרחף — סולידי, מעודן, ואין שני לו בעולם</span></a>
+    <a href="img/renders/kirya-hitech-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-hitech-concept.jpg" alt="אופציה א"/><span><b style="color:var(--gold)">אופציה א׳ · ההייטקית</b> — צריח לבן-כסוף, קווי אור LED בכל קומה וכתר דיגיטלי זוהר ללוגו
+    <i class="torah">״כִּי נֵר מִצְוָה וְתוֹרָה אוֹר״ <small>(משלי ו, כג)</small> — מגדל שכולו קווי אור: כמנורת המאור שהאירה מן המקדש, כך יאיר הבית הזה את נתניה כולה — כל קומה נר, וכולן יחד תורה אחת של אור.</i></span></a>
+    <a href="img/renders/kirya-modern-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-modern-concept.jpg" alt="אופציה ב"/><span><b style="color:var(--gold)">אופציה ב׳ · זכוכית וברונזה</b> — נפחי זכוכית כהה עם רפפות ברונזה חמות וגגון מרחף
+    <i class="torah">״וְזֹאת הַתְּרוּמָה אֲשֶׁר תִּקְחוּ מֵאִתָּם — זָהָב וָכֶסֶף וּנְחֹשֶׁת״ <small>(שמות כה, ג)</small> — חומרי המשכן עצמם: הברונזה החמה כנחושת המזבח, והגגון המרחף כענן שסוכך על המחנה. בית שנבנה, כמו אז, מנדיבות הלב.</i></span></a>
+    <a href="img/renders/kirya-scroll-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-scroll-concept.jpg" alt="אופציה ג"/><span><b style="color:var(--gold)">אופציה ג׳ · המגילה</b> — מגדל פיסולי מהפכני: סרטי חזית לבנים מסתחררים כמגילה נפתחת סביב זכוכית זהב זוהרת
+    <i class="torah">״כִּי מִצִּיּוֹן תֵּצֵא תוֹרָה וּדְבַר ה׳ מִירוּשָׁלָ͏ִם״ <small>(ישעיהו ב, ג)</small> — התורה אינה עומדת במקום; היא נפתחת ומתפשטת. סרטי החזית המסתחררים הם מגילה שנגללת לעיני העיר — בית שכל מהותו יציאה החוצה, אל עם ישראל.</i></span></a>
+    <a href="img/renders/kirya-sefertorah-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-sefertorah-concept.jpg" alt="אופציה ד"/><span><b style="color:var(--gold)">אופציה ד׳ · ספר התורה</b> — שני עצי חיים לבנים ויריעת קלף מזכוכית קמורה ביניהם, עמודות אור כעמודי הכתב
+    <i class="torah">״עֵץ חַיִּים הִיא לַמַּחֲזִיקִים בָּהּ וְתֹמְכֶיהָ מְאֻשָּׁר״ <small>(משלי ג, יח)</small> — שני עצי החיים אוחזים את יריעת הקלף, והבניין כולו נעשה ספר תורה פתוח בלב העיר: מי שנכנס בשעריו — נכנס בין העמודים אל תוך הכתב.</i></span></a>
+    <a href="img/renders/kirya-solid-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-solid-concept.jpg" alt="אופציה ה"/><span><b style="color:var(--gold)">אופציה ה׳ · האבן הצחורה</b> — מונוליט לבן-פנינה בקפלי בד עדינים, תפרי זכוכית זהב זוהרים וכתר מרחף — סולידי, מעודן, ואין שני לו בעולם
+    <i class="torah">״אֶבֶן מָאֲסוּ הַבּוֹנִים הָיְתָה לְרֹאשׁ פִּנָּה״ <small>(תהלים קיח, כב)</small> — צניעות מבחוץ ואור זהב בוקע מבפנים: קפלי החזית כיריעות המשכן — ״וְהַמִּשְׁכָּן תַּעֲשֶׂה עֶשֶׂר יְרִיעֹת״ <small>(שמות כו, א)</small> — פאר שאינו צועק, אלא מאיר.</i></span></a>
   </div>
 </div>
 
