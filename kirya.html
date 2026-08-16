@@ -38,7 +38,11 @@ h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.4rem,7.5vw,4.6rem);
    background:linear-gradient(180deg,#fff,#C8D6E8);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{color:var(--soft);max-width:40rem;margin:0 auto;font-size:clamp(1rem,1.8vw,1.15rem)}
 .pasuk{margin-top:1.5rem;color:var(--gold-soft);font-size:1.05rem;font-weight:500}
-.notice{margin:1.4rem auto 0;max-width:34rem;border:1px solid var(--line);border-radius:6px;padding:.5rem 1rem;color:var(--faint);font-size:.85rem}
+.notice{margin:1.4rem auto 0;max-width:38rem;border:1px solid rgba(228,188,98,.45);border-radius:6px;padding:.7rem 1.2rem;color:#D9E4F2;font-size:1.02rem;font-weight:500;background:rgba(228,188,98,.06)}
+#lb{display:none;position:fixed;inset:0;z-index:120;background:rgba(3,6,12,.95);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;padding:2rem}
+#lb img{max-width:94vw;max-height:84vh;border-radius:8px;border:1px solid var(--line);box-shadow:0 24px 80px rgba(0,0,0,.7)}
+#lb .lb-cap{color:var(--gold-soft);font-size:1rem;text-align:center;max-width:50rem}
+#lb .lb-hint{color:var(--faint);font-size:.8rem}
 .stats{display:flex;justify-content:center;gap:clamp(1.2rem,4vw,3.5rem);margin-top:2.4rem;flex-wrap:wrap}
 .stat{text-align:center}
 .stat b{display:block;font-family:var(--disp);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:var(--gold)}
@@ -148,6 +152,7 @@ footer b{color:var(--soft);font-family:var(--disp)}
     <a href="img/renders/kirya-modern-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-modern-concept.jpg" alt="אופציה ב"/><span><b style="color:var(--gold)">אופציה ב׳ · זכוכית וברונזה</b> — נפחי זכוכית כהה עם רפפות ברונזה חמות וגגון מרחף</span></a>
     <a href="img/renders/kirya-scroll-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-scroll-concept.jpg" alt="אופציה ג"/><span><b style="color:var(--gold)">אופציה ג׳ · המגילה</b> — מגדל פיסולי מהפכני: סרטי חזית לבנים מסתחררים כמגילה נפתחת סביב זכוכית זהב זוהרת</span></a>
     <a href="img/renders/kirya-sefertorah-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-sefertorah-concept.jpg" alt="אופציה ד"/><span><b style="color:var(--gold)">אופציה ד׳ · ספר התורה</b> — שני עצי חיים לבנים ויריעת קלף מזכוכית קמורה ביניהם, עמודות אור כעמודי הכתב</span></a>
+    <a href="img/renders/kirya-solid-concept.jpg" target="_blank" rel="noopener"><img src="img/renders/kirya-solid-concept.jpg" alt="אופציה ה"/><span><b style="color:var(--gold)">אופציה ה׳ · האבן הצחורה</b> — מונוליט לבן-פנינה בקפלי בד עדינים, תפרי זכוכית זהב זוהרים וכתר מרחף — סולידי, מעודן, ואין שני לו בעולם</span></a>
   </div>
 </div>
 
@@ -255,15 +260,35 @@ footer b{color:var(--soft);font-family:var(--disp)}
 </footer>
 
 <button id="musicBtn" title="מנגינה" style="position:fixed;bottom:1.2rem;left:1.2rem;z-index:60;width:3.2rem;height:3.2rem;border-radius:50%;border:1px solid var(--gold);background:rgba(10,18,32,.85);color:var(--gold);font-size:1.25rem;cursor:pointer;box-shadow:0 0 18px rgba(228,188,98,.25)">🎵</button>
+<div id="lb"><img alt=""/><div class="lb-cap"></div><div class="lb-hint">לחיצה בכל מקום — חזרה למצגת</div></div>
 <script>
 (function(){
-  var a=null,playing=false,btn=document.getElementById('musicBtn');
-  btn.addEventListener('click',function(){
-    if(!a){a=new Audio('media/kirya-theme.mp3');a.loop=true;a.volume=0.8}
-    if(playing){a.pause();btn.textContent='🎵';btn.style.opacity='1'}
-    else{a.play().catch(function(){});btn.textContent='⏸';btn.style.opacity='.85'}
-    playing=!playing;
+  var a=new Audio('media/kirya-theme.mp3'),playing=false,btn=document.getElementById('musicBtn');
+  a.loop=true;a.volume=0.8;
+  function on(){playing=true;btn.textContent='⏸';btn.style.opacity='.85'}
+  function off(){playing=false;btn.textContent='🎵';btn.style.opacity='1'}
+  function tryStart(){a.play().then(on).catch(function(){})}
+  tryStart();
+  function firstTouch(){if(!playing)tryStart();document.removeEventListener('pointerdown',firstTouch,true);document.removeEventListener('keydown',firstTouch,true)}
+  document.addEventListener('pointerdown',firstTouch,true);
+  document.addEventListener('keydown',firstTouch,true);
+  btn.addEventListener('click',function(e){e.stopPropagation();if(playing){a.pause();off()}else{a.play().then(on).catch(function(){})}});
+})();
+(function(){
+  var lb=document.getElementById('lb'),im=lb.querySelector('img'),cap=lb.querySelector('.lb-cap');
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('a');
+    if(!t)return;
+    var h=t.getAttribute('href')||'';
+    if(!/\.(jpe?g|png|webp)$/i.test(h))return;
+    var pic=t.querySelector('img');if(!pic)return;
+    e.preventDefault();
+    im.src=h;
+    var sp=t.querySelector('span');
+    cap.textContent=sp?sp.textContent.replace(' · לחצו להגדלה',''):'';
+    lb.style.display='flex';
   });
+  lb.addEventListener('click',function(){lb.style.display='none';im.src=''});
 })();
 </script>
 
@@ -279,13 +304,13 @@ var LEVELS=[
    ["אולם השמחות",60,"כ־300 מקומות, רחבת ריקודים"],
    ["מטבח קייטרינג",20,"כניסת ספקים נפרדת"],
    ["מבואה וקבלת פנים",20,""]]},
- {no:"11",name:"קומת הערב והרווחה",tag:"נדלקת אחר הצהריים: הנוער של ״הלב היהודי״, הגוף והניגון.",area:420,imgs:[["img/renders/kirya-youth.jpg","מדרשיית הנוער — ערב של משחקים, ניגון ושיחה"]],zones:[
+ {no:"11",name:"קומת הערב והרווחה",tag:"נדלקת אחר הצהריים: הנוער של ״הלב היהודי״, הגוף והניגון.",area:420,imgs:[["img/renders/kirya-youth.jpg","מדרשיית הנוער — ערב של משחקים, ניגון ושיחה"],["img/renders/kirya-gym.jpg","מכון הכושר לגברים — הדמיה"]],zones:[
    ["מדרשיית נוער",25,"פינות ישיבה, משחקים, שיחות"],
    ["אבות ובנים",15,"לימוד משפחתי, תהילים"],
    ["מכון כושר לגברים",25,"ציוד מלא, מלתחות — לבחורים, אברכים והקהילה"],
    ["חדר ניגונים אקוסטי",15,"חזרות ההרכב והקלטות"],
    ["תצוגת הגמ״חים",20,"ביגודית, גמ״ח נדוניה, ציוד"]]},
- {no:"10",name:"קומת המפעלות",tag:"השירותים הציבוריים של הבית — מהלכה ועד חסד.",area:420,imgs:[["img/harav.jpg","הרב רפאל רובין שליט״א — בראש בית ההוראה (צילום אמיתי)"],["img/renders/kirya-rabbi.jpg","בית ההוראה — הדמיה"]],zones:[
+ {no:"10",name:"קומת שירותי הקהילה",tag:"השירותים הציבוריים של הבית — מהלכה ועד חסד.",area:420,imgs:[["img/renders/kirya-rabbi.jpg","בית ההוראה — קבלת קהל"]],zones:[
    ["בית הוראה וחדרי רבנים",20,"קבלת קהל + קו הלכה"],
    ["בית דין לממונות",15,"בוררות וגישור"],
    ["מטה קופת יראנו ניסים",20,"ועדת צדקה, גבאים, דיסקרטיות"],
@@ -301,7 +326,7 @@ var LEVELS=[
    ["אגף הכנסת אורחים",15,"רבנים ומרצים בשבתות"],
    ["מועדון קומה",8,""],
    ["שירות",5,""]]},
- {no:"7",name:"קומת השולחן",tag:"ביום — חדר האוכל של הלומדים; בערב — מסעדת־פאב תורנית לגברים: אוכל חם, שתייה, ניגון ושיעור. באגף נפרד — בית התמחוי.",area:420,imgs:[["img/renders/kirya-dining.jpg","חדר האוכל — ארוחת צהריים של הלומדים"]],zones:[
+ {no:"7",name:"קומת השולחן",tag:"ביום — חדר האוכל של הלומדים; בערב — מסעדת־פאב תורנית לגברים: אוכל חם, שתייה, ניגון ושיעור. באגף נפרד — בית התמחוי.",area:420,imgs:[["img/renders/kirya-dining.jpg","חדר האוכל — ארוחת צהריים של הלומדים"],["img/renders/kirya-pub.jpg","הפאב התורני בערב — צעירים, כיפות מכל גווני הקשת"]],zones:[
    ["חדר אוכל · בערב: פאב תורני לגברים",45,"תאורה מתחלפת, במה קטנה לשיעור וניגון"],
    ["בית תמחוי",22,"כניסה וישיבה נפרדות"],
    ["הגשה וחימום",15,"מוזן מהמטבח במעלית שירות"],
@@ -344,7 +369,7 @@ var LEVELS=[
    ["גלריית עזרת נשים",60,"מקיפה את האולם משלושה כיוונים"],
    ["מבואה נפרדת ושירותים",25,"כניסה ומדרגות נפרדות מהרחוב"],
    ["טכני",15,""]]},
- {no:"2-",name:"אולם ההרצאות הגדול",tag:"חלל גבוה בגובה שתי קומות: כנסי חיזוק, ערבי זיכוי הרבים — והלוגיסטיקה של קופת יראנו ניסים.",area:420,special:true,imgs:[["img/renders/kirya-rav-speaking.jpg","הרב רפאל רובין שליט״א — האיש שימלא את האולם הזה (צילום אמיתי)"],["img/renders/kirya-auditorium.jpg","אולם ההרצאות — הדמיה"]],zones:[
+ {no:"2-",name:"אולם ההרצאות הגדול",tag:"חלל גבוה בגובה שתי קומות: כנסי חיזוק, ערבי זיכוי הרבים — והלוגיסטיקה של קופת יראנו ניסים.",area:420,special:true,imgs:[["img/renders/kirya-rav-speaking.jpg","הרב רפאל רובין שליט״א — האיש שימלא את האולם הזה (צילום אמיתי)"],["img/renders/kirya-auditorium.jpg","אולם ההרצאות — הדמיה"],["img/renders/kirya-storage.jpg","לוגיסטיקת קופת יראנו ניסים — מחסנים וחדרי קירור"]],zones:[
    ["אולם ההרצאות",50,"במה, מאות מקומות, חלל כפול"],
    ["במה ואחורי במה",8,"הגברה, תאורה, שידור לאולפן"],
    ["מטבח הגשה",10,""],
