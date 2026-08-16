@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>קריית יראנו ניסים · סרטון תדמית</title>
+<meta property="og:title" content="קריית יראנו ניסים · סרטון תדמית" />
+<meta property="og:description" content="מגדל של תורה, חסד וקהילה — סיור קולנועי" />
+<meta property="og:url" content="https://orenanox.github.io/yeshiva-landing/kirya-video.html" />
+<meta property="og:image" content="https://orenanox.github.io/yeshiva-landing/img/renders/kirya-sefertorah-concept.jpg" />
+<meta property="og:locale" content="he_IL" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Assistant",sans-serif}
+#stage{position:fixed;inset:0}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.slide.on{opacity:1}
+.slide img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover}
+.slide.kb1 img{animation:kb1 6.5s ease-in-out forwards}
+.slide.kb2 img{animation:kb2 6.5s ease-in-out forwards}
+@keyframes kb1{from{transform:scale(1) translate(0,0)}to{transform:scale(1.1) translate(-1.5%,-1%)}}
+@keyframes kb2{from{transform:scale(1.1) translate(1.5%,1%)}to{transform:scale(1) translate(0,0)}}
+.vin{position:absolute;inset:0;background:radial-gradient(ellipse 85% 75% at 50% 45%,transparent 55%,rgba(0,0,0,.55) 100%)}
+.cap{position:absolute;bottom:10vh;inset-inline:0;text-align:center;padding:0 6vw;opacity:0;transform:translateY(18px);transition:.9s ease .5s}
+.slide.on .cap{opacity:1;transform:none}
+.cap b{display:block;font-family:"Rubik";font-weight:900;font-size:clamp(1.5rem,4.5vw,3rem);color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.8)}
+.cap span{display:block;color:#E4BC62;font-weight:600;font-size:clamp(.95rem,2vw,1.25rem);margin-top:.4rem;text-shadow:0 1px 12px rgba(0,0,0,.9)}
+.cap .rule{width:4.5rem;height:2px;background:#E4BC62;margin:.9rem auto 0}
+/* title slides */
+.tslide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  background:radial-gradient(ellipse 100% 80% at 50% 30%,#152A47,#0A1524 70%,#060C16);opacity:0;transition:opacity 1.4s ease;padding:0 6vw}
+.tslide.on{opacity:1}
+.tslide img.logo{height:clamp(5rem,14vh,8rem);filter:drop-shadow(0 0 26px rgba(228,188,98,.4));margin-bottom:2rem}
+.tslide h1{font-family:"Rubik";font-weight:900;font-size:clamp(2.2rem,7vw,4.5rem);color:#fff;margin:0;line-height:1.15}
+.tslide .sub{color:#E4BC62;font-size:clamp(1rem,2.6vw,1.5rem);font-weight:600;margin-top:1rem;letter-spacing:.06em}
+.tslide .pasuk{font-family:"Frank Ruhl Libre";font-weight:700;color:#F0D18C;font-size:clamp(1.1rem,3vw,1.8rem);margin-top:2rem}
+.tslide .small{color:#8FA3C0;font-size:clamp(.85rem,1.8vw,1rem);margin-top:2.2rem}
+/* progress + controls */
+#bar{position:fixed;top:0;right:0;height:3px;background:#E4BC62;width:0%;z-index:10;transition:width .3s linear}
+#start{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;
+  background:radial-gradient(ellipse 100% 80% at 50% 30%,#152A47,#0A1524 70%,#060C16);cursor:pointer}
+#start img{height:clamp(5rem,16vh,9rem);filter:drop-shadow(0 0 26px rgba(228,188,98,.4))}
+#start h1{font-family:"Rubik";font-weight:900;color:#fff;font-size:clamp(1.8rem,6vw,3.6rem);margin:0}
+#start .btn{border:2px solid #E4BC62;color:#E4BC62;border-radius:99px;padding:.9rem 3rem;font-size:1.2rem;font-weight:700}
+#start .hint{color:#8FA3C0;font-size:.85rem}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage"></div>
+<div id="start">
+  <img src="img/logo-dark.png" alt=""/>
+  <h1>קריית יראנו ניסים</h1>
+  <div class="btn">▶ הפעל סרטון תדמית</div>
+  <div class="hint">מומלץ במסך מלא · הסרטון רץ כדקה וחוזר על עצמו</div>
+</div>
+<script>
+var SLIDES=[
+ {type:'title',logo:true,h:'קריית יראנו ניסים',sub:'מגדל של תורה, חסד וקהילה · נתניה',pasuk:'״וְעָשׂוּ לִי מִקְדָּשׁ — וְשָׁכַנְתִּי בְּתוֹכָם״'},
+ {img:'img/renders/kirya-sefertorah-concept.jpg',b:'בניין שהוא ספר תורה פתוח',s:'שני עצי חיים — ויריעת אור ביניהם'},
+ {img:'img/renders/kirya-scroll-concept.jpg',b:'אדריכלות שעוד לא נראתה בישראל',s:'המגילה — 14 קומות של תורה וחסד'},
+ {img:'img/renders/kirya-hitech-concept.jpg',b:'טכנולוגיה בשירות הקודש',s:'בית חכם שכולו אור'},
+ {img:'img/renders/kirya-lobby.jpg',b:'הלובי: העתיד פוגש את הנצח',s:'קיר מסך זוהר — ומאחורי הזכוכית, הכולל'},
+ {img:'img/renders/kirya-beitmidrash.jpg',b:'היכל בית המדרש הגדול',s:'מאות לומדים · חלל בגובה שתי קומות'},
+ {img:'img/renders/kirya-auditorium.jpg',b:'אולם ההרצאות',s:'כנסי חיזוק וזיכוי הרבים — מאות מקומות'},
+ {img:'img/renders/kirya-yeshiva.jpg',b:'הישיבה לבוגרי צבא',s:'״תן לעצמך שנה. תגלה מי אתה.״'},
+ {img:'img/renders/kirya-library.jpg',b:'הספרייה התורנית',s:'שתי קומות של ספרים — ואוצר החכמה'},
+ {img:'img/renders/kirya-shtiebel.jpg',b:'מרכז התפילה',s:'מניינים מוותיקין ועד ערבית מאוחרת'},
+ {img:'img/renders/kirya-dining.jpg',b:'קומת השולחן',s:'חדר האוכל · בית התמחוי · ובערב — פאב תורני'},
+ {img:'img/renders/kirya-dorm.jpg',b:'הפנימייה',s:'בית של בחורים — עם נוף לים'},
+ {img:'img/renders/kirya-youth.jpg',b:'הנוער של ״הלב היהודי״',s:'ערב של משחקים, ניגון ושיחה'},
+ {img:'img/renders/kirya-chuppah.jpg',b:'חופות על הגג',s:'שמחות מול השקיעה של נתניה'},
+ {img:'img/renders/kirya-aerial.jpg',b:'קריית יראנו ניסים',s:'עשרים שנות בית מדרש — הקומה הבאה'},
+ {type:'title',logo:true,h:'בְּרֹאשׁוּת הרב רפאל רובין שליט״א',sub:'העמותה למען מפעלות יראנו ניסים · נתניה',small:'להצטרפות ולתרומות · וואטסאפ 052-6299112'}
+];
+var stage=document.getElementById('stage'),bar=document.getElementById('bar');
+var els=SLIDES.map(function(s,i){
+  var d;
+  if(s.type==='title'){
+    d=document.createElement('div');d.className='tslide';
+    d.innerHTML=(s.logo?'<img class="logo" src="img/logo-dark.png"/>':'')+'<h1>'+s.h+'</h1>'+(s.sub?'<div class="sub">'+s.sub+'</div>':'')+(s.pasuk?'<div class="pasuk">'+s.pasuk+'</div>':'')+(s.small?'<div class="small">'+s.small+'</div>':'');
+  }else{
+    d=document.createElement('div');d.className='slide '+(i%2?'kb1':'kb2');
+    d.innerHTML='<img src="'+s.img+'"/><div class="vin"></div><div class="cap"><b>'+s.b+'</b><span>'+s.s+'</span><div class="rule"></div></div>';
+  }
+  stage.appendChild(d);return d;
+});
+var cur=-1,timer,DUR=5200;
+function show(i){
+  if(cur>=0)els[cur].classList.remove('on');
+  cur=i;var el=els[cur];
+  if(el.classList.contains('slide')){var im=el.querySelector('img');var src=im.src;im.src='';im.src=src;}
+  el.classList.add('on');
+  bar.style.width=((i+1)/SLIDES.length*100)+'%';
+}
+function loop(){show((cur+1)%SLIDES.length);timer=setTimeout(loop,DUR)}
+document.getElementById('start').addEventListener('click',function(){
+  this.style.display='none';
+  if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(function(){});
+  loop();
+});
+</script>
+</body>
+</html>

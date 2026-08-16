@@ -45,6 +45,9 @@ body{background:#05090F;color:#EAF0F7;font-family:"Assistant",sans-serif;overflo
 <script>
 var renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.3;
+renderer.outputEncoding=THREE.sRGBEncoding;
 var scene=new THREE.Scene();
 scene.background=new THREE.Color(0x05090F);
 scene.fog=new THREE.Fog(0x05090F,120,340);
@@ -179,8 +182,11 @@ for(var i=-1;i<=1;i++){for(var j=0;j<2;j++){
 for(var i=-1;i<=1;i++){for(var s=-1;s<=1;s+=2){
   box(INT,3,4.6,.3,M.warmGlow,s*(RW/2-.5),7,i*9.5);
 }}
-var aronLight=new THREE.PointLight(0xF0D18C,1,30);aronLight.position.set(0,7,-RD/2+4);INT.add(aronLight);
-scene.add(new THREE.AmbientLight(0x24303F,.5));
+var aronLight=new THREE.PointLight(0xF0D18C,1.5,34);aronLight.position.set(0,7,-RD/2+4);INT.add(aronLight);
+var fill1=new THREE.PointLight(0xFFE8C0,.8,40);fill1.position.set(0,9,8);INT.add(fill1);
+var fill2=new THREE.PointLight(0xFFE8C0,.6,36);fill2.position.set(-12,8,-4);INT.add(fill2);
+var fill3=new THREE.PointLight(0xFFE8C0,.6,36);fill3.position.set(12,8,-4);INT.add(fill3);
+scene.add(new THREE.AmbientLight(0x55606e,1.0));
 
 /* ---------- custom orbit ---------- */
 var MODE='ext';
@@ -208,6 +214,7 @@ addEventListener('wheel',function(e){cur.r=Math.max(cur.min,Math.min(cur.max,cur
 var bExt=document.getElementById('bExt'),bInt=document.getElementById('bInt'),hint=document.getElementById('hint');
 function setMode(m){
   MODE=m;EXT.visible=(m==='ext');INT.visible=(m==='int');
+  camera.fov=(m==='int')?64:50;camera.updateProjectionMatrix();
   cur=Object.assign({},view[m]);
   bExt.classList.toggle('on',m==='ext');bInt.classList.toggle('on',m==='int');
   hint.textContent=m==='ext'?'מבט חוץ — שימו לב לקשתות בית המדרש ולפרגולת החופות על הגג'
