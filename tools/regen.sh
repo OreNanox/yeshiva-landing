@@ -33,6 +33,19 @@ for v in 12 13 14 15 16 17 18; do
     "$(grep -o 'logo-[a-z]*\.png' "v$v.html" | head -1)"
 done
 
+# ── index.html: the chosen style, served at the site root ────────────────────
+# v11 "לילה וזהב" was chosen by the client on 17.08. index.html is generated from
+# v11 rather than hand-maintained, so the root can never drift from the flagship.
+# To switch styles later: change CHOSEN below and re-run.
+CHOSEN=11
+if [[ "$CHOSEN" == "11" ]]; then
+  # og:url must point at the root, not at v11.html
+  sed 's|/yeshiva-landing/v11\.html|/yeshiva-landing/|' .v11.norm > index.html
+else
+  sed 's|/yeshiva-landing/v'"$CHOSEN"'\.html|/yeshiva-landing/|' "v$CHOSEN.html" > index.html
+fi
+printf 'index.html   %s lines  (= v%s, og:url → site root)\n' "$(wc -l < index.html)" "$CHOSEN"
+
 rm -f .v11.norm
 echo
-echo "regenerated 7 pages from v11.html"
+echo "regenerated 7 style pages + index.html from v11.html"

@@ -169,4 +169,4 @@ git add -A && git commit -m "..." && git push origin main
 - דף הדגל: https://orenanox.github.io/yeshiva-landing/v11.html (וכן v12/v13/v14)
 - מאגר: https://github.com/OreNanox/yeshiva-landing
 - VPS: http://78.46.133.137:8090/ (אותם נתיבים)
-- דור קודם (10 עיצובים): https://orenanox.github.io/yeshiva-landing/index.html
+- דור קודם (10 עיצובים): https://orenanox.github.io/yeshiva-landing/old-designs.html
