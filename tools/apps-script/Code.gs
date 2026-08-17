@@ -10,7 +10,9 @@
  *
  * ── SET THESE TWO ─────────────────────────────────────────────────────────── */
 
-var TEAM_EMAIL = 'REPLACE_WITH_YESHIVA_EMAIL@example.com';  // ← where applications arrive
+// Where applications arrive. Set to the yeshiva's address supplied 17.08.
+// Change this if applications should go somewhere more specific than the general inbox.
+var TEAM_EMAIL = 'info@yarenunissim.com';
 var ALSO_LOG_TO_SHEET = true;   // keep a spreadsheet log so no application is ever lost
 
 /* ─────────────────────────────────────────────────────────────────────────── */
@@ -153,9 +155,22 @@ function setupSheet_(sh) {
 /** Run once from the editor to create + format the sheet before going live. */
 function setupNow() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    throw new Error(
+      'הסקריפט אינו מקושר לגיליון. חובה לפתוח את הגיליון המשותף ולבחור ' +
+      'תוספים → Apps Script — ולא ליצור סקריפט עצמאי.');
+  }
   var sh = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
   if (sh.getLastRow() === 0) setupSheet_(sh);
-  Logger.log('sheet ready: ' + SHEET_NAME);
+
+  // remove the leftover default tab so the team sees one clean sheet
+  ss.getSheets().forEach(function (s) {
+    if (s.getName() !== SHEET_NAME && s.getLastRow() === 0 && ss.getSheets().length > 1) {
+      ss.deleteSheet(s);
+    }
+  });
+
+  Logger.log('sheet ready: ' + SHEET_NAME + ' in "' + ss.getName() + '"');
 }
 
 /** GET returns a plain heartbeat so the deployment can be verified in a browser. */
