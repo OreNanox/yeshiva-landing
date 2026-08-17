@@ -83,17 +83,79 @@ function doPost(e) {
   }
 }
 
-/** Appends to a sheet bound to this script, creating the header row on first use. */
+/* ── shared tracking sheet ──────────────────────────────────────────────────
+   The sheet is not just a log — it is the team's working tool. Two extra
+   columns (סטטוס, הערות צוות) belong to the team and are never overwritten,
+   because new applications are only ever appended below.                      */
+
+var STATUSES = ['חדש', 'נוצר קשר', 'נקבע ראיון', 'רואיין', 'התקבל', 'לא מתאים'];
+var SHEET_NAME = 'מועמדויות';
+
 function logRow_(d) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   if (!ss) return;
-  var sh = ss.getSheetByName('מועמדויות') || ss.insertSheet('מועמדויות');
-  if (sh.getLastRow() === 0) {
-    sh.appendRow(['תאריך'].concat(FIELDS.map(function (f) { return f[1]; })).concat(['דף']));
-  }
-  sh.appendRow([new Date()].concat(FIELDS.map(function (f) {
-    return d[f[0]] ? String(d[f[0]]).trim() : '';
-  })).concat([d.page || '']));
+
+  var sh = ss.getSheetByName(SHEET_NAME);
+  if (!sh) { sh = ss.insertSheet(SHEET_NAME); }
+  if (sh.getLastRow() === 0) { setupSheet_(sh); }
+
+  sh.appendRow(
+    [new Date()]
+      .concat(FIELDS.map(function (f) { return d[f[0]] ? String(d[f[0]]).trim() : ''; }))
+      .concat([d.page || '', STATUSES[0], ''])
+  );
+
+  var row = sh.getLastRow();
+  // status dropdown on the new row so the team can triage without typing
+  sh.getRange(row, FIELDS.length + 3).setDataValidation(
+    SpreadsheetApp.newDataValidation().requireValueInList(STATUSES, true).build()
+  );
+  sh.getRange(row, 1).setNumberFormat('dd/mm/yyyy HH:mm');
+  sh.getRange(row, 1, 1, FIELDS.length + 4).setVerticalAlignment('top');
+}
+
+/** One-time formatting so the sheet is readable in Hebrew and easy to scan. */
+function setupSheet_(sh) {
+  var headers = ['תאריך']
+    .concat(FIELDS.map(function (f) { return f[1]; }))
+    .concat(['דף', 'סטטוס', 'הערות צוות']);
+
+  sh.appendRow(headers);
+  sh.setRightToLeft(true);                       // Hebrew reading order
+  sh.setFrozenRows(1);                           // header stays visible while scrolling
+  sh.getRange(1, 1, 1, headers.length)
+    .setFontWeight('bold').setBackground('#0A1626').setFontColor('#E4BC62')
+    .setVerticalAlignment('middle');
+  sh.setRowHeight(1, 34);
+
+  var widths = [130, 150, 120, 200, 55, 110, 190, 420, 90, 110, 220];
+  widths.forEach(function (w, i) { if (i < headers.length) sh.setColumnWidth(i + 1, w); });
+
+  // the free-text answer is long — wrap it instead of letting it run off screen
+  sh.getRange(1, FIELDS.length + 1, sh.getMaxRows(), 1).setWrap(true);
+
+  // colour-code the status column so the funnel is readable at a glance
+  var statusCol = sh.getRange(2, FIELDS.length + 3, sh.getMaxRows() - 1, 1);
+  var rules = [
+    ['חדש',        '#FFF3CD'],
+    ['נוצר קשר',   '#D9E7FB'],
+    ['נקבע ראיון', '#D6E9D5'],
+    ['רואיין',     '#CFE3F7'],
+    ['התקבל',      '#B7E1B0'],
+    ['לא מתאים',   '#F2D6D3']
+  ].map(function (p) {
+    return SpreadsheetApp.newConditionalFormatRule()
+      .whenTextEqualTo(p[0]).setBackground(p[1]).setRanges([statusCol]).build();
+  });
+  sh.setConditionalFormatRules(rules);
+}
+
+/** Run once from the editor to create + format the sheet before going live. */
+function setupNow() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+  if (sh.getLastRow() === 0) setupSheet_(sh);
+  Logger.log('sheet ready: ' + SHEET_NAME);
 }
 
 /** GET returns a plain heartbeat so the deployment can be verified in a browser. */
