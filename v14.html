@@ -185,6 +185,32 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .deadline{margin:2.6rem auto 0;display:inline-flex;align-items:center;gap:.7rem;background:rgba(228,188,98,.1);
   border:1px solid var(--gold);border-radius:4px;padding:.9rem 1.6rem;color:var(--gold-soft);font-weight:600}
 
+/* ===== dormitory ===== */
+.dorm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-top:3rem;max-width:52rem;margin-inline:auto}
+@media (max-width:640px){.dorm-grid{grid-template-columns:1fr}}
+.dorm-shot{aspect-ratio:4/3;border-radius:6px;overflow:hidden;border:1px solid var(--line);position:relative;background:var(--deep)}
+.dorm-shot img{width:100%;height:100%;object-fit:cover;display:block}
+/* honest placeholder — no invented photograph, clearly awaiting a real one */
+.dorm-shot.await{display:grid;place-items:center;gap:.7rem;border-style:dashed;
+  background:linear-gradient(180deg,var(--raised),var(--deep));text-align:center;padding:1.5rem}
+.dorm-shot.await svg{width:2.1rem;height:2.1rem;color:var(--gold);opacity:.75}
+.dorm-shot.await span{color:var(--faint);font-size:.88rem;line-height:1.6;max-width:16rem}
+.dorm-note{margin:2.2rem auto 0;max-width:40rem;color:var(--gold-soft);font-weight:600;font-size:1rem;
+  background:rgba(228,188,98,.08);border:1px solid var(--line);border-radius:6px;padding:1rem 1.3rem}
+
+/* ===== FAQ (native details/summary — keyboard + screen-reader friendly) ===== */
+.faq{max-width:46rem;margin:3rem auto 0;text-align:start}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details[open]{background:rgba(228,188,98,.03)}
+.faq summary{cursor:pointer;list-style:none;padding:1.35rem 1rem;font-family:var(--serif);font-weight:700;
+  font-size:1.08rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:color .2s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--gold)}
+.faq summary:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.faq summary::after{content:"+";color:var(--gold);font-size:1.5rem;font-weight:400;line-height:1;flex:none;transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .anc{margin:0;padding:0 1rem 1.5rem;color:var(--soft);font-size:1rem;line-height:1.8}
+
 /* ===== form ===== */
 .form-sec{background:linear-gradient(180deg,var(--deep),var(--ink));border-top:1px solid var(--line);position:relative;overflow:hidden}
 form{margin:3rem auto 0;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;max-width:42rem;text-align:right;position:relative}
@@ -321,8 +347,9 @@ nav.scrolled{background:rgba(25,13,19,.92)}
     <p class="prose rv">לפני יותר מעשרים שנה התיישב הרב רפאל רובין ללמוד בליל שבת עם שני בחורים. השיעור הזה לא הפסיק מאז — הוא גדל מפעם בשבוע לכל יום, ומהשיעור נבנה בית שלם: קהילה, פעילות לכל הגילאים, ופעילות הנוער "הלב היהודי" שאלפי בחורים עברו בה.<br/><br/><strong>הישיבה היא לא מוסד שנבנה יש מאין — היא הקומה הבאה של אותו בית.</strong></p>
     <div class="frame rv">
       <div class="gal" id="storyGal">
-        <img src="img/opt/shiur.jpg" alt="השיעור של הרב רפאל רובין בליל שבת" class="on" data-cap="השיעור של ליל שבת — הלב שממנו הכול צמח" width="1200" height="800" />
-        <img src="img/opt/harav-hug.jpg" alt="הרב רפאל רובין מחבק בחור" loading="lazy" data-cap="הקשר כאן אישי. כל בחור — בשמו, בסיפור שלו" width="1200" height="800" />
+        <!-- shiur.jpg removed 17.08 — the client identified it as ~7-8 years old.
+             Replace with a current beit-midrash photo when one is supplied. -->
+        <img src="img/opt/harav-hug.jpg" alt="הרב רפאל רובין מחבק בחור" class="on" data-cap="הקשר כאן אישי. כל בחור — בשמו, בסיפור שלו" width="1200" height="800" />
         <img src="img/opt/harav-field.jpg" alt="הרב רפאל רובין מדבר עם קבוצת נוער במגרש" loading="lazy" data-cap="״הלב היהודי״ — עשרים שנה עם הנוער של נתניה, גם על הדשא" width="1200" height="800" />
         <div class="gal-cap" id="galCap">השיעור של ליל שבת — הלב שממנו הכול צמח</div>
       </div>
@@ -390,6 +417,29 @@ nav.scrolled{background:rgba(25,13,19,.92)}
 </section>
 <style>@media (max-width:820px){#day .cards{grid-template-columns:1fr!important}}</style>
 
+<section id="dorm" style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker rv">הפנימייה</div>
+    <h2 class="rv">בית, לא פנימייה של ילדים.</h2>
+    <p class="prose rv">חדרים במתחם בנתניה, במרחק דקות הליכה מבית המדרש. שניים־שלושה בחורים לחדר, מיטה ושולחן לכל אחד, מקלחות ומטבחון בקומה, וכיבוד וכיבוס מסודרים. <strong>הכול בגובה של מבוגרים אחרי צבא</strong> — עם שקט לישון, מקום ללמוד, ופינה לשבת בה עם חברותא בשתיים בלילה.</p>
+
+    <div class="dorm-grid rv">
+      <!-- PLACEHOLDER — no dormitory photograph exists in the project Drive (checked 17.08).
+           Replace with real photos: 4:3 crop, daylight, tidy room, no people's faces needed. -->
+      <div class="dorm-shot await" data-needs-photo="חדר פנימייה — מבט כללי">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M5 10V7a2 2 0 012-2h10a2 2 0 012 2v3"/><path d="M2 18h20"/></svg>
+        <span>תמונת חדר הפנימייה — בהכנה</span>
+      </div>
+      <div class="dorm-shot await" data-needs-photo="הפנימייה — פינת לימוד / מטבחון">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M9 7h6M9 11h6"/></svg>
+        <span>פינת הלימוד במתחם — בהכנה</span>
+      </div>
+    </div>
+
+    <p class="dorm-note rv">בשלב הראשון המסגרת היא <strong>בתנאי פנימייה בלבד</strong> — הלינה היא חלק מהחוויה, לא תוספת.</p>
+  </div>
+</section>
+
 <section id="process" style="padding-top:0">
   <div class="wrap">
     <div class="kicker rv">התהליך והמועדים</div>
@@ -409,6 +459,29 @@ nav.scrolled{background:rgba(25,13,19,.92)}
       <div class="dline"><div class="mark open" aria-hidden="true"></div><div><b>פרטים ומועדים מדויקים</b><span>יימסרו בהמשך, ישירות למועמדים שיגישו — כולל שעות, מקום וסדר הראיון.</span></div></div>
     </div>
     <div class="deadline rv"><span aria-hidden="true">◆</span><span>ההרשמה נסגרת בכ׳ באלול</span></div>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker rv">שאלות שחוזרות</div>
+    <h2 class="rv">מה שבחורים שואלים אותנו לפני שהם מגיעים.</h2>
+    <p class="prose rv">שלוש שאלות שעולות כמעט בכל שיחה. אם נשארה לך עוד אחת — כתוב אותה בטופס ההרשמה, ונענה בשיחה.</p>
+
+    <div class="faq rv">
+      <details>
+        <summary>מה בדיוק כולל הזמן בישיבה, ומה התנאים?</summary>
+        <p class="anc">את כל הפרטים — סדר היום, התנאים והמסגרת הכספית — נעבור יחד <strong>בראיון האישי</strong>. אנחנו מעדיפים לדבר על זה פנים אל פנים ולא בשורה באתר, כדי שנוכל לענות בדיוק על מה שחשוב לך ולהתאים את התשובה אליך.</p>
+      </details>
+      <details>
+        <summary>ואם אחרי שבוע אני מבין שזה לא בשבילי?</summary>
+        <p class="anc">אז אתה עוצר. <strong>אפשר לסיים בכל שלב, בלי הסברים ובלי מחויבות</strong> — וזה בסדר גמור. בדיוק בשביל זה בנינו כניסה מדורגת: לילה אחד, שבוע, חודש ניסיון. כל שלב עומד בפני עצמו, ואף אחד לא ילחץ עליך להמשיך לשלב הבא לפני שאתה רוצה.</p>
+      </details>
+      <details>
+        <summary>אפשר להגיע רק לסדרים ולישון בבית?</summary>
+        <p class="anc">בשלב הזה — לא. <strong>המסגרת הראשונית היא בתנאי פנימייה בלבד</strong>, והלינה במתחם היא חלק מהעניין: הערבים, הניגון והשיחות אחרי הסדר הם חצי מהשנה הזאת. אם יש לך נסיבות מיוחדות, ספר עליהן בטופס ונראה מה אפשר לעשות.</p>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -538,10 +611,14 @@ nav.scrolled{background:rgba(25,13,19,.92)}
   carousel('#storyGal img',document.getElementById('galDots'),4600,function(el){gCap.textContent=el.dataset.cap});
 
   /* ===================== form =====================
-     SUBMIT_ENDPOINT must be an HTTPS endpoint that emails the yeshiva team.
-     See tools/apps-script/README.md for the 3-minute deploy.
-     No mailto, ever: the candidate never opens an email client.        */
-  var SUBMIT_ENDPOINT = "";
+     FormSubmit relays the submission to the team by email. Chosen because it
+     needs no account, no API key, no Google, and no code hosted anywhere —
+     only an HTTPS POST. Nothing secret lives here: the endpoint can do exactly
+     one thing, email the fixed addresses below.
+     No mailto, ever: the candidate never opens an email client.
+     See tools/form-backend.md                                          */
+  var SUBMIT_ENDPOINT = "https://formsubmit.co/ajax/info@yarenunissim.com";
+  var NOTIFY_CC       = "mak720431@gmail.com";
 
   var form=document.getElementById('applyForm'),
       msg=document.getElementById('formMsg'),
@@ -615,18 +692,25 @@ nav.scrolled{background:rgba(25,13,19,.92)}
     btn.disabled=true; btn.textContent='שולח…';
     msg.className='form-msg'; msg.textContent='';
 
-    d.page=location.pathname.replace(/^.*\//,'');
-    d.sentAt=new Date().toISOString();
+    /* Hebrew labels so the e-mail the team receives is readable, not field keys */
+    var payload={
+      "שם מלא":d.name, "טלפון":d.phone, "כתובת מייל":d.email, "גיל":d.age,
+      "עיר מגורים":d.city||'—', "מה עושה היום":d.now||'—', "על עצמי / למה עכשיו":d.about,
+      "הגיע מהדף":location.pathname.replace(/^.*\//,''),
+      _subject:'מועמדות חדשה — '+d.name,
+      _cc:NOTIFY_CC,
+      _template:'table',
+      _captcha:'false'
+    };
 
     fetch(SUBMIT_ENDPOINT,{
       method:'POST',
-      /* text/plain keeps this a CORS "simple request" — no preflight, which
-         Google Apps Script web apps do not answer. Body is still JSON. */
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify(d)
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload)
     })
     .then(function(r){return r.text().then(function(t){
-      var ok=false;try{ok=JSON.parse(t).ok===true}catch(e){ok=r.ok}
+      var ok=false;
+      try{var j=JSON.parse(t);ok=(j.success===true||j.success==='true');}catch(e){ok=r.ok}
       if(!ok)throw new Error('rejected');
     })})
     .then(function(){
