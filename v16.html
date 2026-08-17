@@ -624,15 +624,15 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
   carousel('#storyGal img',document.getElementById('galDots'),4600,function(el){gCap.textContent=el.dataset.cap});
 
   /* ===================== form =====================
-     Web3Forms relays the submission to the team by email.
-     FormSubmit was tested and rejected: it returned success while delivering
-     completely empty e-mails — see tools/form-backend.md.
-     ACCESS_KEY is a public form id by design (Web3Forms: "This is a public key,
-     you can use it in client side code"). It reveals no e-mail address, so no
-     recipient address appears anywhere in this public file.
+     Posts to a Google Apps Script Web App bound to the shared tracking sheet.
+     Recipient addresses live in that script, server-side — so no e-mail address
+     appears anywhere in this public file, and both team addresses still receive
+     every application.
+     Third-party form relays were tried and dropped: FormSubmit returned success
+     while delivering empty e-mails; Web3Forms confirmed receipt but delivery was
+     never observed. See tools/apps-script/README.md.
      No mailto, ever: the candidate never opens an email client.            */
-  var SUBMIT_ENDPOINT = "https://api.web3forms.com/submit";
-  var ACCESS_KEY      = "bc0a00b5-c9d5-4cb8-a1e9-b09537ae29c6";
+  var SUBMIT_ENDPOINT = "";   /* ← paste the Apps Script /exec URL here */
 
   var form=document.getElementById('applyForm'),
       msg=document.getElementById('formMsg'),
@@ -706,24 +706,20 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
     btn.disabled=true; btn.textContent='שולח…';
     msg.className='form-msg'; msg.textContent='';
 
-    /* Hebrew labels so the e-mail the team receives is readable, not field keys */
-    var payload={
-      access_key:ACCESS_KEY,
-      subject:'מועמדות חדשה — '+d.name,
-      from_name:'טופס מועמדות — ישיבת יראנו ניסים',
-      "שם מלא":d.name, "טלפון":d.phone, "כתובת מייל":d.email, "גיל":d.age,
-      "עיר מגורים":d.city||'—', "מה עושה היום":d.now||'—', "על עצמי / למה עכשיו":d.about,
-      "הגיע מהדף":location.pathname.replace(/^.*\//,'')
-    };
+    /* the script turns these keys into Hebrew labels in the e-mail it sends */
+    d.page=location.pathname.replace(/^.*\//,'');
+    d.sentAt=new Date().toISOString();
 
     fetch(SUBMIT_ENDPOINT,{
       method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(payload)
+      /* text/plain keeps this a CORS "simple request" — no preflight, which
+         Apps Script web apps do not answer. The body is still JSON. */
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(d)
     })
     .then(function(r){return r.text().then(function(t){
       var ok=false;
-      try{var j=JSON.parse(t);ok=(j.success===true||j.success==='true');}catch(e){ok=r.ok}
+      try{ok=JSON.parse(t).ok===true}catch(e){ok=false}
       if(!ok)throw new Error('rejected');
     })})
     .then(function(){
