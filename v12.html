@@ -623,15 +623,15 @@ input,textarea{background:#fff;border-color:rgba(122,95,32,.3);color:#202C3A}
   carousel('#storyGal img',document.getElementById('galDots'),4600,function(el){gCap.textContent=el.dataset.cap});
 
   /* ===================== form =====================
-     FormSubmit relays the submission to the team by email. Chosen because it
-     needs no account, no API key, no Google, and no code hosted anywhere —
-     only an HTTPS POST.
-     No e-mail address appears anywhere in this file by design: the endpoint is
-     FormSubmit's opaque alias, so the team's addresses cannot be harvested from
-     the public source. Recipients are configured on FormSubmit's side.
-     No mailto, ever: the candidate never opens an email client.
-     See tools/form-backend.md                                          */
-  var SUBMIT_ENDPOINT = "";   /* ← paste the FormSubmit alias endpoint here */
+     Web3Forms relays the submission to the team by email.
+     FormSubmit was tested and rejected: it returned success while delivering
+     completely empty e-mails — see tools/form-backend.md.
+     ACCESS_KEY is a public form id by design (Web3Forms: "This is a public key,
+     you can use it in client side code"). It reveals no e-mail address, so no
+     recipient address appears anywhere in this public file.
+     No mailto, ever: the candidate never opens an email client.            */
+  var SUBMIT_ENDPOINT = "https://api.web3forms.com/submit";
+  var ACCESS_KEY      = "bc0a00b5-c9d5-4cb8-a1e9-b09537ae29c6";
 
   var form=document.getElementById('applyForm'),
       msg=document.getElementById('formMsg'),
@@ -707,12 +707,12 @@ input,textarea{background:#fff;border-color:rgba(122,95,32,.3);color:#202C3A}
 
     /* Hebrew labels so the e-mail the team receives is readable, not field keys */
     var payload={
+      access_key:ACCESS_KEY,
+      subject:'מועמדות חדשה — '+d.name,
+      from_name:'טופס מועמדות — ישיבת יראנו ניסים',
       "שם מלא":d.name, "טלפון":d.phone, "כתובת מייל":d.email, "גיל":d.age,
       "עיר מגורים":d.city||'—', "מה עושה היום":d.now||'—', "על עצמי / למה עכשיו":d.about,
-      "הגיע מהדף":location.pathname.replace(/^.*\//,''),
-      _subject:'מועמדות חדשה — '+d.name,
-      _template:'table',
-      _captcha:'false'
+      "הגיע מהדף":location.pathname.replace(/^.*\//,'')
     };
 
     fetch(SUBMIT_ENDPOINT,{
