@@ -1,0 +1,24 @@
+<style id="theme-modern">
+:root{--ink:#F7F9FC;--deep:#EBF1F8;--raised:#FFFFFF;--text:#122135;--soft:#3D5164;--faint:#647488;--gold:#1F5EDB;--gold-soft:#1848A8;--line:rgba(31,94,219,.16);--err:#c0392b}
+h1,h2,.rav-hero h3,.card h3{font-family:var(--sans);font-weight:800;letter-spacing:-.02em}
+.stat b,.num{font-family:var(--sans);font-weight:800}
+body::after{opacity:.025}
+nav.scrolled{background:rgba(247,249,252,.94);box-shadow:0 1px 0 rgba(18,33,53,.08)}
+.navcta{color:#fff;border-radius:99px}
+.btn{border-radius:99px}
+.btn-gold{color:#fff}
+.submit button{color:#fff;border-radius:99px}
+.card,.rav-hero{border-radius:16px;box-shadow:0 10px 30px rgba(18,33,53,.07)}
+.card:hover{box-shadow:0 24px 48px rgba(18,33,53,.13)}
+header{color:#F1EADC}
+.hero-over{color:#9DC1FF}
+h1{color:#FFFFFF}
+h1 .l2{color:#BAD4FF}
+header .lede{color:#D9E4F2}
+.btn-ghost{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(18,33,53,.3)}
+.q-slide blockquote{font-family:var(--sans);font-weight:700}
+input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;border-radius:10px}
+.form-msg.ok{background:rgba(31,94,219,.06)}
+.q-dot{background:rgba(31,94,219,.25)}
+.kicker{letter-spacing:.14em}
+</style>

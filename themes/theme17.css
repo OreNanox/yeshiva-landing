@@ -1,0 +1,22 @@
+<style id="theme-shacharit">
+/* שחרית — אור בוקר, תכלת ולבן, כותרות ספריות */
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&display=swap');
+:root{--ink:#EFF5FB;--deep:#E1EBF6;--raised:#FFFFFF;--text:#132A44;--soft:#3E5876;--faint:#5c7188;--gold:#1E5FA8;--gold-soft:#174B86;--line:rgba(30,95,168,.2);--err:#c0392b}
+h1,h2,.rav-hero h3,.card h3,.q-slide blockquote{font-family:"Frank Ruhl Libre",serif}
+body::after{opacity:.03}
+nav.scrolled{background:rgba(239,245,251,.94);box-shadow:0 1px 0 rgba(19,42,68,.08)}
+.navcta{color:#fff}
+.btn-gold{color:#fff}
+.submit button{color:#fff}
+header{color:#F4F8FC}
+.hero-over{color:#A9CBF2}
+h1{color:#FFFFFF}
+h1 .l2{color:#C6DDF7}
+header .lede{color:#DCE8F4}
+.btn-ghost{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(19,42,68,.32)}
+.card,.rav-hero{box-shadow:0 10px 30px rgba(19,42,68,.08)}
+.card:hover{box-shadow:0 24px 48px rgba(19,42,68,.14)}
+input,textarea{background:#fff;border-color:rgba(19,42,68,.2);color:#132A44}
+.form-msg.ok{background:rgba(30,95,168,.06)}
+.q-dot{background:rgba(30,95,168,.25)}
+</style>

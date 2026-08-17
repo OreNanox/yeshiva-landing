@@ -1,0 +1,20 @@
+<style id="theme-midbar">
+/* מדבר — חול חם, שמש ראשונה, טרקוטה */
+:root{--ink:#F2E8D8;--deep:#EADCC5;--raised:#FFFDF8;--text:#38281A;--soft:#6B573F;--faint:#756653;--gold:#B4652A;--gold-soft:#8F4E1E;--line:rgba(143,78,30,.24);--err:#b83729}
+body::after{opacity:.05}
+nav.scrolled{background:rgba(242,232,216,.93);box-shadow:0 1px 0 rgba(143,78,30,.22)}
+.navcta{color:#fff}
+.btn-gold{color:#fff}
+.submit button{color:#fff}
+header{color:#F5EDDD}
+.hero-over{color:#E8B57E}
+h1{color:#F7F0E2}
+h1 .l2{color:#EFC89A}
+header .lede{color:#E6DBC8}
+.btn-ghost{color:#F5EDDD;border-color:rgba(245,237,221,.45);background:rgba(40,25,12,.32)}
+.card,.rav-hero{box-shadow:0 10px 30px rgba(56,40,26,.1)}
+.card:hover{box-shadow:0 22px 44px rgba(56,40,26,.16)}
+input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
+.form-msg.ok{background:rgba(180,101,42,.08)}
+.q-dot{background:rgba(143,78,30,.25)}
+</style>

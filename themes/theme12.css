@@ -1,0 +1,19 @@
+<style id="theme-klaf">
+:root{--ink:#F5EFE2;--deep:#EDE4D1;--raised:#FFFFFF;--text:#202C3A;--soft:#4C5D70;--faint:#5f6c7a;--gold:#A6832C;--gold-soft:#8A6B1F;--line:rgba(122,95,32,.22);--err:#c0392b}
+body::after{opacity:.04}
+nav.scrolled{background:rgba(245,239,226,.93);box-shadow:0 1px 0 rgba(122,95,32,.2)}
+.navcta{color:#fff}
+.btn-gold{color:#fff}
+.submit button{color:#fff}
+header{color:#F1EADC}
+.hero-over{color:#E4BC62}
+h1{color:#F5EFE2}
+h1 .l2{color:#F0D18C}
+header .lede{color:#DCE2EA}
+.btn-ghost{color:#F1EADC;border-color:rgba(241,234,220,.45);background:rgba(10,22,38,.3)}
+.card,.rav-hero{box-shadow:0 10px 30px rgba(32,44,58,.08)}
+.card:hover{box-shadow:0 22px 44px rgba(32,44,58,.15)}
+input,textarea{background:#fff;border-color:rgba(122,95,32,.3);color:#202C3A}
+.form-msg.ok{background:rgba(166,131,44,.08)}
+.q-dot{background:rgba(122,95,32,.25)}
+</style>

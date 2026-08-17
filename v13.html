@@ -4,11 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ישיבת יראנו ניסים · תן לעצמך שנה</title>
-<meta name="description" content="ישיבה חדשה לבוגרי צבא בנתניה — תן לעצמך שנה. תגלה מי אתה. תחזור הביתה. ההרשמה לזמן חשוון תשפ״ז פתוחה." />
+<meta name="description" content="ישיבה לבוגרי צבא בנתניה — תן לעצמך שנה. תגלה מי אתה. תחזור הביתה. ראיונות הקבלה מתקיימים במהלך חודש אלול, ההרשמה נסגרת בכ׳ באלול." />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ישיבת יראנו ניסים" />
 <meta property="og:title" content="תן לעצמך שנה · ישיבת יראנו ניסים" />
-<meta property="og:description" content="ישיבה חדשה לבוגרי צבא 21–24, בבית שצומח בנתניה כבר עשרים שנה. ההרשמה לזמן חשוון תשפ״ז פתוחה." />
+<meta property="og:description" content="ישיבה לבוגרי צבא 21–24, בבית שצומח בנתניה כבר עשרים שנה. ראיונות קבלה במהלך אלול · ההרשמה נסגרת בכ׳ באלול." />
 <meta property="og:url" content="https://orenanox.github.io/yeshiva-landing/v13.html" />
 <meta property="og:image" content="https://orenanox.github.io/yeshiva-landing/img/harav-og.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -17,6 +17,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="img/opt/harav-hero.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ===== palette: 2 colors only — deep navy + gold (principle 8) ===== */
@@ -26,6 +27,8 @@
   --gold:#E4BC62; --gold-soft:#F0D18C; --line:rgba(228,188,98,.16);
   --serif:"Rubik","Assistant","Arial Hebrew",system-ui,sans-serif;
   --sans:"Assistant","Rubik","Segoe UI",system-ui,sans-serif;
+  --err:#e8a49c;
+  --space:clamp(5rem,13vh,9rem);
 }
 *{box-sizing:border-box} html{scroll-behavior:smooth}
 html,body{margin:0;padding:0}
@@ -33,18 +36,25 @@ body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height
 ::selection{background:var(--gold);color:var(--ink)}
 img{max-width:100%}
 
-/* ===== texture everywhere — grain overlay (principle 2) ===== */
+/* ===== accessibility: visible focus + skip link ===== */
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;inset-inline-start:-9999px;top:0;z-index:100;background:var(--gold);color:var(--ink);
+  padding:.8rem 1.4rem;font-weight:700;text-decoration:none}
+.skip:focus{inset-inline-start:0}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ===== texture: inline grain only — zero network cost (principle 2) ===== */
 body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:6;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
 
 /* ===== everything centered, generous breathing room (principle 1) ===== */
 .wrap{width:min(100% - 3rem, 62rem);margin-inline:auto;text-align:center}
-section{padding-block:clamp(5rem,13vh,9rem);position:relative}
+section{padding-block:var(--space);position:relative}
 
 /* ===== typography: huge, confident, clear hierarchy (principle 4) ===== */
-h1{font-family:var(--serif);font-weight:900;font-size:clamp(3rem,10.5vw,7rem);line-height:1.04;margin:0 0 1.4rem;letter-spacing:-.02em}
-h1 .l2{display:block;font-weight:300;color:var(--gold-soft);font-size:.44em;margin-top:1rem;letter-spacing:.01em}
-h2{font-family:var(--serif);font-weight:800;font-size:clamp(2rem,5.4vw,3.6rem);line-height:1.15;margin:0 auto 1.4rem;max-width:26ch;letter-spacing:-.01em}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.7rem,10vw,7rem);line-height:1.04;margin:0 0 1.4rem;letter-spacing:-.02em}
+h1 .l2{display:block;font-weight:500;color:var(--gold-soft);font-size:.44em;margin-top:1rem;letter-spacing:.01em}
+h2{font-family:var(--serif);font-weight:800;font-size:clamp(1.85rem,5.2vw,3.6rem);line-height:1.15;margin:0 auto 1.4rem;max-width:26ch;letter-spacing:-.01em}
 .kicker{color:var(--gold);font-weight:500;letter-spacing:.22em;font-size:.88rem;margin-bottom:1.5rem;text-transform:uppercase}
 .kicker::after{content:"";display:block;width:3.2rem;height:1px;background:var(--gold);margin:1.1rem auto 0}
 .prose{color:var(--soft);max-width:42rem;margin-inline:auto;font-size:clamp(1.05rem,1.7vw,1.2rem)}
@@ -55,40 +65,42 @@ nav{position:fixed;top:0;inset-inline:0;z-index:50;padding:1rem 0;transition:.35
 nav.scrolled{background:rgba(10,22,38,.9);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
 nav .nwrap{width:min(100% - 3rem,72rem);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .brand{display:flex;align-items:center;gap:.75rem;color:var(--text);text-decoration:none}
-.brand img{height:2.5rem}
+.brand img{height:2.5rem;width:auto}
 .brand b{font-family:var(--serif);font-weight:500;font-size:1.05rem;white-space:nowrap}
 @media (max-width:640px){.brand b{display:none}}
 .navcta{font-size:.95rem;font-weight:600;color:var(--ink);background:var(--gold);text-decoration:none;padding:.6rem 1.3rem;border-radius:3px;transition:.2s ease;white-space:nowrap}
 .navcta:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 8px 24px rgba(228,188,98,.25)}
 
-/* ===== hero: full-bleed, slow zoom, everything centered (principles 1,2,6) ===== */
+/* ===== hero: full-bleed, the Rav dominant (principles 1,2,6) ===== */
 header{position:relative;min-height:100svh;display:flex;align-items:flex-end;justify-content:center;isolation:isolate;overflow:hidden;text-align:center}
-.hero-bg{position:absolute;inset:-4%;z-index:-2;background:url("img/harav.jpg") center 16%/cover no-repeat;animation:kenburns 26s ease-in-out infinite alternate}
+.hero-bg{position:absolute;inset:-4%;z-index:-2;background:url("img/opt/harav-hero.jpg") center 16%/cover no-repeat;animation:kenburns 26s ease-in-out infinite alternate}
 @media (max-width:768px){.hero-bg{background-position:center 10%}}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
 .hero-veil{position:absolute;inset:0;z-index:-1;
   background:radial-gradient(ellipse 100% 62% at 50% 28%, rgba(10,22,38,0) 0%, rgba(10,22,38,.42) 58%, rgba(10,22,38,.9) 100%),
              linear-gradient(180deg, rgba(10,22,38,.34), rgba(10,22,38,.18) 34%, rgba(10,22,38,.82) 72%, var(--ink) 100%)}
-.hero-inner{padding:34svh 1.5rem 4.5rem;max-width:56rem}
-.hero-over{color:var(--gold);letter-spacing:.28em;font-size:clamp(.8rem,1.6vw,.95rem);font-weight:500;margin-bottom:2rem;text-shadow:0 1px 10px rgba(10,22,38,.9),0 0 26px rgba(10,22,38,.8)}
+.hero-inner{padding:32svh 1.5rem 4.5rem;max-width:56rem}
+.hero-over{color:var(--gold);letter-spacing:.2em;font-size:clamp(.75rem,1.6vw,.95rem);font-weight:500;margin-bottom:2rem;text-shadow:0 1px 10px rgba(10,22,38,.9),0 0 26px rgba(10,22,38,.8)}
 h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
-.lede{color:var(--soft);font-size:clamp(1.08rem,2vw,1.3rem);max-width:38rem;margin:0 auto 3rem}
-.cta-row{display:flex;gap:1.1rem;justify-content:center;flex-wrap:wrap}
+.lede{color:var(--soft);font-size:clamp(1.08rem,2vw,1.3rem);max-width:38rem;margin:0 auto 2.6rem}
+/* one primary CTA, one quiet secondary link (principle: single clear CTA) */
+.cta-row{display:flex;flex-direction:column;align-items:center;gap:1.1rem}
 .btn{display:inline-block;text-decoration:none;font-weight:600;border-radius:3px;padding:1.1rem 2.6rem;font-size:1.1rem;transition:.22s ease}
-.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 10px 30px rgba(228,188,98,.18)}
 .btn-gold:hover{background:var(--gold-soft);transform:translateY(-3px) scale(1.02);box-shadow:0 14px 34px rgba(228,188,98,.3)}
 .btn-ghost{color:var(--text);border:1px solid rgba(241,234,220,.35);background:rgba(10,22,38,.35);backdrop-filter:blur(4px)}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+.quiet{color:var(--gold-soft);text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(240,209,140,.4);padding-bottom:.15rem;transition:.2s}
+.quiet:hover{color:var(--gold);border-bottom-color:var(--gold)}
 .scroll-hint{position:absolute;bottom:1.6rem;inset-inline:0;display:flex;justify-content:center;color:var(--gold);font-size:1.5rem;animation:float 2.4s ease-in-out infinite;opacity:.85}
 @keyframes float{50%{transform:translateY(9px)}}
 
-/* ===== animated counters (principle 3) ===== */
+/* ===== stats: only founded numbers (no invented metrics) ===== */
 .stats{border-block:1px solid var(--line);background:linear-gradient(180deg,var(--deep),var(--ink));position:relative;overflow:hidden}
-.stats::before{content:"";position:absolute;inset:0;background:url("img/kotel.jpg") center/cover no-repeat;opacity:.06}
-.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding-block:3.2rem;position:relative}
+.stats .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-block:3.2rem;position:relative}
 .stat b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,4.6vw,3.6rem);color:var(--gold);line-height:1.1}
 .stat span{color:var(--faint);font-size:.95rem}
-@media (max-width:640px){.stats .wrap{grid-template-columns:repeat(2,1fr);row-gap:2.2rem}}
+@media (max-width:640px){.stats .wrap{grid-template-columns:1fr;row-gap:2.2rem}}
 
 /* ===== icon cards instead of bullets (principle 5) ===== */
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:3.4rem}
@@ -101,25 +113,30 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .card .ico svg{width:1.5rem;height:1.5rem}
 .card h3{font-family:var(--serif);font-weight:700;font-size:1.22rem;margin:0 0 .55rem;line-height:1.35}
 .card p{margin:0;color:var(--faint);font-size:.95rem;line-height:1.7}
+/* soft note under the "who it's for" grid — requirements without a threatening checklist */
+.softnote{margin:2.4rem auto 0;max-width:44rem;color:var(--faint);font-size:.98rem;
+  border:1px dashed var(--line);border-radius:6px;padding:1.15rem 1.4rem;background:rgba(228,188,98,.03)}
+.softnote strong{color:var(--gold-soft);font-weight:600}
 
 /* ===== quote carousel (principle 7) ===== */
 .quotes{background:linear-gradient(180deg,var(--ink),var(--deep) 40%,var(--ink));border-block:1px solid var(--line);overflow:hidden;position:relative}
-.quotes::before{content:"";position:absolute;inset:0;background:url("img/yad.jpg") center/cover no-repeat;opacity:.07}
 .q-track{position:relative;min-height:19rem}
 .q-slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;
   opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;pointer-events:none;padding-inline:1rem}
 .q-slide.on{opacity:1;transform:none;pointer-events:auto}
 .q-face{width:5.2rem;height:5.2rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;object-position:center 20%}
-.q-slide blockquote{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(1.35rem,3.4vw,2.1rem);line-height:1.45;color:var(--gold-soft);max-width:44rem}
+.q-slide blockquote{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(1.2rem,3.4vw,2.1rem);line-height:1.45;color:var(--gold-soft);max-width:44rem}
 .q-slide cite{font-style:normal;color:var(--faint);font-size:.98rem}
 .q-dots{display:flex;gap:.6rem;justify-content:center;margin-top:2rem}
-.q-dot{width:.55rem;height:.55rem;border-radius:50%;background:rgba(228,188,98,.25);border:0;cursor:pointer;transition:.25s;padding:0}
-.q-dot.on{background:var(--gold);transform:scale(1.35)}
+.q-dot{width:1.5rem;height:1.5rem;border-radius:50%;background:transparent;border:0;cursor:pointer;transition:.25s;padding:0;
+  display:grid;place-items:center}
+.q-dot::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:rgba(228,188,98,.25);transition:.25s}
+.q-dot.on::before{background:var(--gold);transform:scale(1.35)}
 
 /* ===== story: centered narrative + crossfading gallery ===== */
 .frame{margin:3.4rem auto 0;max-width:52rem;position:relative}
 .frame::before{content:"";position:absolute;inset:1.2rem -1.2rem -1.2rem 1.2rem;border:1px solid var(--line);border-radius:6px;z-index:-1}
-.gal{position:relative;aspect-ratio:3/2;border-radius:6px;overflow:hidden}
+.gal{position:relative;aspect-ratio:3/2;border-radius:6px;overflow:hidden;background:var(--deep)}
 .gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease;filter:saturate(.94)}
 .gal img.on{opacity:1}
 .gal-cap{position:absolute;inset-inline:0;bottom:0;padding:2.2rem 1.4rem 1.1rem;color:#F1EADC;font-size:.95rem;
@@ -128,27 +145,48 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 
 /* ===== full-bleed photo band ===== */
 .band{position:relative;isolation:isolate;padding-block:clamp(7rem,20vh,12rem);text-align:center;overflow:hidden}
-.band-bg{position:absolute;inset:0;z-index:-2;background:url("img/harav-field.jpg") center 32%/cover no-repeat}
+.band-bg{position:absolute;inset:0;z-index:-2;background:url("img/opt/harav-field.jpg") center 32%/cover no-repeat}
 .band-veil{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--ink) 0%,rgba(10,22,38,.55) 22%,rgba(10,22,38,.55) 78%,var(--ink) 100%)}
 .band h2{color:#F5EFE2;text-shadow:0 2px 20px rgba(10,22,38,.8)}
 .band .prose{color:#DCE3EB;text-shadow:0 1px 12px rgba(10,22,38,.85)}
 .band .kicker{text-shadow:0 1px 10px rgba(10,22,38,.9)}
 
-/* ===== rabbis ===== */
-.rav-hero{max-width:34rem;margin:3.2rem auto 1.4rem;background:linear-gradient(180deg,var(--raised),var(--deep));border:1px solid var(--gold);border-radius:6px;padding:2.8rem 2rem;position:relative;transition:.28s ease}
+/* ===== team: lead card + consistent person cards ===== */
+.rav-hero{max-width:34rem;margin:3.2rem auto 1.8rem;background:linear-gradient(180deg,var(--raised),var(--deep));border:1px solid var(--gold);border-radius:6px;padding:2.8rem 2rem;position:relative;transition:.28s ease}
 .rav-hero:hover{transform:translateY(-5px);box-shadow:0 24px 50px rgba(0,0,0,.4)}
 .rav-hero .tag{color:var(--gold);letter-spacing:.2em;font-size:.82rem;margin-bottom:.9rem}
-.rav-hero h3{font-family:var(--serif);font-weight:900;font-size:clamp(1.6rem,3.4vw,2.2rem);margin:0 0 .7rem}
-.rav-hero p{color:var(--soft);margin:0;max-width:26rem;margin-inline:auto}
+.rav-hero h3{font-family:var(--serif);font-weight:900;font-size:clamp(1.5rem,3.4vw,2.2rem);margin:0 0 .7rem}
+.rav-hero p{color:var(--soft);margin:0;max-width:28rem;margin-inline:auto}
+/* every person gets the SAME portrait geometry: 1:1 circle, identical crop + border */
+.portrait{width:8.5rem;height:8.5rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;
+  object-position:center 20%;display:block;margin:0 auto 1.4rem;background:var(--deep)}
+.portrait-sm{width:6.4rem;height:6.4rem;margin-bottom:1.1rem}
+/* quality monogram placeholder for team members with no real photograph yet */
+.mono{display:grid;place-items:center;background:
+  radial-gradient(circle at 50% 35%, rgba(228,188,98,.16), rgba(228,188,98,.04) 60%, transparent),
+  linear-gradient(180deg,var(--raised),var(--deep))}
+.mono span{font-family:var(--serif);font-weight:800;font-size:1.5rem;color:var(--gold);letter-spacing:.02em;line-height:1}
+.portrait-sm.mono span{font-size:1.25rem}
+.role{display:block;color:var(--gold);font-size:.84rem;letter-spacing:.12em;margin:.1rem 0 .7rem}
 
-/* ===== ladder ===== */
+/* ===== process ladder ===== */
 .hot{border-color:var(--gold)!important;background:linear-gradient(180deg,rgba(228,188,98,.1),var(--deep))!important}
 .free{display:inline-block;margin-top:1rem;color:var(--gold);font-size:.86rem;font-weight:600;letter-spacing:.06em}
 .num{font-family:var(--serif);font-weight:700;font-size:1.7rem;color:var(--gold);display:block;margin-bottom:.7rem}
 
+/* ===== registration dates ===== */
+.dates{max-width:46rem;margin:3rem auto 0;text-align:start;display:grid;gap:0}
+.dline{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;padding:1.35rem .2rem;border-bottom:1px solid var(--line)}
+.dline:last-child{border-bottom:0}
+.dline .mark{width:.65rem;height:.65rem;border-radius:50%;background:var(--gold);margin-top:.72rem}
+.dline .mark.open{background:transparent;border:1.5px solid var(--gold)}
+.dline b{font-family:var(--serif);font-weight:700;font-size:1.08rem;display:block;margin-bottom:.15rem}
+.dline span{color:var(--faint);font-size:.96rem;line-height:1.65}
+.deadline{margin:2.6rem auto 0;display:inline-flex;align-items:center;gap:.7rem;background:rgba(228,188,98,.1);
+  border:1px solid var(--gold);border-radius:4px;padding:.9rem 1.6rem;color:var(--gold-soft);font-weight:600}
+
 /* ===== form ===== */
 .form-sec{background:linear-gradient(180deg,var(--deep),var(--ink));border-top:1px solid var(--line);position:relative;overflow:hidden}
-.form-sec::before{content:"";position:absolute;inset:0;background:url("img/binyan.jpg") center/cover no-repeat;opacity:.05}
 form{margin:3rem auto 0;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;max-width:42rem;text-align:right;position:relative}
 @media (max-width:640px){form{grid-template-columns:1fr}}
 .field{display:flex;flex-direction:column;gap:.45rem}
@@ -156,28 +194,49 @@ form{margin:3rem auto 0;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;ma
 label{font-size:.95rem;font-weight:500;color:var(--soft)}
 label em{color:var(--gold);font-style:normal;font-size:.8rem;margin-inline-start:.35rem}
 input,textarea{background:rgba(10,22,38,.75);border:1px solid rgba(228,188,98,.25);border-radius:4px;color:var(--text);
-  font-family:var(--sans);font-size:16px;padding:1rem 1.1rem;transition:.2s}
+  font-family:var(--sans);font-size:16px;padding:1rem 1.1rem;transition:.2s;width:100%}
 input:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(228,188,98,.12)}
 textarea{min-height:9.5rem;resize:vertical}
+input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:#c86a5e;box-shadow:0 0 0 3px rgba(200,106,94,.12)}
+.ferr{color:var(--err);font-size:.85rem;min-height:1.1rem}
+.hp{position:absolute;inset-inline-start:-9999px;opacity:0;pointer-events:none}
 .submit{grid-column:1/-1;text-align:center;margin-top:.6rem}
 .submit button{all:unset;cursor:pointer;background:var(--gold);color:var(--ink);font-weight:700;font-size:1.12rem;
-  padding:1.15rem 3.4rem;border-radius:3px;transition:.22s ease}
+  padding:1.15rem 3.4rem;border-radius:3px;transition:.22s ease;display:inline-block}
 .submit button:hover{background:var(--gold-soft);transform:translateY(-3px) scale(1.02);box-shadow:0 14px 34px rgba(228,188,98,.28)}
+.submit button:focus-visible{outline:3px solid var(--gold-soft);outline-offset:3px}
+.submit button[disabled]{opacity:.6;cursor:progress;transform:none;box-shadow:none}
 .form-note{display:block;margin-top:1.1rem;color:var(--faint);font-size:.88rem}
+.disclaimer{grid-column:1/-1;margin-top:.2rem;color:var(--faint);font-size:.9rem;line-height:1.7;
+  border-top:1px solid var(--line);padding-top:1.3rem;text-align:center}
 .form-msg{grid-column:1/-1;display:none;padding:1rem 1.2rem;border-radius:4px;font-size:1rem;text-align:center}
 .form-msg.ok{display:block;background:rgba(228,188,98,.1);border:1px solid var(--gold);color:var(--gold-soft)}
-.form-msg.err{display:block;background:rgba(220,120,110,.1);border:1px solid rgba(220,120,110,.5);color:#e8a49c}
+.form-msg.err{display:block;background:rgba(220,120,110,.1);border:1px solid rgba(220,120,110,.5);color:var(--err)}
+/* success panel replaces the form entirely — nothing left to click, nothing to send */
+.done{display:none;max-width:42rem;margin:3rem auto 0;padding:2.6rem 2rem;border:1px solid var(--gold);border-radius:6px;
+  background:linear-gradient(180deg,rgba(228,188,98,.1),var(--deep))}
+.done.on{display:block}
+.done .vmark{width:3.4rem;height:3.4rem;margin:0 auto 1.3rem;border:1px solid var(--gold);border-radius:50%;
+  display:grid;place-items:center;color:var(--gold)}
+.done h3{font-family:var(--serif);font-weight:800;font-size:1.5rem;margin:0 0 .7rem}
+.done p{color:var(--soft);margin:0 auto;max-width:30rem}
 
 footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--faint);font-size:.92rem;text-align:center}
+footer a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(240,209,140,.35)}
 
 /* ===== scroll reveal (principle 3) ===== */
 .rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.22,.8,.35,1),transform .8s cubic-bezier(.22,.8,.35,1)}
 .rv.in{opacity:1;transform:none}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.hero-bg{animation:none}.scroll-hint{animation:none}}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .hero-bg{animation:none}.scroll-hint{animation:none}
+  html{scroll-behavior:auto}
+  .card:hover,.btn:hover,.rav-hero:hover{transform:none}
+}
 </style>
 <style id="theme-modern">
-:root{--ink:#F7F9FC;--deep:#EBF1F8;--raised:#FFFFFF;--text:#122135;--soft:#3D5164;--faint:#71839A;--gold:#1F5EDB;--gold-soft:#1848A8;--line:rgba(31,94,219,.16)}
+:root{--ink:#F7F9FC;--deep:#EBF1F8;--raised:#FFFFFF;--text:#122135;--soft:#3D5164;--faint:#647488;--gold:#1F5EDB;--gold-soft:#1848A8;--line:rgba(31,94,219,.16);--err:#c0392b}
 h1,h2,.rav-hero h3,.card h3{font-family:var(--sans);font-weight:800;letter-spacing:-.02em}
 .stat b,.num{font-family:var(--sans);font-weight:800}
 body::after{opacity:.025}
@@ -203,9 +262,11 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
 </head>
 <body>
 
+<a class="skip" href="#apply">דילוג להגשת מועמדות</a>
+
 <nav id="nav">
   <div class="nwrap">
-    <a class="brand" href="#top"><img src="img/logo-light.png" alt="" /><b>ישיבת יראנו ניסים</b></a>
+    <a class="brand" href="#top"><img src="img/opt/logo-light.png" alt="ישיבת יראנו ניסים" width="120" height="40" /><b>ישיבת יראנו ניסים</b></a>
     <a class="navcta" href="#apply">להגשת מועמדות</a>
   </div>
 </nav>
@@ -214,12 +275,12 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-inner">
-    <div class="hero-over rv in">נתניה · לבוגרי צבא · זמן חשוון תשפ״ז</div>
+    <div class="hero-over rv in">נתניה · לבוגרי צבא · ההרשמה נסגרת בכ׳ באלול</div>
     <h1 class="rv in">תן לעצמך שנה.<span class="l2">תגלה מי אתה. תחזור הביתה.</span></h1>
-    <p class="lede rv in d1">בצבא ידעו להגיד לך בדיוק מי אתה. ביום שאחרי השחרור — השאלה חוזרת אליך.<br/>ישיבה חדשה, בבית שצומח בנתניה כבר יותר מעשרים שנה.</p>
+    <p class="lede rv in d1">בצבא ידעו להגיד לך בדיוק מי אתה. ביום שאחרי השחרור — השאלה חוזרת אליך.<br/>ישיבה בבית שצומח בנתניה כבר יותר מעשרים שנה.</p>
     <div class="cta-row rv in d2">
       <a class="btn btn-gold" href="#apply">להגשת מועמדות</a>
-      <a class="btn btn-ghost" href="#trial">תתחיל בלילה אחד — חינם</a>
+      <a class="quiet" href="#process">איך נראה תהליך הקבלה?</a>
     </div>
   </div>
   <div class="scroll-hint" aria-hidden="true">↓</div>
@@ -227,10 +288,11 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
 
 <div class="stats">
   <div class="wrap">
-    <div class="stat rv"><b><span class="count" data-to="20">0</span>+</b><span>שנות בית מדרש</span></div>
-    <div class="stat rv d1"><b><span class="count" data-to="4">0</span></b><span>רבנים שגדלו כאן</span></div>
-    <div class="stat rv d2"><b><span class="count" data-to="3">0</span></b><span>סדרים ביום</span></div>
-    <div class="stat rv d3"><b><span class="count" data-to="1">0</span></b><span>שנה שמשנה הכול</span></div>
+    <!-- real values are in the HTML so a throttled rAF or failed JS still shows
+         the correct number rather than a misleading 0 -->
+    <div class="stat rv"><b><span class="count" data-to="20">20</span>+</b><span>שנות בית מדרש בנתניה</span></div>
+    <div class="stat rv d1"><b><span class="count" data-to="4">4</span></b><span>רבנים שגדלו בבית הזה</span></div>
+    <div class="stat rv d2"><b><span class="count" data-to="3">3</span></b><span>סדרים ביום</span></div>
   </div>
 </div>
 
@@ -240,11 +302,12 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
     <h2 class="rv">השתחררת. יש לך תעודת שחרור — ושאלה אחת גדולה.</h2>
     <p class="prose rv">שלוש שנים ידעת בדיוק לאן אתה קם בבוקר. עכשיו כולם שואלים "מה התוכניות" — ואף אחד לא שואל את השאלה האמיתית: <strong>מי אתה, כשאף אחד לא אומר לך מי להיות?</strong></p>
     <div class="cards">
-      <div class="card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div><h3>אחרי שירות מלא</h3><p>בן 21–24, יצאת מהצבא לא מזמן — והשנה הקרובה פתוחה לפניך.</p></div>
-      <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c-4.5-2.6-8-6-8-10a8 8 0 1116 0c0 4-3.5 7.4-8 10z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>מקום שמכבד אותך</h3><p>לא תלמיד קטן ולא מספר בכיתה — מבוגר, שותף, בן בית.</p></div>
-      <div class="card rv d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c1 3 4 4 4 8a4 4 0 11-8 0c0-4 3-5 4-8z"/><path d="M12 15v6"/></svg></div><h3>יש בך ניצוץ</h3><p>רקע ישיבתי? לא חובה. רצון אמיתי לגדול? חובה.</p></div>
-      <div class="card rv d3"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></div><h3>הבית מוכר לך</h3><p>גדלת כאן, או ששמעת עלינו ממישהו שאתה סומך עליו.</p></div>
+      <div class="card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div><h3>אחרי שירות צבאי</h3><p>סיימת שירות ובידך תעודת שחרור. השנה הקרובה פתוחה לפניך — וזה בדיוק הרגע.</p></div>
+      <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><h3>בגילאי 21–24</h3><p>הקבוצה נבנית מבחורים בשלב חיים דומה — לא תלמיד קטן ולא מספר בכיתה.</p></div>
+      <div class="card rv d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3c1 3 4 4 4 8a4 4 0 11-8 0c0-4 3-5 4-8z"/><path d="M12 15v6"/></svg></div><h3>רצון אמיתי לגדול</h3><p>רקע ישיבתי? לא חובה. רצון כן להשתלב, ללמוד ולהיות חלק — כן.</p></div>
+      <div class="card rv d3"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div><h3>התאמה לבית</h3><p>מסגרת עם סדר יום, ערכים ואופי משלה. מי שמתחבר לזה — מרגיש כאן בבית מהיום הראשון.</p></div>
     </div>
+    <p class="softnote rv">אלה לא תנאי סף נוקשים אלא <strong>הקווים שמהם נבנית הקבוצה</strong>. אם קראת ומשהו בפנים אמר "זה מדבר אליי" — זה מספיק כדי להגיש. את השאר נברר יחד בשיחה.</p>
   </div>
 </section>
 
@@ -253,22 +316,17 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
     <div class="wrap">
       <div class="q-track" id="qTrack">
         <div class="q-slide on">
-          <img class="q-face" src="img/harav-face.jpg" alt="הרב רפאל רובין" />
+          <img class="q-face" src="img/harav-face.jpg" alt="הרב רפאל רובין שליט״א" width="83" height="83" />
           <blockquote>"תן לעצמך שנה. תגלה מי אתה. תחזור הביתה."</blockquote>
           <cite>הרב רפאל רובין שליט״א · ראש הישיבה</cite>
         </div>
         <div class="q-slide">
-          <img class="q-face" src="img/harav-mic.jpg" alt="" style="object-position:center 12%" />
+          <img class="q-face" src="img/harav-mic.jpg" alt="הרב רפאל רובין שליט״א בשיחת הפתיחה" style="object-position:center 12%" width="83" height="83" loading="lazy" />
           <blockquote>"לא באנו להגיד לך בוא תלמד גמרא. באנו לשאול איתך את השאלה שהצבא לא שאל."</blockquote>
           <cite>מתוך שיחת הפתיחה</cite>
         </div>
-        <div class="q-slide">
-          <img class="q-face" src="img/binyan.jpg" alt="" />
-          <blockquote>"חיכינו לך. בנינו כאן משהו — והוא חיכה גם הוא."</blockquote>
-          <cite>מתוך מכתב הרב לבוגרי הבית</cite>
-        </div>
       </div>
-      <div class="q-dots" id="qDots" role="tablist"></div>
+      <div class="q-dots" id="qDots"></div>
     </div>
   </section>
 </div>
@@ -277,12 +335,12 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
   <div class="wrap">
     <div class="kicker rv">הבית שממנו זה צומח</div>
     <h2 class="rv">הכול התחיל בליל שבת אחד, עם שני בחורים.</h2>
-    <p class="prose rv">לפני יותר מעשרים שנה התיישב הרב רפאל רובין ללמוד בליל שבת עם שני בחורים. השיעור הזה לא הפסיק מאז — הוא גדל מפעם בשבוע לכל יום, ומהשיעור נבנה בית שלם: קהילה, פעילות לכל הגילאים, ופעילות הנוער "הלב היהודי" שאלפי בחורים עברו בה.<br/><br/><strong>הישיבה החדשה היא לא מוסד שנבנה יש מאין — היא הקומה הבאה של אותו בית.</strong></p>
+    <p class="prose rv">לפני יותר מעשרים שנה התיישב הרב רפאל רובין ללמוד בליל שבת עם שני בחורים. השיעור הזה לא הפסיק מאז — הוא גדל מפעם בשבוע לכל יום, ומהשיעור נבנה בית שלם: קהילה, פעילות לכל הגילאים, ופעילות הנוער "הלב היהודי" שאלפי בחורים עברו בה.<br/><br/><strong>הישיבה היא לא מוסד שנבנה יש מאין — היא הקומה הבאה של אותו בית.</strong></p>
     <div class="frame rv">
       <div class="gal" id="storyGal">
-        <img src="img/shiur.jpg" alt="השיעור של הרב רפאל רובין" class="on" data-cap="השיעור של ליל שבת — הלב שממנו הכול צמח" />
-        <img src="img/harav-hug.jpg" alt="הרב רפאל רובין מחבק בחור" loading="lazy" data-cap="הקשר כאן אישי. כל בחור — בשמו, בסיפור שלו" />
-        <img src="img/harav-field.jpg" alt="הרב רפאל רובין מדבר עם קבוצת נוער במגרש" loading="lazy" data-cap="״הלב היהודי״ — עשרים שנה עם הנוער של נתניה, גם על הדשא" />
+        <img src="img/opt/shiur.jpg" alt="השיעור של הרב רפאל רובין בליל שבת" class="on" data-cap="השיעור של ליל שבת — הלב שממנו הכול צמח" width="1200" height="800" />
+        <img src="img/opt/harav-hug.jpg" alt="הרב רפאל רובין מחבק בחור" loading="lazy" data-cap="הקשר כאן אישי. כל בחור — בשמו, בסיפור שלו" width="1200" height="800" />
+        <img src="img/opt/harav-field.jpg" alt="הרב רפאל רובין מדבר עם קבוצת נוער במגרש" loading="lazy" data-cap="״הלב היהודי״ — עשרים שנה עם הנוער של נתניה, גם על הדשא" width="1200" height="800" />
         <div class="gal-cap" id="galCap">השיעור של ליל שבת — הלב שממנו הכול צמח</div>
       </div>
       <div class="gal-dots q-dots" id="galDots" style="margin-top:1.2rem"></div>
@@ -300,49 +358,74 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
   </div>
 </div>
 
-<section id="rabbis">
+<section id="team">
   <div class="wrap">
-    <div class="kicker rv">ההנהגה</div>
+    <div class="kicker rv">צוות הישיבה</div>
     <h2 class="rv">גדלו כאן כבחורים. עומדים כאן כרבנים.</h2>
+    <p class="prose rv">לא צוות שהורכב למוסד חדש — ארבעה אנשים שהבית הזה גידל, וכל אחד מהם יכיר אותך בשמך.</p>
+
     <div class="rav-hero rv">
-      <img src="img/harav-face.jpg" alt="הרב רפאל רובין שליט״א" style="width:8.5rem;height:8.5rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;margin-bottom:1.4rem" />
+      <img class="portrait" src="img/harav-face.jpg" alt="הרב רפאל רובין שליט״א" width="136" height="136" />
       <div class="tag">הנהגה רוחנית</div>
       <h3>הרב רפאל רובין שליט״א</h3>
       <p>מייסד המתחם ומנהיגו למעלה מעשרים שנה. השיעור שלו בליל שבת הוא הלב שממנו נבנה הכול — והישיבה היא הקומה הבאה שלו.</p>
     </div>
-    <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto">
-      <div class="card rv"><h3>הרב חיים כהן</h3><p>מבוגרי הבית. מלווה את אברכי המתחם ומכיר כל בחור בשמו — עוד לפני שנכנס.</p></div>
-      <div class="card rv d1"><h3>הרב עמית יוסף</h3><p>גדל בפעילות הנוער "הלב היהודי" וחזר להעמיד אותה. הגשר בין הצבא לבית המדרש.</p></div>
-      <div class="card rv d2"><h3>הרב אורי ואננו</h3><p>איש החברותות — מי שדואג שאף בחור לא לומד לבד ולא נשאר לבד.</p></div>
+
+    <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto;margin-top:1.8rem">
+      <!-- PLACEHOLDER PORTRAIT — replace src with a real photograph when supplied.
+           Required: 1:1 crop, face centred, warm even lighting, kippah/hat visible. -->
+      <div class="card rv" data-needs-photo="הרב חיים כהן">
+        <div class="portrait portrait-sm mono" aria-hidden="true"><span>ח״כ</span></div>
+        <h3>הרב חיים כהן</h3><span class="role">מלווה אברכים</span>
+        <p>מבוגרי הבית. מלווה את אברכי המתחם ומכיר כל בחור בשמו — עוד לפני שנכנס.</p>
+      </div>
+      <div class="card rv d1" data-needs-photo="הרב עמית יוסף">
+        <div class="portrait portrait-sm mono" aria-hidden="true"><span>ע״י</span></div>
+        <h3>הרב עמית יוסף</h3><span class="role">הגשר מהצבא לבית המדרש</span>
+        <p>גדל בפעילות הנוער "הלב היהודי" וחזר להעמיד אותה. מי שמדבר את השפה של בחור אחרי שירות.</p>
+      </div>
+      <div class="card rv d2" data-needs-photo="הרב אורי ואננו">
+        <div class="portrait portrait-sm mono" aria-hidden="true"><span>א״ו</span></div>
+        <h3>הרב אורי ואננו</h3><span class="role">רכז חברותות</span>
+        <p>איש החברותות — מי שדואג שאף בחור לא לומד לבד ולא נשאר לבד.</p>
+      </div>
     </div>
   </div>
 </section>
-<style>@media (max-width:820px){#rabbis .cards{grid-template-columns:1fr!important}}</style>
+<style>@media (max-width:820px){#team .cards{grid-template-columns:1fr!important}}</style>
 
 <section id="day" style="padding-top:0">
   <div class="wrap">
     <div class="kicker rv">המסגרת</div>
     <h2 class="rv">יום שלם. בית שלם. שנה שלמה.</h2>
     <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto">
-      <div class="card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M9 7h6M9 11h6"/></svg></div><h3>שלושה סדרים ביום</h3><p>גמרא, הלכה ופנימיות — לימוד שנבנה מהיסודות, בגובה של מבוגרים.</p></div>
-      <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div><h3>לינה במתחם</h3><p>חדרים במתחם בנתניה. לא פנימייה של ילדים — בית של בחורים אחרי צבא.</p></div>
-      <div class="card rv d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><h3>שלושה זמנים + בין הזמנים</h3><p>מחזור שנה מלא, כולל תוכנית בין הזמנים — כי בית לא סוגר בחופש.</p></div>
+      <div class="card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M9 7h6M9 11h6"/></svg></div><h3>שלושה סדרים ביום</h3><p>גמרא, הלכה ופנימיות — לימוד שנבנה מהיסודות, בגובה של מבוגרים.</p></div>
+      <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div><h3>לינה במתחם</h3><p>חדרים במתחם בנתניה. לא פנימייה של ילדים — בית של בחורים אחרי צבא.</p></div>
+      <div class="card rv d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><h3>מחזור שנה מלא</h3><p>שלושה זמנים ותוכנית בין הזמנים — כי בית לא סוגר בחופש.</p></div>
     </div>
   </div>
 </section>
 <style>@media (max-width:820px){#day .cards{grid-template-columns:1fr!important}}</style>
 
-<section id="trial" style="padding-top:0">
+<section id="process" style="padding-top:0">
   <div class="wrap">
-    <div class="kicker rv">לא בטוח? מצוין.</div>
+    <div class="kicker rv">התהליך והמועדים</div>
     <h2 class="rv">אף אחד לא קופץ למים בלי לבדוק אותם.</h2>
     <p class="prose rv">בנינו כניסה מדורגת — כל שלב בלי שום מחויבות להמשך.</p>
     <div class="cards">
       <div class="card hot rv"><span class="num">א</span><h3>לילה אחד</h3><p>סדר ערב, ארוחה, ניגון — ותראה את הבית מבפנים.</p><span class="free">חינם · בלי מחויבות</span></div>
       <div class="card rv d1"><span class="num">ב</span><h3>שבוע</h3><p>שבוע מלא בתוך הסדרים — תרגיש איך נראה יום שלם.</p></div>
       <div class="card rv d2"><span class="num">ג</span><h3>חודש ניסיון</h3><p>חודש אמיתי בישיבה, ובסופו שיחה אישית והחלטה משותפת.</p></div>
-      <div class="card rv d3"><span class="num">ד</span><h3>הזמן המלא</h3><p>זמן חשוון תשפ״ז — המקומות מוגבלים והקבוצה נבנית אישית.</p></div>
+      <div class="card rv d3"><span class="num">ד</span><h3>המסלול המלא</h3><p>הצטרפות לקבוצה. המקומות מוגבלים והקבוצה נבנית אישית.</p></div>
     </div>
+
+    <h2 class="rv" style="margin-top:4.5rem;font-size:clamp(1.5rem,3.6vw,2.2rem)">מועדי ההרשמה והראיונות</h2>
+    <div class="dates rv">
+      <div class="dline"><div class="mark" aria-hidden="true"></div><div><b>ראיונות הקבלה — במהלך חודש אלול</b><span>הראיונות מתקיימים לאורך החודש. מועמדים מתאימים יוזמנו לראיון בהתאם לשיקול הצוות.</span></div></div>
+      <div class="dline"><div class="mark" aria-hidden="true"></div><div><b>סגירת ההרשמה — כ׳ באלול</b><span>אחרי המועד הזה לא נוכל להבטיח שיבוץ בקבוצה הנוכחית. עדיף להגיש מוקדם.</span></div></div>
+      <div class="dline"><div class="mark open" aria-hidden="true"></div><div><b>פרטים ומועדים מדויקים</b><span>יימסרו בהמשך, ישירות למועמדים שיגישו — כולל שעות, מקום וסדר הראיון.</span></div></div>
+    </div>
+    <div class="deadline rv"><span aria-hidden="true">◆</span><span>ההרשמה נסגרת בכ׳ באלול</span></div>
   </div>
 </section>
 
@@ -351,100 +434,228 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
     <div class="kicker rv">הגשת מועמדות</div>
     <h2 class="rv">כל פנייה נקראת אישית. כתוב בכנות.</h2>
     <p class="prose rv">אין תשובות נכונות. מלא את הפרטים — ואחד הרבנים יחזור אליך לשיחת היכרות.</p>
+
     <form id="applyForm" novalidate>
-      <div class="field"><label for="f-name">שם מלא <em>חובה</em></label><input id="f-name" name="name" required autocomplete="name" /></div>
-      <div class="field"><label for="f-phone">טלפון <em>חובה</em></label><input id="f-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" /></div>
-      <div class="field"><label for="f-age">גיל <em>חובה</em></label><input id="f-age" name="age" inputmode="numeric" required /></div>
-      <div class="field"><label for="f-city">עיר מגורים</label><input id="f-city" name="city" autocomplete="address-level2" /></div>
-      <div class="field full"><label for="f-now">מה אתה עושה היום?</label><input id="f-now" name="now" placeholder="עבודה / טיול / לימודים / מחפש כיוון…" /></div>
-      <div class="field full"><label for="f-about">ספר על עצמך — ולמה דווקא עכשיו <em>חובה</em></label><textarea id="f-about" name="about" required placeholder="כמה משפטים בכנות. בלי לנסות להרשים."></textarea></div>
-      <div class="form-msg" id="formMsg" role="status"></div>
-      <div class="submit">
-        <button type="submit">שליחת מועמדות</button>
-        <span class="form-note">הפרטים מגיעים ישירות לצוות הרבנים בלבד.</span>
+      <div class="field">
+        <label for="f-name">שם מלא <em>חובה</em></label>
+        <input id="f-name" name="name" required autocomplete="name" aria-describedby="e-name" />
+        <span class="ferr" id="e-name"></span>
       </div>
+      <div class="field">
+        <label for="f-phone">טלפון <em>חובה</em></label>
+        <input id="f-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="050-0000000" aria-describedby="e-phone" />
+        <span class="ferr" id="e-phone"></span>
+      </div>
+      <div class="field">
+        <label for="f-email">כתובת מייל <em>חובה</em></label>
+        <input id="f-email" name="email" type="email" required autocomplete="email" inputmode="email" dir="ltr" placeholder="you@example.com" aria-describedby="e-email" />
+        <span class="ferr" id="e-email"></span>
+      </div>
+      <div class="field">
+        <label for="f-age">גיל <em>חובה</em></label>
+        <input id="f-age" name="age" inputmode="numeric" required aria-describedby="e-age" />
+        <span class="ferr" id="e-age"></span>
+      </div>
+      <div class="field full">
+        <label for="f-city">עיר מגורים</label>
+        <input id="f-city" name="city" autocomplete="address-level2" />
+      </div>
+      <div class="field full">
+        <label for="f-now">מה אתה עושה היום?</label>
+        <input id="f-now" name="now" placeholder="עבודה / טיול / לימודים / מחפש כיוון…" />
+      </div>
+      <div class="field full">
+        <label for="f-about">ספר על עצמך — ולמה דווקא עכשיו <em>חובה</em></label>
+        <textarea id="f-about" name="about" required placeholder="כמה משפטים בכנות. בלי לנסות להרשים." aria-describedby="e-about"></textarea>
+        <span class="ferr" id="e-about"></span>
+      </div>
+
+      <div class="hp" aria-hidden="true"><label for="f-hp">אל תמלא שדה זה</label><input id="f-hp" name="_hp" tabindex="-1" autocomplete="off" /></div>
+
+      <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+
+      <div class="submit">
+        <button type="submit" id="submitBtn">שליחת מועמדות</button>
+        <span class="form-note">הפרטים נשלחים ישירות לצוות הרבנים. אין צורך לשלוח מייל בעצמך.</span>
+      </div>
+
+      <p class="disclaimer">הקבלה לישיבה כפופה לשיקול דעת הנהלת הישיבה ולהתאמה למסגרת.<br/>מועמדים מתאימים יוזמנו לראיון אישי במהלך חודש אלול.</p>
     </form>
+
+    <div class="done" id="doneBox" role="status" aria-live="polite">
+      <div class="vmark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+      <h3>המועמדות נשלחה בהצלחה</h3>
+      <p>הפנייה שלך הגיעה לצוות הרבנים. אחד מהם יחזור אליך בטלפון לשיחת היכרות. מועמדים מתאימים יוזמנו לראיון במהלך חודש אלול.</p>
+    </div>
   </div>
 </section>
 
 <footer>
-  ישיבת יראנו ניסים · נתניה · זמן חשוון תשפ״ז · בהנהגת הרב רפאל רובין שליט״א
+  ישיבת יראנו ניסים · רח׳ ד״ר ישראל בורגנסקי 7, נתניה · בהנהגת הרב רפאל רובין שליט״א
 </footer>
 
 <script>
 (function(){
+  'use strict';
   var nav=document.getElementById('nav');
   addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40)},{passive:true});
 
   /* reveal on scroll */
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
-  },{threshold:.15});
-  document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el)});
-
-  /* animated counters */
-  var cio=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting)return; cio.unobserve(e.target);
-      var el=e.target,to=+el.dataset.to,t0=null,dur=1400;
-      requestAnimationFrame(function step(t){
-        if(!t0)t0=t; var p=Math.min((t-t0)/dur,1);
-        el.textContent=Math.round(to*(1-Math.pow(1-p,3)));
-        if(p<1)requestAnimationFrame(step);
-      });
-    })
-  },{threshold:.6});
-  document.querySelectorAll('.count').forEach(function(el){cio.observe(el)});
-
-  /* quote carousel */
-  var slides=[].slice.call(document.querySelectorAll('.q-slide')),
-      dots=document.getElementById('qDots'),cur=0,timer;
-  slides.forEach(function(_,i){
-    var b=document.createElement('button');b.className='q-dot'+(i?'':' on');b.setAttribute('aria-label','ציטוט '+(i+1));
-    b.onclick=function(){go(i);restart()};dots.appendChild(b);
-  });
-  function go(i){
-    slides[cur].classList.remove('on');dots.children[cur].classList.remove('on');
-    cur=i;slides[cur].classList.add('on');dots.children[cur].classList.add('on');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+    },{threshold:.15});
+    document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el)});
+  }else{
+    document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});
   }
-  function restart(){clearInterval(timer);timer=setInterval(function(){go((cur+1)%slides.length)},5200)}
-  restart();
 
-  /* story gallery crossfade */
-  var gImgs=[].slice.call(document.querySelectorAll('#storyGal img')),
-      gCap=document.getElementById('galCap'),gDots=document.getElementById('galDots'),gCur=0,gTimer;
-  gImgs.forEach(function(_,i){
-    var b=document.createElement('button');b.className='q-dot'+(i?'':' on');b.setAttribute('aria-label','תמונה '+(i+1));
-    b.onclick=function(){gGo(i);gRestart()};gDots.appendChild(b);
-  });
-  function gGo(i){
-    gImgs[gCur].classList.remove('on');gDots.children[gCur].classList.remove('on');
-    gCur=i;gImgs[gCur].classList.add('on');gDots.children[gCur].classList.add('on');
-    gCap.textContent=gImgs[gCur].dataset.cap;
+  /* animated counters — only founded figures are shown at all */
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if('IntersectionObserver' in window){
+    var cio=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return; cio.unobserve(e.target);
+        var el=e.target,to=+el.dataset.to;
+        if(reduce){el.textContent=to;return}
+        var t0=null,dur=1400;
+        requestAnimationFrame(function step(t){
+          if(!t0)t0=t; var p=Math.min((t-t0)/dur,1);
+          el.textContent=Math.round(to*(1-Math.pow(1-p,3)));
+          if(p<1)requestAnimationFrame(step);
+        });
+      })
+    },{threshold:.6});
+    document.querySelectorAll('.count').forEach(function(el){cio.observe(el)});
+  }else{
+    document.querySelectorAll('.count').forEach(function(el){el.textContent=el.dataset.to});
   }
-  function gRestart(){clearInterval(gTimer);gTimer=setInterval(function(){gGo((gCur+1)%gImgs.length)},4600)}
-  gRestart();
 
-  /* form */
-  var SUBMIT_ENDPOINT=""; var FALLBACK_EMAIL="office@nanox.co.il";
-  var form=document.getElementById('applyForm'),msg=document.getElementById('formMsg');
+  /* generic crossfade carousel */
+  function carousel(slideSel,dotsEl,interval,onChange){
+    var slides=[].slice.call(document.querySelectorAll(slideSel));
+    if(slides.length<2){if(dotsEl)dotsEl.style.display='none';return}
+    var cur=0,timer;
+    slides.forEach(function(_,i){
+      var b=document.createElement('button');
+      b.type='button';b.className='q-dot'+(i?'':' on');
+      b.setAttribute('aria-label','מעבר לפריט '+(i+1)+' מתוך '+slides.length);
+      b.onclick=function(){go(i);restart()};dotsEl.appendChild(b);
+    });
+    function go(i){
+      slides[cur].classList.remove('on');dotsEl.children[cur].classList.remove('on');
+      cur=i;slides[cur].classList.add('on');dotsEl.children[cur].classList.add('on');
+      if(onChange)onChange(slides[cur]);
+    }
+    function restart(){clearInterval(timer);timer=setInterval(function(){go((cur+1)%slides.length)},interval)}
+    restart();
+  }
+  carousel('.q-slide',document.getElementById('qDots'),5200);
+  var gCap=document.getElementById('galCap');
+  carousel('#storyGal img',document.getElementById('galDots'),4600,function(el){gCap.textContent=el.dataset.cap});
+
+  /* ===================== form =====================
+     SUBMIT_ENDPOINT must be an HTTPS endpoint that emails the yeshiva team.
+     See tools/apps-script/README.md for the 3-minute deploy.
+     No mailto, ever: the candidate never opens an email client.        */
+  var SUBMIT_ENDPOINT = "";
+
+  var form=document.getElementById('applyForm'),
+      msg=document.getElementById('formMsg'),
+      btn=document.getElementById('submitBtn'),
+      doneBox=document.getElementById('doneBox');
+
+  var RULES={
+    name:{ test:function(v){return v.length>=2}, err:'נא למלא שם מלא.' },
+    phone:{ test:function(v){
+              var d=v.replace(/[^\d+]/g,'').replace(/^\+972/,'0');
+              return /^0(5\d{8}|[2-489]\d{7})$/.test(d);
+            }, err:'מספר טלפון לא תקין. לדוגמה: 050-1234567' },
+    email:{ test:function(v){return /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(v)},
+            err:'כתובת מייל לא תקינה. לדוגמה: you@example.com' },
+    age:{ test:function(v){var n=+v;return /^\d{1,2}$/.test(v)&&n>=18&&n<=45},
+          err:'נא למלא גיל (18–45).' },
+    about:{ test:function(v){return v.length>=10}, err:'ספר קצת על עצמך — לפחות משפט אחד.' }
+  };
+
+  function setErr(k,text){
+    var el=form.querySelector('[name='+k+']'), box=document.getElementById('e-'+k);
+    if(!el)return;
+    if(text){el.setAttribute('aria-invalid','true');if(box)box.textContent=text}
+    else{el.removeAttribute('aria-invalid');if(box)box.textContent=''}
+  }
+
+  /* validate on blur so mistakes surface early, not only at submit */
+  Object.keys(RULES).forEach(function(k){
+    var el=form.querySelector('[name='+k+']');
+    if(!el)return;
+    el.addEventListener('blur',function(){
+      var v=el.value.trim();
+      if(v&&!RULES[k].test(v))setErr(k,RULES[k].err); else setErr(k,'');
+    });
+    el.addEventListener('input',function(){if(el.getAttribute('aria-invalid'))setErr(k,'')});
+  });
+
+  function collect(){
+    var d={};
+    ['name','phone','email','age','city','now','about'].forEach(function(k){
+      var el=form.querySelector('[name='+k+']');d[k]=el?el.value.trim():'';
+    });
+    return d;
+  }
+
   form.addEventListener('submit',function(ev){
     ev.preventDefault();
-    var d={},ok=true;
-    ['name','phone','age','city','now','about'].forEach(function(k){
-      var el=form.querySelector('[name='+k+']');d[k]=el?el.value.trim():'';
-      if(el&&el.required&&!d[k]){ok=false;el.style.borderColor='#c86a5e'}else if(el){el.style.borderColor=''}
+
+    if(form.querySelector('[name=_hp]').value){return}      /* silent spam drop */
+
+    var d=collect(), firstBad=null;
+    Object.keys(RULES).forEach(function(k){
+      if(!RULES[k].test(d[k])){setErr(k,RULES[k].err); if(!firstBad)firstBad=k}
+      else setErr(k,'');
     });
-    if(!ok){msg.className='form-msg err';msg.textContent='חסרים פרטי חובה — השלם את השדות המסומנים.';return}
-    var body='מועמדות חדשה לישיבת יראנו ניסים%0D%0A%0D%0Aשם: '+encodeURIComponent(d.name)+'%0D%0Aטלפון: '+encodeURIComponent(d.phone)+'%0D%0Aגיל: '+encodeURIComponent(d.age)+'%0D%0Aעיר: '+encodeURIComponent(d.city)+'%0D%0Aעיסוק: '+encodeURIComponent(d.now)+'%0D%0A%0D%0Aעל עצמי:%0D%0A'+encodeURIComponent(d.about);
-    if(SUBMIT_ENDPOINT){
-      fetch(SUBMIT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
-        .then(function(r){if(!r.ok)throw 0;msg.className='form-msg ok';msg.textContent='המועמדות התקבלה. אחד הרבנים יחזור אליך בימים הקרובים.';form.reset()})
-        .catch(function(){msg.className='form-msg err';msg.textContent='משהו השתבש — נסה שוב או פנה אלינו ישירות.'});
-    }else{
-      location.href='mailto:'+FALLBACK_EMAIL+'?subject='+encodeURIComponent('מועמדות — '+d.name)+'&body='+body;
-      msg.className='form-msg ok';msg.textContent='נפתחה טיוטת מייל עם הפרטים — שלח אותה כדי להשלים.';
+
+    if(firstBad){
+      msg.className='form-msg err';
+      msg.textContent='יש שדות שצריך לתקן — סימנתי אותם.';
+      var bad=form.querySelector('[name='+firstBad+']');
+      if(bad){bad.focus();bad.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'})}
+      return;
     }
+
+    if(!SUBMIT_ENDPOINT){
+      msg.className='form-msg err';
+      msg.textContent='הטופס בהגדרה אחרונה ואינו מקבל פניות ברגע זה. נסה שוב בקרוב — הפרטים שמילאת נשמרו בדף.';
+      return;
+    }
+
+    btn.disabled=true; btn.textContent='שולח…';
+    msg.className='form-msg'; msg.textContent='';
+
+    d.page=location.pathname.replace(/^.*\//,'');
+    d.sentAt=new Date().toISOString();
+
+    fetch(SUBMIT_ENDPOINT,{
+      method:'POST',
+      /* text/plain keeps this a CORS "simple request" — no preflight, which
+         Google Apps Script web apps do not answer. Body is still JSON. */
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(d)
+    })
+    .then(function(r){return r.text().then(function(t){
+      var ok=false;try{ok=JSON.parse(t).ok===true}catch(e){ok=r.ok}
+      if(!ok)throw new Error('rejected');
+    })})
+    .then(function(){
+      form.style.display='none';
+      doneBox.classList.add('on');
+      doneBox.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});
+    })
+    .catch(function(){
+      btn.disabled=false; btn.textContent='שליחת מועמדות';
+      msg.className='form-msg err';
+      msg.textContent='השליחה נכשלה. בדוק את החיבור לאינטרנט ונסה שוב — הפרטים שמילאת נשמרו בדף.';
+    });
   });
 })();
 </script>

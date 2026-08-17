@@ -1,0 +1,8 @@
+<style id="theme-shas">
+/* ש"ס — ירוק גמרא עמוק + זהב, כמו כריכת ש"ס וילנא */
+:root{--ink:#0C231C;--deep:#102D24;--raised:#16382D;--text:#EFEAD9;--soft:#BCC8BD;--faint:#84987F;--gold:#D8B45C;--gold-soft:#E6C87E;--line:rgba(216,180,92,.2)}
+.hero-veil{background:radial-gradient(ellipse 100% 62% at 50% 28%, rgba(12,35,28,0) 0%, rgba(12,35,28,.45) 58%, rgba(12,35,28,.92) 100%),linear-gradient(180deg, rgba(12,35,28,.36), rgba(12,35,28,.2) 34%, rgba(12,35,28,.84) 72%, var(--ink) 100%)}
+input,textarea{background:rgba(12,35,28,.75);border-color:rgba(216,180,92,.28)}
+.btn-ghost{background:rgba(12,35,28,.35)}
+nav.scrolled{background:rgba(12,35,28,.92)}
+</style>

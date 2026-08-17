@@ -1,0 +1,8 @@
+<style id="theme-chatzot">
+/* חצות — שחור עמוק ונחושת, לימוד של לילה */
+:root{--ink:#0C0C0E;--deep:#131316;--raised:#1B1B20;--text:#EDE7DE;--soft:#B9B3AA;--faint:#807A72;--gold:#C77B4A;--gold-soft:#DA9668;--line:rgba(199,123,74,.22)}
+.hero-veil{background:radial-gradient(ellipse 100% 62% at 50% 28%, rgba(12,12,14,0) 0%, rgba(12,12,14,.48) 58%, rgba(12,12,14,.93) 100%),linear-gradient(180deg, rgba(12,12,14,.38), rgba(12,12,14,.22) 34%, rgba(12,12,14,.85) 72%, var(--ink) 100%)}
+input,textarea{background:rgba(12,12,14,.75);border-color:rgba(199,123,74,.3)}
+.btn-ghost{background:rgba(12,12,14,.35)}
+nav.scrolled{background:rgba(12,12,14,.93)}
+</style>
