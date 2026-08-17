@@ -168,6 +168,12 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .mono span{font-family:var(--serif);font-weight:800;font-size:1.5rem;color:var(--gold);letter-spacing:.02em;line-height:1}
 .portrait-sm.mono span{font-size:1.25rem}
 .role{display:block;color:var(--gold);font-size:.84rem;letter-spacing:.12em;margin:.1rem 0 .7rem}
+/* person bio: factual background, then the line that actually lands */
+.p-bg{display:block;color:var(--faint);font-size:.88rem;line-height:1.65;margin:.5rem 0 .9rem;
+  padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+.p-hook{display:block;color:var(--gold-soft);font-weight:600;font-size:1.02rem;line-height:1.6}
+.p-tag{display:inline-block;color:var(--gold);font-size:.72rem;letter-spacing:.14em;
+  border:1px solid var(--line);border-radius:999px;padding:.25rem .8rem;margin-bottom:.9rem}
 
 /* ===== process ladder ===== */
 .hot{border-color:var(--gold)!important;background:linear-gradient(180deg,rgba(228,188,98,.1),var(--deep))!important}
@@ -372,8 +378,8 @@ nav.scrolled{background:rgba(12,35,28,.92)}
 <section id="team">
   <div class="wrap">
     <div class="kicker rv">צוות הישיבה</div>
-    <h2 class="rv">גדלו כאן כבחורים. עומדים כאן כרבנים.</h2>
-    <p class="prose rv">לא צוות שהורכב למוסד חדש — ארבעה אנשים שהבית הזה גידל, וכל אחד מהם יכיר אותך בשמך.</p>
+    <h2 class="rv">כל אחד מהם הגיע מדרך אחרת.<br/>אחד מהם — בדיוק מהדרך שלך.</h2>
+    <p class="prose rv">לא צוות שהורכב למוסד חדש: קצין לוחם, איש תקשוב בלי רקע ישיבתי, ובוגר שלוש ישיבות משלושה עולמות. <strong>כל אחד מהם יכיר אותך בשמך.</strong></p>
 
     <div class="rav-hero rv">
       <img class="portrait" src="img/harav-face.jpg" alt="הרב רפאל רובין שליט״א" width="136" height="136" />
@@ -385,20 +391,26 @@ nav.scrolled{background:rgba(12,35,28,.92)}
     <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto;margin-top:1.8rem">
       <!-- PLACEHOLDER PORTRAIT — replace src with a real photograph when supplied.
            Required: 1:1 crop, face centred, warm even lighting, kippah/hat visible. -->
-      <div class="card rv" data-needs-photo="הרב חיים כהן">
-        <div class="portrait portrait-sm mono" aria-hidden="true"><span>ח״כ</span></div>
-        <h3>הרב חיים כהן</h3><span class="role">מלווה אברכים</span>
-        <p>מבוגרי הבית. מלווה את אברכי המתחם ומכיר כל בחור בשמו — עוד לפני שנכנס.</p>
-      </div>
-      <div class="card rv d1" data-needs-photo="הרב עמית יוסף">
+      <div class="card rv" data-needs-photo="הרב עמית יוסף">
         <div class="portrait portrait-sm mono" aria-hidden="true"><span>ע״י</span></div>
-        <h3>הרב עמית יוסף</h3><span class="role">הגשר מהצבא לבית המדרש</span>
-        <p>גדל בפעילות הנוער "הלב היהודי" וחזר להעמיד אותה. מי שמדבר את השפה של בחור אחרי שירות.</p>
+        <h3>הרב עמית יוסף</h3>
+        <span class="p-tag">צנחנים · צוק איתן</span>
+        <span class="p-bg">קצין לוחם בגדוד 202 צנחנים ולוחם בצוק איתן. בוגר ישיבת אש התלמוד.</span>
+        <span class="p-hook">מנהיגות אמיתית — כזו שנבחנה בשטח.</span>
       </div>
-      <div class="card rv d2" data-needs-photo="הרב אורי ואננו">
+      <div class="card rv d1" data-needs-photo="הרב אורי ואנונו">
         <div class="portrait portrait-sm mono" aria-hidden="true"><span>א״ו</span></div>
-        <h3>הרב אורי ואננו</h3><span class="role">רכז חברותות</span>
-        <p>איש החברותות — מי שדואג שאף בחור לא לומד לבד ולא נשאר לבד.</p>
+        <h3>הרב אורי ואנונו</h3>
+        <span class="p-tag">חיל התקשוב</span>
+        <span class="p-bg">בלי רקע ישיבתי, בוגר חיל התקשוב.</span>
+        <span class="p-hook">הגיע מאותו מקום שאתה נמצא בו עכשיו — ולכן שואל בדיוק את השאלות הנכונות.</span>
+      </div>
+      <div class="card rv d2" data-needs-photo="הרב חיים כהן">
+        <div class="portrait portrait-sm mono" aria-hidden="true"><span>ח״כ</span></div>
+        <h3>הרב חיים כהן</h3>
+        <span class="p-tag">בני עקיבא · טלזסטון · בני ברק</span>
+        <span class="p-bg">בוגר ישיבות בני עקיבא, מאורות התורה בטלזסטון ונתיבות עולם בבני ברק.</span>
+        <span class="p-hook">מחבר בין עולמות — ומדבר עם כל אחד בשפה שלו.</span>
       </div>
     </div>
   </div>
