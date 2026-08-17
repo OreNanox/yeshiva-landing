@@ -630,12 +630,13 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
   /* ===================== form =====================
      FormSubmit relays the submission to the team by email. Chosen because it
      needs no account, no API key, no Google, and no code hosted anywhere —
-     only an HTTPS POST. Nothing secret lives here: the endpoint can do exactly
-     one thing, email the fixed addresses below.
+     only an HTTPS POST.
+     No e-mail address appears anywhere in this file by design: the endpoint is
+     FormSubmit's opaque alias, so the team's addresses cannot be harvested from
+     the public source. Recipients are configured on FormSubmit's side.
      No mailto, ever: the candidate never opens an email client.
      See tools/form-backend.md                                          */
-  var SUBMIT_ENDPOINT = "https://formsubmit.co/ajax/info@yarenunissim.com";
-  var NOTIFY_CC       = "mak720431@gmail.com";
+  var SUBMIT_ENDPOINT = "";   /* ← paste the FormSubmit alias endpoint here */
 
   var form=document.getElementById('applyForm'),
       msg=document.getElementById('formMsg'),
@@ -715,7 +716,6 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
       "עיר מגורים":d.city||'—', "מה עושה היום":d.now||'—', "על עצמי / למה עכשיו":d.about,
       "הגיע מהדף":location.pathname.replace(/^.*\//,''),
       _subject:'מועמדות חדשה — '+d.name,
-      _cc:NOTIFY_CC,
       _template:'table',
       _captcha:'false'
     };
