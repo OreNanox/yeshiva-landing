@@ -215,9 +215,6 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .dorm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem;max-width:60rem;margin-inline:auto}
 @media (max-width:900px){.dorm-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.dorm-grid{grid-template-columns:1fr}}
-/* first tile carries the establishing shot */
-.dorm-shot.lead{grid-column:span 2;aspect-ratio:16/9}
-@media (max-width:560px){.dorm-shot.lead{grid-column:span 1;aspect-ratio:4/3}}
 .dorm-shot{transition:transform .3s ease, border-color .3s ease}
 .dorm-shot:not(.await):hover{transform:translateY(-4px);border-color:var(--gold)}
 .dorm-cap{position:absolute;inset-inline:0;bottom:0;padding:1.6rem .9rem .7rem;font-size:.85rem;color:#F1EADC;
@@ -471,7 +468,7 @@ nav.scrolled{background:rgba(12,12,14,.93)}
     <p class="prose rv">חדרים במתחם בנתניה, במרחק דקות הליכה מבית המדרש. שניים־שלושה בחורים לחדר, מיטה ושולחן לכל אחד, מקלחות ומטבחון בקומה, וכיבוד וכיבוס מסודרים. <strong>הכול בגובה של מבוגרים אחרי צבא</strong> — עם שקט לישון, מקום ללמוד, ופינה לשבת בה עם חברותא בשתיים בלילה.</p>
 
     <div class="dorm-grid rv">
-      <figure class="dorm-shot lead"><img src="img/opt/dorm-room.jpg" alt="חדר פנימייה במתחם" loading="lazy" width="1200" height="675" /><figcaption class="dorm-cap">חדר — שתי מיטות קומתיים</figcaption></figure>
+      <figure class="dorm-shot"><img src="img/opt/dorm-room.jpg" alt="חדר פנימייה במתחם" loading="lazy" width="1200" height="675" /><figcaption class="dorm-cap">חדר — שתי מיטות קומתיים</figcaption></figure>
       <figure class="dorm-shot"><img src="img/opt/dorm-window.jpg" alt="חדר פנימייה עם חלון" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">אור טבעי בכל חדר</figcaption></figure>
       <figure class="dorm-shot"><img src="img/opt/dorm-shower2.jpg" alt="מקלחת אישית במתחם" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">מקלחות אישיות</figcaption></figure>
       <figure class="dorm-shot"><img src="img/opt/dorm-basins.jpg" alt="כיורים בקומת המגורים" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">שירותים וכיורים בקומה</figcaption></figure>
