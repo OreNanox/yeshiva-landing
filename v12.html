@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/opt/harav-hero.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="img/opt/yeshiva-building.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ===== palette: 2 colors only — deep navy + gold (principle 8) ===== */
@@ -73,14 +73,17 @@ nav .nwrap{width:min(100% - 3rem,72rem);margin-inline:auto;display:flex;align-it
 
 /* ===== hero: full-bleed, the Rav dominant (principles 1,2,6) ===== */
 header{position:relative;min-height:100svh;display:flex;align-items:flex-end;justify-content:center;isolation:isolate;overflow:hidden;text-align:center}
-.hero-bg{position:absolute;inset:-4%;z-index:-2;background:url("img/opt/harav-hero.jpg") center 16%/cover no-repeat;animation:kenburns 26s ease-in-out infinite alternate}
-@media (max-width:768px){.hero-bg{background-position:center 10%}}
+.hero-bg{position:absolute;inset:-4%;z-index:-2;background:url("img/opt/yeshiva-building.jpg") center 42%/cover no-repeat;animation:kenburns 26s ease-in-out infinite alternate}
+@media (max-width:768px){.hero-bg{background-position:58% 42%}}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+/* Keep a genuine window on the building in the top quarter, then go heavy:
+   measured on the rendered pixels — at .30 alpha the gold overline fell to 1.1
+   contrast and was invisible against the sunlit stone. */
 .hero-veil{position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(ellipse 100% 62% at 50% 28%, rgba(10,22,38,0) 0%, rgba(10,22,38,.42) 58%, rgba(10,22,38,.9) 100%),
-             linear-gradient(180deg, rgba(10,22,38,.34), rgba(10,22,38,.18) 34%, rgba(10,22,38,.82) 72%, var(--ink) 100%)}
+  background:linear-gradient(180deg, rgba(10,22,38,.30) 0%, rgba(10,22,38,.12) 20%, rgba(10,22,38,.42) 34%,
+             rgba(10,22,38,.70) 50%, rgba(10,22,38,.89) 68%, rgba(10,22,38,.97) 84%, var(--ink) 100%)}
 .hero-inner{padding:32svh 1.5rem 4.5rem;max-width:56rem}
-.hero-over{color:var(--gold);letter-spacing:.2em;font-size:clamp(.75rem,1.6vw,.95rem);font-weight:500;margin-bottom:2rem;text-shadow:0 1px 10px rgba(10,22,38,.9),0 0 26px rgba(10,22,38,.8)}
+.hero-over{color:var(--gold);letter-spacing:.2em;font-size:clamp(.75rem,1.6vw,.95rem);font-weight:500;margin-bottom:2rem;text-shadow:0 1px 3px rgba(10,22,38,.95),0 2px 14px rgba(10,22,38,.95),0 0 30px rgba(10,22,38,.9)}
 h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .lede{color:var(--soft);font-size:clamp(1.08rem,2vw,1.3rem);max-width:38rem;margin:0 auto 2.6rem}
 /* one primary CTA, one quiet secondary link (principle: single clear CTA) */
@@ -124,7 +127,7 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .q-slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;
   opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;pointer-events:none;padding-inline:1rem}
 .q-slide.on{opacity:1;transform:none;pointer-events:auto}
-.q-face{width:5.2rem;height:5.2rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;object-position:center 20%}
+.q-face{width:6.5rem;height:6.5rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;object-position:center 20%}
 .q-slide blockquote{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(1.2rem,3.4vw,2.1rem);line-height:1.45;color:var(--gold-soft);max-width:44rem}
 .q-slide cite{font-style:normal;color:var(--faint);font-size:.98rem}
 .q-dots{display:flex;gap:.6rem;justify-content:center;margin-top:2rem}
@@ -145,7 +148,7 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 
 /* ===== full-bleed photo band ===== */
 .band{position:relative;isolation:isolate;padding-block:clamp(7rem,20vh,12rem);text-align:center;overflow:hidden}
-.band-bg{position:absolute;inset:0;z-index:-2;background:url("img/opt/harav-field.jpg") center 32%/cover no-repeat}
+.band-bg{position:absolute;inset:0;z-index:-2;background:url("img/opt/harav-field2.jpg") center 40%/cover no-repeat}
 .band-veil{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--ink) 0%,rgba(10,22,38,.55) 22%,rgba(10,22,38,.55) 78%,var(--ink) 100%)}
 .band h2{color:#F5EFE2;text-shadow:0 2px 20px rgba(10,22,38,.8)}
 .band .prose{color:#DCE3EB;text-shadow:0 1px 12px rgba(10,22,38,.85)}
@@ -158,7 +161,7 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .rav-hero h3{font-family:var(--serif);font-weight:900;font-size:clamp(1.5rem,3.4vw,2.2rem);margin:0 0 .7rem}
 .rav-hero p{color:var(--soft);margin:0;max-width:28rem;margin-inline:auto}
 /* every person gets the SAME portrait geometry: 1:1 circle, identical crop + border */
-.portrait{width:8.5rem;height:8.5rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;
+.portrait{width:11rem;height:11rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;
   object-position:center 20%;display:block;margin:0 auto 1.4rem;background:var(--deep)}
 .portrait-sm{width:6.4rem;height:6.4rem;margin-bottom:1.1rem}
 /* quality monogram placeholder for team members with no real photograph yet */
@@ -343,12 +346,12 @@ input,textarea{background:#fff;border-color:rgba(122,95,32,.3);color:#202C3A}
     <div class="wrap">
       <div class="q-track" id="qTrack">
         <div class="q-slide on">
-          <img class="q-face" src="img/harav-face.jpg" alt="הרב רפאל רובין שליט״א" width="83" height="83" />
+          <img class="q-face" src="img/opt/harav-portrait.jpg" alt="הרב רפאל רובין שליט״א" width="104" height="104" />
           <blockquote>"תן לעצמך שנה. תגלה מי אתה. תחזור הביתה."</blockquote>
           <cite>הרב רפאל רובין שליט״א · ראש הישיבה</cite>
         </div>
         <div class="q-slide">
-          <img class="q-face" src="img/harav-mic.jpg" alt="הרב רפאל רובין שליט״א בשיחת הפתיחה" style="object-position:center 12%" width="83" height="83" loading="lazy" />
+          <img class="q-face" src="img/opt/harav-podium.jpg" alt="הרב רפאל רובין שליט״א בשיחת הפתיחה" width="104" height="104" loading="lazy" />
           <blockquote>"לא באנו להגיד לך בוא תלמד גמרא. באנו לשאול איתך את השאלה שהצבא לא שאל."</blockquote>
           <cite>מתוך שיחת הפתיחה</cite>
         </div>
@@ -365,10 +368,9 @@ input,textarea{background:#fff;border-color:rgba(122,95,32,.3);color:#202C3A}
     <p class="prose rv">לפני יותר מעשרים שנה התיישב הרב רפאל רובין ללמוד בליל שבת עם שני בחורים. השיעור הזה לא הפסיק מאז — הוא גדל מפעם בשבוע לכל יום, ומהשיעור נבנה בית שלם: קהילה, פעילות לכל הגילאים, ופעילות הנוער "הלב היהודי" שאלפי בחורים עברו בה.<br/><br/><strong>הישיבה היא לא מוסד שנבנה יש מאין — היא הקומה הבאה של אותו בית.</strong></p>
     <div class="frame rv">
       <div class="gal" id="storyGal">
-        <!-- shiur.jpg removed 17.08 — the client identified it as ~7-8 years old.
-             Replace with a current beit-midrash photo when one is supplied. -->
-        <img src="img/opt/harav-hug.jpg" alt="הרב רפאל רובין מחבק בחור" class="on" data-cap="הקשר כאן אישי. כל בחור — בשמו, בסיפור שלו" width="1200" height="800" />
-        <img src="img/opt/harav-field.jpg" alt="הרב רפאל רובין מדבר עם קבוצת נוער במגרש" loading="lazy" data-cap="״הלב היהודי״ — עשרים שנה עם הנוער של נתניה, גם על הדשא" width="1200" height="800" />
+        <img src="img/opt/hug-event.jpg" alt="הרב רפאל רובין מחבק בחור" class="on" data-cap="הקשר כאן אישי. כל בחור — בשמו, בסיפור שלו" width="1400" height="933" />
+        <img src="img/opt/singing.jpg" alt="בחורים שרים יחד בסוף הערב" loading="lazy" data-cap="מה שקורה אחרי הסדר — את זה אי אפשר להסביר בטלפון" width="1400" height="933" />
+        <img src="img/opt/crowd-night.jpg" alt="אלפי משתתפים בכנס של יראנו ניסים" loading="lazy" data-cap="עשרים שנה של בית. אלפים שעברו כאן" width="1400" height="933" />
         <div class="gal-cap" id="galCap">השיעור של ליל שבת — הלב שממנו הכול צמח</div>
       </div>
       <div class="gal-dots q-dots" id="galDots" style="margin-top:1.2rem"></div>
@@ -393,7 +395,7 @@ input,textarea{background:#fff;border-color:rgba(122,95,32,.3);color:#202C3A}
     <p class="prose rv">לא צוות שהורכב למוסד חדש: קצין לוחם, איש תקשוב בלי רקע ישיבתי, ובוגר שלוש ישיבות משלושה עולמות. <strong>כל אחד מהם יכיר אותך בשמך.</strong></p>
 
     <div class="rav-hero rv">
-      <img class="portrait" src="img/harav-face.jpg" alt="הרב רפאל רובין שליט״א" width="136" height="136" />
+      <img class="portrait" src="img/opt/harav-portrait.jpg" alt="הרב רפאל רובין שליט״א" width="176" height="176" />
       <div class="tag">הנהגה רוחנית</div>
       <h3>הרב רפאל רובין שליט״א</h3>
       <p>מייסד המתחם ומנהיגו למעלה מעשרים שנה. השיעור שלו בליל שבת הוא הלב שממנו נבנה הכול — והישיבה היא הקומה הבאה שלו.</p>

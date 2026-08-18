@@ -59,3 +59,15 @@ for src, dst, h in PNGS:
 
 print("-" * 56)
 print(f"{'TOTAL':<26}{total_before:>9.0f}K{total_after:>9.0f}K{total_before-total_after:>9.0f}K")
+
+# ── 18.08: the landing pages now use photos supplied by the client, processed
+# from  Downloads\דפי נחיתה\  by a one-off script. The derivatives live in
+# img/opt/ and are committed. Sources (client originals, 3-30MB each) are NOT in
+# the repo. Current mapping:
+#   yeshiva-building.jpg <- תמונות/רחפן כולל1  (hero, 1600px q74)
+#   harav-portrait.jpg   <- תמונות/3           (Rav, hat + tie; 560px square)
+#   harav-podium.jpg     <- תמונות/13          (carousel face; 300px square)
+#   harav-field2.jpg     <- 4.JPG              (band, football field; 1600px)
+#   hug-event.jpg        <- תמונות/7           (gallery)
+#   singing.jpg          <- תמונות/2           (gallery)
+#   crowd-night.jpg      <- תמונות/9           (gallery)
