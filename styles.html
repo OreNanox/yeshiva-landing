@@ -25,12 +25,12 @@ h1{font-family:"Rubik","Assistant",sans-serif;font-weight:900;font-size:clamp(1.
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.grid{grid-template-columns:1fr}}
-a.opt{display:block;text-decoration:none;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.12);transition:.25s ease;color:inherit}
+a.opt{display:flex;flex-direction:column;text-decoration:none;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.12);transition:.25s ease;color:inherit}
 a.opt:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.45);border-color:rgba(255,255,255,.35)}
-.swatch{height:9.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem}
+.swatch{height:9.5rem;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem}
 .swatch b{font-family:"Rubik","Assistant",sans-serif;font-size:1.7rem;font-weight:900}
 .swatch i{font-style:normal;font-size:.8rem;letter-spacing:.15em;opacity:.85}
-.meta{padding:1rem;background:#141C2B;font-size:.92rem;color:#9FAEC2}
+.meta{flex:1;padding:1rem;background:#141C2B;font-size:.92rem;color:#9FAEC2}
 .s1{background:linear-gradient(160deg,#0A1626,#122540);color:#E4BC62}
 .s2{background:linear-gradient(160deg,#F5EFE2,#EDE4D1);color:#8A6B1F}
 .s3{background:linear-gradient(160deg,#F7F9FC,#DBE7F5);color:#1F5EDB}
