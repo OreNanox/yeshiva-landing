@@ -121,6 +121,17 @@ def harmonize(im, shadow=INK, warm=1.04, strength=0.42):
     return Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8))
 
 
+def tracked_left(d, left, y, text, fnt, fill, track=0):
+    """Left-anchored tracked text — the URL is Latin, so it belongs on the left,
+    clear of the right-aligned Hebrew and the bottom-right bracket."""
+    vis = rtl(text)
+    x = left
+    for ch in vis:
+        d.text((x, y), ch, font=fnt, fill=fill)
+        x += d.textlength(ch, font=fnt) + track
+    return x - left
+
+
 def tracked(d, right, y, text, fnt, fill, track=0):
     """Letter-spaced text, right-anchored. PIL has no tracking, so advance by
     hand — the wide gold eyebrow is what makes the card feel typeset."""
@@ -134,17 +145,53 @@ def tracked(d, right, y, text, fnt, fill, track=0):
     return total
 
 
-def frame(d, w, h, inset, colour=GOLD, thick=2, alpha=70):
-    """Thin inset rule — reads as a printed edge, not a border."""
-    c = tuple(int(INK[i] + (colour[i] - INK[i]) * alpha / 255) for i in range(3))
-    d.rectangle([inset, inset, w - inset, h - inset], outline=c, width=thick)
+def gold_grad(w, h, c0=(214, 168, 74), c1=(247, 224, 160), c2=(198, 150, 60)):
+    """Vertical metallic ramp — flat gold reads as a colour, a ramp reads as leaf."""
+    top = np.linspace(0, 1, h, dtype=np.float32)[:, None]
+    a = np.asarray(c0, np.float32); b = np.asarray(c1, np.float32); c = np.asarray(c2, np.float32)
+    up = a + (b - a) * np.clip(top / 0.45, 0, 1)
+    dn = b + (c - b) * np.clip((top - 0.45) / 0.55, 0, 1)
+    col = np.where(top < 0.45, up, dn)
+    return Image.fromarray(np.repeat(col[:, None, :], w, axis=1).astype(np.uint8))
 
 
-def corner_mark(d, x, y, size, colour=GOLD):
-    """Small geometric accent: two strokes meeting at a corner."""
-    t = max(3, size // 12)
-    d.rectangle([x, y, x + size, y + t], fill=colour)
-    d.rectangle([x, y, x + t, y + size], fill=colour)
+def grad_text(base, xy, text, fnt, anchor="ra", grad=None):
+    """Draw text filled with a vertical gradient instead of a flat colour."""
+    tmp = Image.new("L", base.size, 0)
+    ImageDraw.Draw(tmp).text(xy, rtl(text), font=fnt, fill=255, anchor=anchor)
+    bbox = tmp.getbbox()
+    if not bbox:
+        return
+    g = grad if grad is not None else gold_grad(base.size[0], bbox[3] - bbox[1])
+    layer = Image.new("RGB", base.size, (0, 0, 0))
+    layer.paste(g.resize((base.size[0], bbox[3] - bbox[1])), (0, bbox[1]))
+    base.paste(layer, (0, 0), tmp)
+
+
+def bracket(d, x, y, size, thick, colour=GOLD, flip_x=False, flip_y=False):
+    """An open corner bracket — the frame is implied, not drawn. Reads as a
+    considered mark rather than the default rectangle a template would give."""
+    sx = -1 if flip_x else 1
+    sy = -1 if flip_y else 1
+    d.rectangle(sorted_box(x, y, x + sx * size, y + sy * thick), fill=colour)
+    d.rectangle(sorted_box(x, y, x + sx * thick, y + sy * size), fill=colour)
+
+
+def sorted_box(x0, y0, x1, y1):
+    return [min(x0, x1), min(y0, y1), max(x0, x1), max(y0, y1)]
+
+
+def corner_set(d, w, h, inset, size, thick=3):
+    """Brackets on the two diagonal corners only — asymmetry looks deliberate,
+    all four looks like a border."""
+    bracket(d, inset, inset, size, thick)
+    bracket(d, w - inset, h - inset, size, thick, flip_x=True, flip_y=True)
+
+
+def side_bar(base, x, y0, y1, width=7):
+    """A vertical gold spine beside the copy — anchors the text block."""
+    h = y1 - y0
+    base.paste(gold_grad(width, h), (x, y0))
 
 
 def vignette(im, strength=0.30):
@@ -172,29 +219,30 @@ def horizontal(w=1200, h=630, photo="opt/harav-portrait.jpg", out="og-share.jpg"
     base = vignette(base, 0.22)
 
     d = ImageDraw.Draw(base)
-    frame(d, w, h, 26)
-    corner_mark(d, 40, 40, 34)
+    corner_set(d, w, h, 30, 46, 3)
 
-    right = int(w * 0.555)
-    f_eye  = font("Assistant-700.ttf", 20)
-    f_head = font("Rubik-900.ttf", 86)
-    f_sub  = font("Rubik-300.ttf", 36)
-    f_sm   = font("Assistant-600.ttf", 23)
-    f_url  = font("Assistant-700.ttf", 20)
+    right = int(w * 0.560)
+    f_eye  = font("Assistant-700.ttf", 19)
+    f_head = font("Rubik-900.ttf", 92)
+    f_sub  = font("Rubik-300.ttf", 37)
+    f_sm   = font("Assistant-600.ttf", 22)
+    f_url  = font("Assistant-700.ttf", 19)
 
-    y = int(h * 0.185)
-    tracked(d, right, y, eyebrow, f_eye, GOLD, track=5.5)
-    y += 52
+    top = int(h * 0.175)
+    y = top
+    tracked(d, right, y, eyebrow, f_eye, GOLD, track=6.5)
+    y += 54
     d.text((right, y), rtl(HEAD), font=f_head, fill=TEXT, anchor="ra")
-    y += 112
-    d.text((right, y), rtl(SUB), font=f_sub, fill=GOLD_SOFT, anchor="ra")
-    y += 74
-    rule(d, right, y, 150, thick=4)
-    y += 36
+    y += 118
+    grad_text(base, (right, y), SUB, f_sub, anchor="ra")
+    d = ImageDraw.Draw(base)
+    y += 78
     d.text((right, y), rtl(BRAND), font=f_sm, fill=FAINT, anchor="ra")
-    y += 36
+    y += 34
     d.text((right, y), rtl(DATES), font=f_sm, fill=GOLD, anchor="ra")
-    tracked(d, right, h - 62, URL, f_url, FAINT, track=1.6)
+    side_bar(base, right + 22, top - 6, y + 30, 6)
+    d = ImageDraw.Draw(base)
+    tracked_left(d, 58, h - 58, URL, f_url, FAINT, track=1.8)
     return save(base, out)
 
 
@@ -205,8 +253,7 @@ def vertical(w=1080, h=1920, photo="opt/harav-portrait.jpg", out="story.jpg",
     base = scrim(base, vmask(w, h, [(0, 120), (0.22, 40), (0.44, 120),
                                     (0.58, 212), (0.76, 244), (1, 252)]))
     d = ImageDraw.Draw(base)
-    frame(d, w, h, 40, thick=3)
-    corner_mark(d, 62, 62, 46)
+    corner_set(d, w, h, 48, 70, 4)
 
     right = w - 96
     f_eye  = font("Assistant-700.ttf", 29)
@@ -214,19 +261,21 @@ def vertical(w=1080, h=1920, photo="opt/harav-portrait.jpg", out="story.jpg",
     f_sub  = font("Rubik-300.ttf", 52)
     f_sm   = font("Assistant-600.ttf", 33)
 
-    y = int(h * 0.545)
-    tracked(d, right, y, eyebrow, f_eye, GOLD, track=7)
-    y += 78
+    top = int(h * 0.535)
+    y = top
+    tracked(d, right, y, eyebrow, f_eye, GOLD, track=8.5)
+    y += 80
     d.text((right, y), rtl(HEAD), font=f_head, fill=TEXT, anchor="ra")
-    y += 176
-    d.text((right, y), rtl(SUB), font=f_sub, fill=GOLD_SOFT, anchor="ra")
-    y += 104
-    rule(d, right, y, 200, thick=5)
-    y += 54
+    y += 184
+    grad_text(base, (right, y), SUB, f_sub, anchor="ra")
+    d = ImageDraw.Draw(base)
+    y += 112
     d.text((right, y), rtl(BRAND), font=f_sm, fill=FAINT, anchor="ra")
-    y += 50
+    y += 48
     d.text((right, y), rtl(DATES), font=f_sm, fill=GOLD, anchor="ra")
-    tracked(d, right, h - 120, URL, font("Assistant-700.ttf", 29), FAINT, track=2.2)
+    side_bar(base, right + 30, top - 8, y + 44, 8)
+    d = ImageDraw.Draw(base)
+    tracked_left(d, 84, h - 116, URL, font("Assistant-700.ttf", 28), FAINT, track=2.6)
     return save(base, out)
 
 
@@ -237,8 +286,7 @@ def square(w=1080, h=1080, photo="opt/beit-midrash.jpg", out="instagram-post.jpg
     base = scrim(base, vmask(w, h, [(0, 140), (0.18, 70), (0.38, 180),
                                     (0.54, 232), (0.72, 248), (1, 252)]))
     d = ImageDraw.Draw(base)
-    frame(d, w, h, 34, thick=3)
-    corner_mark(d, 54, 54, 42)
+    corner_set(d, w, h, 40, 58, 4)
 
     right = w - 86
     f_eye  = font("Assistant-700.ttf", 25)
@@ -246,19 +294,21 @@ def square(w=1080, h=1080, photo="opt/beit-midrash.jpg", out="instagram-post.jpg
     f_sub  = font("Rubik-300.ttf", 42)
     f_sm   = font("Assistant-600.ttf", 29)
 
-    y = int(h * 0.435)
-    tracked(d, right, y, eyebrow, f_eye, GOLD, track=6)
-    y += 66
+    top = int(h * 0.425)
+    y = top
+    tracked(d, right, y, eyebrow, f_eye, GOLD, track=7)
+    y += 68
     d.text((right, y), rtl(HEAD), font=f_head, fill=TEXT, anchor="ra")
-    y += 140
-    d.text((right, y), rtl(SUB), font=f_sub, fill=GOLD_SOFT, anchor="ra")
-    y += 88
-    rule(d, right, y, 170, thick=5)
-    y += 46
+    y += 148
+    grad_text(base, (right, y), SUB, f_sub, anchor="ra")
+    d = ImageDraw.Draw(base)
+    y += 94
     d.text((right, y), rtl(BRAND), font=f_sm, fill=FAINT, anchor="ra")
-    y += 46
+    y += 44
     d.text((right, y), rtl(DATES), font=f_sm, fill=GOLD, anchor="ra")
-    tracked(d, right, h - 86, URL, font("Assistant-700.ttf", 25), FAINT, track=2)
+    side_bar(base, right + 26, top - 8, y + 40, 7)
+    d = ImageDraw.Draw(base)
+    tracked_left(d, 74, h - 82, URL, font("Assistant-700.ttf", 24), FAINT, track=2.2)
     return save(base, out)
 
 
