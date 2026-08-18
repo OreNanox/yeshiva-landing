@@ -195,15 +195,27 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
   border:1px solid var(--gold);border-radius:4px;padding:.9rem 1.6rem;color:var(--gold-soft);font-weight:600}
 
 /* ===== dormitory ===== */
-.dorm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-top:3rem;max-width:52rem;margin-inline:auto}
-@media (max-width:640px){.dorm-grid{grid-template-columns:1fr}}
-.dorm-shot{aspect-ratio:4/3;border-radius:6px;overflow:hidden;border:1px solid var(--line);position:relative;background:var(--deep)}
+.dorm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem;max-width:60rem;margin-inline:auto}
+@media (max-width:900px){.dorm-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.dorm-grid{grid-template-columns:1fr}}
+/* first tile carries the establishing shot */
+.dorm-shot.lead{grid-column:span 2;aspect-ratio:16/9}
+@media (max-width:560px){.dorm-shot.lead{grid-column:span 1;aspect-ratio:4/3}}
+.dorm-shot{transition:transform .3s ease, border-color .3s ease}
+.dorm-shot:not(.await):hover{transform:translateY(-4px);border-color:var(--gold)}
+.dorm-cap{position:absolute;inset-inline:0;bottom:0;padding:1.6rem .9rem .7rem;font-size:.85rem;color:#F1EADC;
+  background:linear-gradient(180deg,transparent,rgba(10,22,38,.88));text-align:center;line-height:1.5}
+.dorm-shot{aspect-ratio:4/3;border-radius:6px;overflow:hidden;border:1px solid var(--line);position:relative;background:var(--deep);margin:0}
 .dorm-shot img{width:100%;height:100%;object-fit:cover;display:block}
 /* honest placeholder — no invented photograph, clearly awaiting a real one */
 .dorm-shot.await{display:grid;place-items:center;gap:.7rem;border-style:dashed;
   background:linear-gradient(180deg,var(--raised),var(--deep));text-align:center;padding:1.5rem}
 .dorm-shot.await svg{width:2.1rem;height:2.1rem;color:var(--gold);opacity:.75}
 .dorm-shot.await span{color:var(--faint);font-size:.88rem;line-height:1.6;max-width:16rem}
+.hall{margin:3rem auto 0;max-width:56rem;border-radius:6px;overflow:hidden;border:1px solid var(--line);position:relative}
+.hall img{display:block;width:100%;height:auto}
+.hall figcaption{position:absolute;inset-inline:0;bottom:0;padding:2.4rem 1rem .9rem;text-align:center;
+  color:#F1EADC;font-size:.95rem;background:linear-gradient(180deg,transparent,rgba(10,22,38,.88))}
 .dorm-note{margin:2.2rem auto 0;max-width:40rem;color:var(--gold-soft);font-weight:600;font-size:1rem;
   background:rgba(228,188,98,.08);border:1px solid var(--line);border-radius:6px;padding:1rem 1.3rem}
 
@@ -439,6 +451,7 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
   <div class="wrap">
     <div class="kicker rv">המסגרת</div>
     <h2 class="rv">יום שלם. בית שלם. שנה שלמה.</h2>
+    <figure class="hall rv"><img src="img/opt/beit-midrash.jpg" alt="בית המדרש החדש של הישיבה" loading="lazy" width="1500" height="843" /><figcaption>בית המדרש — נבנה עכשיו, ומחכה לך</figcaption></figure>
     <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto">
       <div class="card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M9 7h6M9 11h6"/></svg></div><h3>שלושה סדרים ביום</h3><p>גמרא, הלכה ופנימיות — לימוד שנבנה מהיסודות, בגובה של מבוגרים.</p></div>
       <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div><h3>לינה במתחם</h3><p>חדרים במתחם בנתניה. לא פנימייה של ילדים — בית של בחורים אחרי צבא.</p></div>
@@ -455,16 +468,12 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
     <p class="prose rv">חדרים במתחם בנתניה, במרחק דקות הליכה מבית המדרש. שניים־שלושה בחורים לחדר, מיטה ושולחן לכל אחד, מקלחות ומטבחון בקומה, וכיבוד וכיבוס מסודרים. <strong>הכול בגובה של מבוגרים אחרי צבא</strong> — עם שקט לישון, מקום ללמוד, ופינה לשבת בה עם חברותא בשתיים בלילה.</p>
 
     <div class="dorm-grid rv">
-      <!-- PLACEHOLDER — no dormitory photograph exists in the project Drive (checked 17.08).
-           Replace with real photos: 4:3 crop, daylight, tidy room, no people's faces needed. -->
-      <div class="dorm-shot await" data-needs-photo="חדר פנימייה — מבט כללי">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M5 10V7a2 2 0 012-2h10a2 2 0 012 2v3"/><path d="M2 18h20"/></svg>
-        <span>תמונת חדר הפנימייה — בהכנה</span>
-      </div>
-      <div class="dorm-shot await" data-needs-photo="הפנימייה — פינת לימוד / מטבחון">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M9 7h6M9 11h6"/></svg>
-        <span>פינת הלימוד במתחם — בהכנה</span>
-      </div>
+      <figure class="dorm-shot lead"><img src="img/opt/dorm-room.jpg" alt="חדר פנימייה במתחם" loading="lazy" width="1200" height="675" /><figcaption class="dorm-cap">חדר — שתי מיטות קומתיים</figcaption></figure>
+      <figure class="dorm-shot"><img src="img/opt/dorm-window.jpg" alt="חדר פנימייה עם חלון" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">אור טבעי בכל חדר</figcaption></figure>
+      <figure class="dorm-shot"><img src="img/opt/dorm-room2.jpg" alt="חדר פנימייה — זווית נוספת" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">מקום לכל אחד</figcaption></figure>
+      <figure class="dorm-shot"><img src="img/opt/dorm-basins.jpg" alt="כיורים בקומת המגורים" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">שירותים וכיורים בקומה</figcaption></figure>
+      <figure class="dorm-shot"><img src="img/opt/dorm-showers.jpg" alt="מקלחות בקומת המגורים" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">מקלחות חדשות</figcaption></figure>
+      <figure class="dorm-shot"><img src="img/opt/dorm-sink.jpg" alt="פינת רחצה" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">הכול נבנה עכשיו — מהיסוד</figcaption></figure>
     </div>
 
     <p class="dorm-note rv">בשלב הראשון המסגרת היא <strong>בתנאי פנימייה בלבד</strong> — הלינה היא חלק מהחוויה, לא תוספת.</p>
