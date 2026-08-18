@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="img/opt/yeshiva-building.jpg" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;600;700;800;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ===== palette: 2 colors only — deep navy + gold (principle 8) ===== */
 :root{
@@ -48,6 +48,15 @@ img{max-width:100%}
 @media (max-width:768px){.pagebg{background-position:58% 42%;opacity:.11}}
 @media (prefers-reduced-motion:reduce){.pagebg{opacity:.10}}
 
+/* ===== metallic gold: a vertical sheen instead of flat colour, the same
+   treatment the share assets use. Derives from --gold tokens, so every theme
+   keeps its own gold. ===== */
+.metal{color:var(--gold);
+  background:linear-gradient(180deg,var(--gold-soft) 0%,var(--gold) 52%,var(--gold-soft) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .metal{-webkit-text-fill-color:currentColor}}
+
 /* ===== accessibility: visible focus + skip link ===== */
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px}
 .skip{position:absolute;inset-inline-start:-9999px;top:0;z-index:100;background:var(--gold);color:var(--ink);
@@ -65,10 +74,11 @@ section{padding-block:var(--space);position:relative}
 
 /* ===== typography: huge, confident, clear hierarchy (principle 4) ===== */
 h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.7rem,10vw,7rem);line-height:1.04;margin:0 0 1.4rem;letter-spacing:-.02em}
-h1 .l2{display:block;font-weight:500;color:var(--gold-soft);font-size:.44em;margin-top:1rem;letter-spacing:.01em}
+h1 .l2{display:block;font-weight:300;font-size:.46em;margin-top:1.15rem;letter-spacing:.005em}
 h2{font-family:var(--serif);font-weight:800;font-size:clamp(1.85rem,5.2vw,3.6rem);line-height:1.15;margin:0 auto 1.4rem;max-width:26ch;letter-spacing:-.01em}
-.kicker{color:var(--gold);font-weight:500;letter-spacing:.22em;font-size:.88rem;margin-bottom:1.5rem;text-transform:uppercase}
-.kicker::after{content:"";display:block;width:3.2rem;height:1px;background:var(--gold);margin:1.1rem auto 0}
+.kicker{font-weight:600;letter-spacing:.26em;font-size:.82rem;margin-bottom:1.5rem;text-transform:uppercase}
+.kicker::after{content:"◆";display:block;color:var(--gold);font-size:.5rem;letter-spacing:0;margin:.9rem auto 0;opacity:.9}
+.kicker::before{content:"";display:block;width:2.6rem;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto .9rem}
 .prose{color:var(--soft);max-width:42rem;margin-inline:auto;font-size:clamp(1.05rem,1.7vw,1.2rem)}
 .prose strong{color:var(--text);font-weight:600}
 
@@ -339,7 +349,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-over rv in">נתניה · לבוגרי צבא · ההרשמה נסגרת בכ׳ באלול</div>
-    <h1 class="rv in">תן לעצמך שנה.<span class="l2">תגלה מי אתה. תחזור הביתה.</span></h1>
+    <h1 class="rv in">תן לעצמך שנה.<span class="l2 metal">תגלה מי אתה. תחזור הביתה.</span></h1>
     <p class="lede rv in d1">בצבא ידעו להגיד לך בדיוק מי אתה. ביום שאחרי השחרור — השאלה חוזרת אליך.<br/>ישיבה בבית שצומח בנתניה כבר יותר מעשרים שנה.</p>
     <div class="cta-row rv in d2">
       <a class="btn btn-gold" href="#apply">להגשת מועמדות</a>
@@ -361,7 +371,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="who">
   <div class="wrap">
-    <div class="kicker rv">למי זה מיועד</div>
+    <div class="kicker metal rv">למי זה מיועד</div>
     <h2 class="rv">השתחררת. יש לך תעודת שחרור — ושאלה אחת גדולה.</h2>
     <p class="prose rv">שלוש שנים ידעת בדיוק לאן אתה קם בבוקר. עכשיו כולם שואלים "מה התוכניות" — ואף אחד לא שואל את השאלה האמיתית: <strong>מי אתה, כשאף אחד לא אומר לך מי להיות?</strong></p>
     <div class="cards">
@@ -396,7 +406,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="story">
   <div class="wrap">
-    <div class="kicker rv">הבית שממנו זה צומח</div>
+    <div class="kicker metal rv">הבית שממנו זה צומח</div>
     <h2 class="rv">הכול התחיל בליל שבת אחד, עם שני בחורים.</h2>
     <p class="prose rv">לפני יותר מעשרים שנה התיישב הרב רפאל רובין ללמוד בליל שבת עם שני בחורים. השיעור הזה לא הפסיק מאז — הוא גדל מפעם בשבוע לכל יום, ומהשיעור נבנה בית שלם: קהילה, פעילות לכל הגילאים, ופעילות הנוער "הלב היהודי" שאלפי בחורים עברו בה.<br/><br/><strong>הישיבה היא לא מוסד שנבנה יש מאין — היא הקומה הבאה של אותו בית.</strong></p>
     <div class="frame rv">
@@ -423,7 +433,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="team">
   <div class="wrap">
-    <div class="kicker rv">צוות הישיבה</div>
+    <div class="kicker metal rv">צוות הישיבה</div>
     <h2 class="rv">כל אחד מהם הגיע מדרך אחרת.<br/>אחד מהם — בדיוק מהדרך שלך.</h2>
     <p class="prose rv">לא צוות שהורכב למוסד חדש: קצין לוחם, איש תקשוב בלי רקע ישיבתי, ובוגר שלוש ישיבות משלושה עולמות. <strong>כל אחד מהם יכיר אותך בשמך.</strong></p>
 
@@ -465,7 +475,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="day" style="padding-top:0">
   <div class="wrap">
-    <div class="kicker rv">המסגרת</div>
+    <div class="kicker metal rv">המסגרת</div>
     <h2 class="rv">יום שלם. בית שלם. שנה שלמה.</h2>
     <figure class="hall rv"><img src="img/opt/beit-midrash.jpg" alt="בית המדרש החדש של הישיבה" loading="lazy" width="1500" height="843" /><figcaption>בית המדרש — נבנה עכשיו, ומחכה לך</figcaption></figure>
     <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto">
@@ -479,7 +489,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="dorm" style="padding-top:0">
   <div class="wrap">
-    <div class="kicker rv">הפנימייה</div>
+    <div class="kicker metal rv">הפנימייה</div>
     <h2 class="rv">בית, לא פנימייה של ילדים.</h2>
     <p class="prose rv">חדרים במתחם בנתניה, במרחק דקות הליכה מבית המדרש. שניים־שלושה בחורים לחדר, מיטה ושולחן לכל אחד, מקלחות ומטבחון בקומה, וכיבוד וכיבוס מסודרים. <strong>הכול בגובה של מבוגרים אחרי צבא</strong> — עם שקט לישון, מקום ללמוד, ופינה לשבת בה עם חברותא בשתיים בלילה.</p>
 
@@ -498,7 +508,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="process" style="padding-top:0">
   <div class="wrap">
-    <div class="kicker rv">התהליך והמועדים</div>
+    <div class="kicker metal rv">התהליך והמועדים</div>
     <h2 class="rv">אף אחד לא קופץ למים בלי לבדוק אותם.</h2>
     <p class="prose rv">בנינו כניסה מדורגת — כל שלב בלי שום מחויבות להמשך.</p>
     <div class="cards">
@@ -520,7 +530,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="faq" style="padding-top:0">
   <div class="wrap">
-    <div class="kicker rv">שאלות שחוזרות</div>
+    <div class="kicker metal rv">שאלות שחוזרות</div>
     <h2 class="rv">מה שבחורים שואלים אותנו לפני שהם מגיעים.</h2>
     <p class="prose rv">שלוש שאלות שעולות כמעט בכל שיחה. אם נשארה לך עוד אחת — כתוב אותה בטופס ההרשמה, ונענה בשיחה.</p>
 
@@ -543,7 +553,7 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
 
 <section id="apply" class="form-sec">
   <div class="wrap" style="position:relative">
-    <div class="kicker rv">הגשת מועמדות</div>
+    <div class="kicker metal rv">הגשת מועמדות</div>
     <h2 class="rv">כל פנייה נקראת אישית. כתוב בכנות.</h2>
     <p class="prose rv">אין תשובות נכונות. מלא את הפרטים — ואחד הרבנים יחזור אליך לשיחת היכרות.</p>
 
