@@ -192,13 +192,7 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .portrait{width:11rem;height:11rem;border-radius:50%;border:2px solid var(--gold);object-fit:cover;
   object-position:center 20%;display:block;margin:0 auto 1.4rem;background:var(--deep)}
 .portrait-sm{width:6.4rem;height:6.4rem;margin-bottom:1.1rem}
-/* quality monogram placeholder for team members with no real photograph yet */
-.mono{display:grid;place-items:center;background:
-  radial-gradient(circle at 50% 35%, rgba(228,188,98,.16), rgba(228,188,98,.04) 60%, transparent),
-  linear-gradient(180deg,var(--raised),var(--deep))}
-.mono span{font-family:var(--serif);font-weight:800;font-size:1.5rem;color:var(--gold);letter-spacing:.02em;line-height:1}
-.portrait-sm.mono span{font-size:1.25rem}
-.role{display:block;color:var(--gold);font-size:.84rem;letter-spacing:.12em;margin:.1rem 0 .7rem}
+.portrait-sm.role{display:block;color:var(--gold);font-size:.84rem;letter-spacing:.12em;margin:.1rem 0 .7rem}
 /* person bio: factual background, then the line that actually lands */
 .p-bg{display:block;color:var(--faint);font-size:.88rem;line-height:1.65;margin:.5rem 0 .9rem;
   padding-bottom:.9rem;border-bottom:1px solid var(--line)}
@@ -433,24 +427,22 @@ nav.scrolled{background:rgba(12,12,14,.93)}
     </div>
 
     <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto;margin-top:1.8rem">
-      <!-- PLACEHOLDER PORTRAIT — replace src with a real photograph when supplied.
-           Required: 1:1 crop, face centred, warm even lighting, kippah/hat visible. -->
-      <div class="card rv" data-needs-photo="הרב עמית יוסף">
-        <div class="portrait portrait-sm mono" aria-hidden="true"><span>ע״י</span></div>
+      <div class="card rv">
+        <img class="portrait portrait-sm" src="img/team/harav-amit.jpg" alt="הרב עמית יוסף" width="102" height="102" loading="lazy" />
         <h3>הרב עמית יוסף</h3>
         <span class="p-tag">צנחנים · צוק איתן</span>
         <span class="p-bg">קצין לוחם בגדוד 202 צנחנים ולוחם בצוק איתן. בוגר ישיבת אש התלמוד.</span>
         <span class="p-hook">מנהיגות אמיתית — כזו שנבחנה בשטח.</span>
       </div>
-      <div class="card rv d1" data-needs-photo="הרב אורי ואנונו">
-        <div class="portrait portrait-sm mono" aria-hidden="true"><span>א״ו</span></div>
+      <div class="card rv d1">
+        <img class="portrait portrait-sm" src="img/team/harav-uri.jpg" alt="הרב אורי ואנונו" width="102" height="102" loading="lazy" />
         <h3>הרב אורי ואנונו</h3>
         <span class="p-tag">חיל התקשוב</span>
         <span class="p-bg">בלי רקע ישיבתי, בוגר חיל התקשוב.</span>
         <span class="p-hook">הגיע מאותו מקום שאתה נמצא בו עכשיו — ולכן שואל בדיוק את השאלות הנכונות.</span>
       </div>
-      <div class="card rv d2" data-needs-photo="הרב חיים כהן">
-        <div class="portrait portrait-sm mono" aria-hidden="true"><span>ח״כ</span></div>
+      <div class="card rv d2">
+        <img class="portrait portrait-sm" src="img/team/harav-chaim.jpg" alt="הרב חיים כהן" width="102" height="102" loading="lazy" />
         <h3>הרב חיים כהן</h3>
         <span class="p-tag">בני עקיבא · טלזסטון · בני ברק</span>
         <span class="p-bg">בוגר ישיבות בני עקיבא, מאורות התורה בטלזסטון ונתיבות עולם בבני ברק.</span>
