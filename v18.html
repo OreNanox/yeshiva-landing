@@ -129,11 +129,11 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 /* ===== stats: only founded numbers (no invented metrics) ===== */
 .stats{border-block:1px solid var(--line);background:linear-gradient(180deg,color-mix(in srgb,var(--deep) 88%,transparent),color-mix(in srgb,var(--ink) 88%,transparent));position:relative;overflow:hidden}
 .stats .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-block:3.2rem;position:relative}
-.stat b{display:flex;align-items:baseline;justify-content:center;gap:.06em;font-family:var(--serif);font-weight:800;font-size:clamp(3.2rem,6.4vw,5rem);color:var(--gold);line-height:1.05}
+.stat b{display:flex;align-items:baseline;justify-content:center;gap:.04em;font-family:var(--serif);font-weight:800;font-size:clamp(9rem,16vw,12rem);color:var(--gold);line-height:1.0}
 /* the animated number is a <span>; keep it from inheriting the label rule */
 .stat .count{font:inherit;color:inherit}
 /* the + reads as a superscript, sized to the number, not larger than it */
-.stat .plus{font-size:.4em;font-weight:700;line-height:1;align-self:flex-start;margin-top:.22em}
+.stat .plus{font-size:1em;font-weight:800;line-height:1}
 .stat > span{display:block;color:var(--soft);font-size:1.05rem;margin-top:.55rem;letter-spacing:.01em}
 @media (max-width:640px){.stats .wrap{grid-template-columns:1fr;row-gap:2.2rem}}
 
