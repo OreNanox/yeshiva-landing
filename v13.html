@@ -32,9 +32,20 @@
 }
 *{box-sizing:border-box} html{scroll-behavior:smooth}
 html,body{margin:0;padding:0}
-body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* ink lives on <html> so the fixed backdrop below can sit under every section */
+html{background:var(--ink)}
+body{background:transparent;color:var(--text);font-family:var(--sans);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--gold);color:var(--ink)}
 img{max-width:100%}
+
+/* ===== the building, held behind the entire page ===== */
+/* position:fixed rather than background-attachment:fixed — the latter is
+   unreliable on iOS Safari and janks on scroll. z-index:-1 keeps it under all
+   content but above the <html> ink. */
+.pagebg{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:url("img/opt/yeshiva-building.jpg") center 42%/cover no-repeat;opacity:.14}
+@media (max-width:768px){.pagebg{background-position:58% 42%;opacity:.11}}
+@media (prefers-reduced-motion:reduce){.pagebg{opacity:.10}}
 
 /* ===== accessibility: visible focus + skip link ===== */
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px}
@@ -80,9 +91,15 @@ header{position:relative;min-height:100svh;display:flex;align-items:flex-end;jus
    measured on the rendered pixels — at .30 alpha the gold overline fell to 1.1
    contrast and was invisible against the sunlit stone. */
 .hero-veil{position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg, rgba(10,22,38,.30) 0%, rgba(10,22,38,.12) 20%, rgba(10,22,38,.42) 34%,
-             rgba(10,22,38,.70) 50%, rgba(10,22,38,.89) 68%, rgba(10,22,38,.97) 84%, var(--ink) 100%)}
-.hero-inner{padding:32svh 1.5rem 4.5rem;max-width:56rem}
+  background:linear-gradient(180deg, rgba(10,22,38,.24) 0%, rgba(10,22,38,.07) 22%, rgba(10,22,38,.30) 38%,
+             rgba(10,22,38,.60) 54%, rgba(10,22,38,.83) 70%, rgba(10,22,38,.95) 86%, var(--ink) 100%)}
+.hero-inner{padding:32svh 1.5rem 4.5rem;max-width:56rem;position:relative}
+/* A localised scrim instead of darkening the whole frame. Lifting the veil to
+   show more of the building dropped the headline to 2.7 contrast; this puts the
+   weight only where the words are, so the stone stays bright either side. */
+.hero-inner::before{content:"";position:absolute;inset:8% -14% -2% -14%;z-index:-1;
+  background:radial-gradient(ellipse 78% 62% at 50% 60%,
+    rgba(10,22,38,.86) 0%, rgba(10,22,38,.74) 38%, rgba(10,22,38,.42) 62%, rgba(10,22,38,0) 80%)}
 .hero-over{color:var(--gold);letter-spacing:.2em;font-size:clamp(.75rem,1.6vw,.95rem);font-weight:500;margin-bottom:2rem;text-shadow:0 1px 3px rgba(10,22,38,.95),0 2px 14px rgba(10,22,38,.95),0 0 30px rgba(10,22,38,.9)}
 h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .lede{color:var(--soft);font-size:clamp(1.08rem,2vw,1.3rem);max-width:38rem;margin:0 auto 2.6rem}
@@ -99,7 +116,7 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 @keyframes float{50%{transform:translateY(9px)}}
 
 /* ===== stats: only founded numbers (no invented metrics) ===== */
-.stats{border-block:1px solid var(--line);background:linear-gradient(180deg,var(--deep),var(--ink));position:relative;overflow:hidden}
+.stats{border-block:1px solid var(--line);background:linear-gradient(180deg,color-mix(in srgb,var(--deep) 88%,transparent),color-mix(in srgb,var(--ink) 88%,transparent));position:relative;overflow:hidden}
 .stats .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-block:3.2rem;position:relative}
 .stat b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,4.6vw,3.6rem);color:var(--gold);line-height:1.1}
 .stat span{color:var(--faint);font-size:.95rem}
@@ -122,7 +139,7 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .softnote strong{color:var(--gold-soft);font-weight:600}
 
 /* ===== quote carousel (principle 7) ===== */
-.quotes{background:linear-gradient(180deg,var(--ink),var(--deep) 40%,var(--ink));border-block:1px solid var(--line);overflow:hidden;position:relative}
+.quotes{background:linear-gradient(180deg,color-mix(in srgb,var(--ink) 90%,transparent),color-mix(in srgb,var(--deep) 86%,transparent) 40%,color-mix(in srgb,var(--ink) 90%,transparent));border-block:1px solid var(--line);overflow:hidden;position:relative}
 .q-track{position:relative;min-height:19rem}
 .q-slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;
   opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;pointer-events:none;padding-inline:1rem}
@@ -233,7 +250,7 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .faq .anc{margin:0;padding:0 1rem 1.5rem;color:var(--soft);font-size:1rem;line-height:1.8}
 
 /* ===== form ===== */
-.form-sec{background:linear-gradient(180deg,var(--deep),var(--ink));border-top:1px solid var(--line);position:relative;overflow:hidden}
+.form-sec{background:linear-gradient(180deg,color-mix(in srgb,var(--deep) 90%,transparent),color-mix(in srgb,var(--ink) 94%,transparent));border-top:1px solid var(--line);position:relative;overflow:hidden}
 form{margin:3rem auto 0;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;max-width:42rem;text-align:right;position:relative}
 @media (max-width:640px){form{grid-template-columns:1fr}}
 .field{display:flex;flex-direction:column;gap:.45rem}
@@ -308,6 +325,8 @@ input,textarea{background:#fff;border-color:rgba(18,33,53,.18);color:#122135;bor
 </style>
 </head>
 <body>
+
+<div class="pagebg" aria-hidden="true"></div>
 
 <a class="skip" href="#apply">דילוג להגשת מועמדות</a>
 
