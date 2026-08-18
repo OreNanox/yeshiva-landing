@@ -241,7 +241,10 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .dorm-shot.await svg{width:2.1rem;height:2.1rem;color:var(--gold);opacity:.75}
 .dorm-shot.await span{color:var(--faint);font-size:.88rem;line-height:1.6;max-width:16rem}
 .hall{margin:3rem auto 0;max-width:56rem;border-radius:6px;overflow:hidden;border:1px solid var(--line);position:relative}
-.hall img{display:block;width:100%;height:auto}
+.hall-gal{position:relative;aspect-ratio:16/9;background:var(--deep)}
+.hall-gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.1s ease}
+.hall-gal img.on{opacity:1}
+.hall-dots{position:absolute;inset-inline:0;bottom:.9rem;display:flex;gap:.55rem;justify-content:center;z-index:3}
 .hall figcaption{position:absolute;inset-inline:0;bottom:0;padding:2.4rem 1rem .9rem;text-align:center;
   color:#F1EADC;font-size:.95rem;background:linear-gradient(180deg,transparent,rgba(10,22,38,.88))}
 .dorm-note{margin:2.2rem auto 0;max-width:40rem;color:var(--gold-soft);font-weight:600;font-size:1rem;
@@ -475,7 +478,15 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
   <div class="wrap">
     <div class="kicker metal rv">המסגרת</div>
     <h2 class="rv">יום שלם. בית שלם. שנה שלמה.</h2>
-    <figure class="hall rv"><img src="img/opt/beit-midrash.jpg" alt="בית המדרש החדש של הישיבה" loading="lazy" width="1500" height="843" /><figcaption>בית המדרש — נבנה עכשיו, ומחכה לך</figcaption></figure>
+    <div class="hall rv">
+      <div class="hall-gal" id="hallGal">
+        <img src="img/opt/hall-1.jpg" alt="בית המדרש של הישיבה" class="on" data-cap="בית המדרש — לב הישיבה" width="1400" height="787" />
+        <img src="img/opt/hall-2.jpg" alt="חדרי הלימוד" loading="lazy" data-cap="חדרי הלימוד" width="1400" height="787" />
+        <img src="img/opt/hall-3.jpg" alt="ספריית בית המדרש" loading="lazy" data-cap="הספרייה — נבנתה עכשיו, ומחכה לך" width="1400" height="787" />
+        <div class="gal-cap" id="hallCap">בית המדרש — לב הישיבה</div>
+        <div class="hall-dots q-dots" id="hallDots"></div>
+      </div>
+    </div>
     <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:52rem;margin-inline:auto">
       <div class="card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M9 7h6M9 11h6"/></svg></div><h3>שלושה סדרים ביום</h3><p>גמרא, הלכה ופנימיות — לימוד שנבנה מהיסודות, בגובה של מבוגרים.</p></div>
       <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div><h3>לינה במתחם</h3><p>חדרים במתחם בנתניה. לא פנימייה של ילדים — בית של בחורים אחרי צבא.</p></div>
@@ -491,9 +502,14 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
     <h2 class="rv">בית, לא פנימייה של ילדים.</h2>
     <p class="prose rv">חדרים במתחם בנתניה, במרחק דקות הליכה מבית המדרש. שניים־שלושה בחורים לחדר, מיטה ושולחן לכל אחד, מקלחות ומטבחון בקומה, וכיבוד וכיבוס מסודרים. <strong>הכול בגובה של מבוגרים אחרי צבא</strong> — עם שקט לישון, מקום ללמוד, ופינה לשבת בה עם חברותא בשתיים בלילה.</p>
 
-    <div class="dorm-grid rv">
-      <figure class="dorm-shot"><img src="img/opt/dorm-window.jpg" alt="חדר פנימייה עם חלון" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">אור טבעי בכל חדר</figcaption></figure>
-      <figure class="dorm-shot"><img src="img/opt/dorm-sink.jpg" alt="פינת רחצה" loading="lazy" width="800" height="450" /><figcaption class="dorm-cap">הכול נבנה עכשיו — מהיסוד</figcaption></figure>
+    <div class="frame rv" style="max-width:46rem">
+      <div class="gal" id="dormGal">
+        <img src="img/opt/dorm-window.jpg" alt="חדר פנימייה עם חלון" class="on" data-cap="אור טבעי בכל חדר" width="800" height="450" />
+        <img src="img/opt/dorm-bunk.jpg" alt="חדר עם מיטות קומתיים" loading="lazy" data-cap="חדר — מיטות קומתיים" width="800" height="450" />
+        <img src="img/opt/dorm-sink.jpg" alt="פינת רחצה במתחם" loading="lazy" data-cap="הכול נבנה עכשיו — מהיסוד" width="800" height="450" />
+        <div class="gal-cap" id="dormCap">אור טבעי בכל חדר</div>
+      </div>
+      <div class="gal-dots q-dots" id="dormDots" style="margin-top:1.2rem"></div>
     </div>
 
     <p class="dorm-note rv">בשלב הראשון המסגרת היא <strong>בתנאי פנימייה בלבד</strong> — הלינה היא חלק מהחוויה, לא תוספת.</p>
@@ -669,6 +685,10 @@ input,textarea{background:#fff;border-color:rgba(143,78,30,.32);color:#38281A}
   carousel('.q-slide',document.getElementById('qDots'),5200);
   var gCap=document.getElementById('galCap');
   carousel('#storyGal img',document.getElementById('galDots'),4600,function(el){gCap.textContent=el.dataset.cap});
+  var dCap=document.getElementById('dormCap');
+  if(dCap)carousel('#dormGal img',document.getElementById('dormDots'),4200,function(el){dCap.textContent=el.dataset.cap});
+  var hCap=document.getElementById('hallCap');
+  if(hCap)carousel('#hallGal img',document.getElementById('hallDots'),4500,function(el){hCap.textContent=el.dataset.cap});
 
   /* ===================== form =====================
      Posts to a Google Apps Script Web App bound to the shared tracking sheet.
