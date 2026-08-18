@@ -50,7 +50,8 @@
 | מקום | כתובת | תפקיד |
 |---|---|---|
 | GitHub (מקור האמת) | https://github.com/OreNanox/yeshiva-landing | מאגר ציבורי, חשבון OreNanox |
-| GitHub Pages | https://orenanox.github.io/yeshiva-landing/ | לינקים ציבוריים להפצה (HTTPS) |
+| **דומיין רשמי** | **https://yeshiva.yarenunissim.app/** | **הלינק להפצה** (18.08). CNAME בשורש המאגר; רשומת DNS ב-Cloudflare: `yeshiva` CNAME → `orenanox.github.io`, **DNS only / ענן אפור** |
+| GitHub Pages | https://orenanox.github.io/yeshiva-landing/ | מפנה 301 לדומיין הרשמי |
 | VPS Hetzner | http://78.46.133.137:8090/ | אירוח עצמאי בדוקר מבודד |
 
 ## 3. מבנה הדפים במאגר
