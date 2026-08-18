@@ -11,6 +11,7 @@ brand colours, exact pixel dimensions, and Hebrew that is verifiably correct.
     python tools/make_social.py
 """
 import os
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 try:                                   # python-bidi moved its entry point
@@ -104,95 +105,160 @@ def save(im, name, quality=88):
     return p
 
 
+
+# ── graphic craft ──────────────────────────────────────────────────────────
+
+def harmonize(im, shadow=INK, warm=1.04, strength=0.42):
+    """Pull the photo's shadows toward the brand navy so the card reads as one
+    designed object rather than a photo pasted onto a coloured box."""
+    a = np.asarray(im, dtype=np.float32) / 255.0
+    l = a @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+    k = np.clip(1.0 - l, 0, 1)[..., None] ** 1.4 * strength      # shadows only
+    tint = np.array(shadow, dtype=np.float32) / 255.0
+    a = a * (1 - k) + tint * k
+    a[..., 0] *= warm
+    a[..., 2] *= (2 - warm)
+    return Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8))
+
+
+def tracked(d, right, y, text, fnt, fill, track=0):
+    """Letter-spaced text, right-anchored. PIL has no tracking, so advance by
+    hand — the wide gold eyebrow is what makes the card feel typeset."""
+    vis = rtl(text)
+    widths = [d.textlength(ch, font=fnt) for ch in vis]
+    total = sum(widths) + track * max(len(vis) - 1, 0)
+    x = right - total
+    for ch, w in zip(vis, widths):
+        d.text((x, y), ch, font=fnt, fill=fill)
+        x += w + track
+    return total
+
+
+def frame(d, w, h, inset, colour=GOLD, thick=2, alpha=70):
+    """Thin inset rule — reads as a printed edge, not a border."""
+    c = tuple(int(INK[i] + (colour[i] - INK[i]) * alpha / 255) for i in range(3))
+    d.rectangle([inset, inset, w - inset, h - inset], outline=c, width=thick)
+
+
+def corner_mark(d, x, y, size, colour=GOLD):
+    """Small geometric accent: two strokes meeting at a corner."""
+    t = max(3, size // 12)
+    d.rectangle([x, y, x + size, y + t], fill=colour)
+    d.rectangle([x, y, x + t, y + size], fill=colour)
+
+
+def vignette(im, strength=0.30):
+    w, h = im.size
+    yy, xx = np.mgrid[0:h, 0:w]
+    cx, cy = w / 2, h / 2
+    r = np.sqrt(((xx - cx) / cx) ** 2 + ((yy - cy) / cy) ** 2)
+    k = np.clip((r - 0.65) / 0.75, 0, 1)[..., None] * strength
+    a = np.asarray(im, dtype=np.float32) / 255.0
+    a = a * (1 - k) + (np.array(INK, dtype=np.float32) / 255.0) * k
+    return Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8))
+
 # ── layouts ────────────────────────────────────────────────────────────────
 
-def horizontal(w=1200, h=630, photo="opt/harav-portrait.jpg", out="og-share.jpg"):
-    """Link/share card: portrait on the right, copy on the left."""
+def horizontal(w=1200, h=630, photo="opt/harav-portrait.jpg", out="og-share.jpg",
+               focus=0.35, eyebrow="לבוגרי צבא · נתניה"):
+    """Link/share card: portrait right, copy left, held inside a printed frame."""
     base = Image.new("RGB", (w, h), INK)
-    pw = int(w * 0.46)
-    p = cover(photo, pw, h, focus=0.35)
+    pw = int(w * 0.48)
+    p = harmonize(cover(photo, pw, h, focus=focus))
     base.paste(p, (w - pw, 0))
-    # fade the photo's inner edge into the navy
     edge = Image.new("RGB", (pw, h), INK)
     base.paste(Image.composite(edge, base.crop((w - pw, 0, w, h)),
-                               hmask(pw, h, [(0, 255), (0.45, 90), (1, 0)])), (w - pw, 0))
+                               hmask(pw, h, [(0, 255), (0.42, 80), (1, 0)])), (w - pw, 0))
+    base = vignette(base, 0.22)
 
     d = ImageDraw.Draw(base)
-    right = int(w * 0.545)
-    f_head = font("Rubik-900.ttf", 78)
-    f_sub  = font("Rubik-700.ttf", 34)
-    f_sm   = font("Assistant-600.ttf", 24)
-    f_url  = font("Assistant-600.ttf", 22)
+    frame(d, w, h, 26)
+    corner_mark(d, 40, 40, 34)
 
-    y = int(h * 0.20)
+    right = int(w * 0.555)
+    f_eye  = font("Assistant-700.ttf", 20)
+    f_head = font("Rubik-900.ttf", 86)
+    f_sub  = font("Rubik-300.ttf", 36)
+    f_sm   = font("Assistant-600.ttf", 23)
+    f_url  = font("Assistant-700.ttf", 20)
+
+    y = int(h * 0.185)
+    tracked(d, right, y, eyebrow, f_eye, GOLD, track=5.5)
+    y += 52
     d.text((right, y), rtl(HEAD), font=f_head, fill=TEXT, anchor="ra")
-    y += 104
+    y += 112
     d.text((right, y), rtl(SUB), font=f_sub, fill=GOLD_SOFT, anchor="ra")
-    y += 68
-    rule(d, right, y, 130)
-    y += 34
+    y += 74
+    rule(d, right, y, 150, thick=4)
+    y += 36
     d.text((right, y), rtl(BRAND), font=f_sm, fill=FAINT, anchor="ra")
-    y += 38
+    y += 36
     d.text((right, y), rtl(DATES), font=f_sm, fill=GOLD, anchor="ra")
-    d.text((right, h - 56), URL, font=f_url, fill=FAINT, anchor="ra")
+    tracked(d, right, h - 62, URL, f_url, FAINT, track=1.6)
     return save(base, out)
 
 
 def vertical(w=1080, h=1920, photo="opt/harav-portrait.jpg", out="story.jpg",
-             focus=0.32, tag=None):
-    """Story / TikTok: full-bleed photo, copy held in the lower third."""
-    base = cover(photo, w, h, focus=focus)
-    base = scrim(base, vmask(w, h, [(0, 120), (0.22, 40), (0.46, 110),
-                                    (0.60, 205), (0.78, 242), (1, 252)]))
+             focus=0.32, eyebrow="ההרשמה נפתחה"):
+    """Story / TikTok: full-bleed photo, copy anchored in the lower third."""
+    base = vignette(harmonize(cover(photo, w, h, focus=focus)), 0.26)
+    base = scrim(base, vmask(w, h, [(0, 120), (0.22, 40), (0.44, 120),
+                                    (0.58, 212), (0.76, 244), (1, 252)]))
     d = ImageDraw.Draw(base)
-    right = w - 90
-    f_head = font("Rubik-900.ttf", 118)
-    f_sub  = font("Rubik-700.ttf", 50)
-    f_sm   = font("Assistant-600.ttf", 34)
-    f_tag  = font("Assistant-600.ttf", 30)
+    frame(d, w, h, 40, thick=3)
+    corner_mark(d, 62, 62, 46)
 
-    y = int(h * 0.575)
-    if tag:
-        d.text((right, y), rtl(tag), font=f_tag, fill=GOLD, anchor="ra")
-        y += 62
+    right = w - 96
+    f_eye  = font("Assistant-700.ttf", 29)
+    f_head = font("Rubik-900.ttf", 132)
+    f_sub  = font("Rubik-300.ttf", 52)
+    f_sm   = font("Assistant-600.ttf", 33)
+
+    y = int(h * 0.545)
+    tracked(d, right, y, eyebrow, f_eye, GOLD, track=7)
+    y += 78
     d.text((right, y), rtl(HEAD), font=f_head, fill=TEXT, anchor="ra")
-    y += 158
+    y += 176
     d.text((right, y), rtl(SUB), font=f_sub, fill=GOLD_SOFT, anchor="ra")
-    y += 96
-    rule(d, right, y, 180, thick=4)
-    y += 52
+    y += 104
+    rule(d, right, y, 200, thick=5)
+    y += 54
     d.text((right, y), rtl(BRAND), font=f_sm, fill=FAINT, anchor="ra")
-    y += 52
+    y += 50
     d.text((right, y), rtl(DATES), font=f_sm, fill=GOLD, anchor="ra")
-    d.text((right, h - 110), URL, font=f_sm, fill=FAINT, anchor="ra")
+    tracked(d, right, h - 120, URL, font("Assistant-700.ttf", 29), FAINT, track=2.2)
     return save(base, out)
 
 
 def square(w=1080, h=1080, photo="opt/beit-midrash.jpg", out="instagram-post.jpg",
-           focus=0.5):
-    """Feed post: photo behind, copy centred low."""
-    base = cover(photo, w, h, focus=focus)
-    # the beit-midrash frame is bright: at the lighter ramp the gold sub-line
-    # measured 2.99 against the backdrop, under the 3.0 large-text floor.
-    base = scrim(base, vmask(w, h, [(0, 140), (0.18, 70), (0.40, 185),
-                                    (0.55, 232), (0.72, 248), (1, 252)]))
+           focus=0.5, eyebrow="בית המדרש החדש"):
+    """Feed post: photo behind, copy set low and tight."""
+    base = vignette(harmonize(cover(photo, w, h, focus=focus)), 0.24)
+    base = scrim(base, vmask(w, h, [(0, 140), (0.18, 70), (0.38, 180),
+                                    (0.54, 232), (0.72, 248), (1, 252)]))
     d = ImageDraw.Draw(base)
-    right = w - 80
-    f_head = font("Rubik-900.ttf", 96)
-    f_sub  = font("Rubik-700.ttf", 40)
-    f_sm   = font("Assistant-600.ttf", 30)
+    frame(d, w, h, 34, thick=3)
+    corner_mark(d, 54, 54, 42)
 
-    y = int(h * 0.48)
+    right = w - 86
+    f_eye  = font("Assistant-700.ttf", 25)
+    f_head = font("Rubik-900.ttf", 106)
+    f_sub  = font("Rubik-300.ttf", 42)
+    f_sm   = font("Assistant-600.ttf", 29)
+
+    y = int(h * 0.435)
+    tracked(d, right, y, eyebrow, f_eye, GOLD, track=6)
+    y += 66
     d.text((right, y), rtl(HEAD), font=f_head, fill=TEXT, anchor="ra")
-    y += 128
+    y += 140
     d.text((right, y), rtl(SUB), font=f_sub, fill=GOLD_SOFT, anchor="ra")
-    y += 80
-    rule(d, right, y, 150, thick=4)
-    y += 44
+    y += 88
+    rule(d, right, y, 170, thick=5)
+    y += 46
     d.text((right, y), rtl(BRAND), font=f_sm, fill=FAINT, anchor="ra")
     y += 46
     d.text((right, y), rtl(DATES), font=f_sm, fill=GOLD, anchor="ra")
-    d.text((right, h - 74), URL, font=f_sm, fill=FAINT, anchor="ra")
+    tracked(d, right, h - 86, URL, font("Assistant-700.ttf", 25), FAINT, track=2)
     return save(base, out)
 
 
@@ -200,8 +266,9 @@ if __name__ == "__main__":
     print(f"{'file':<26} {'size':<12} weight")
     print("-" * 50)
     horizontal(out="og-share.jpg")
-    horizontal(photo="opt/yeshiva-building.jpg", out="facebook-post.jpg")
+    horizontal(photo="opt/yeshiva-building.jpg", out="facebook-post.jpg",
+               focus=0.45, eyebrow="בית שצומח בנתניה 20 שנה")
     square(out="instagram-post.jpg")
-    vertical(out="instagram-story.jpg", tag="ההרשמה נפתחה")
+    vertical(out="instagram-story.jpg", eyebrow="ההרשמה נפתחה")
     vertical(photo="opt/yeshiva-building.jpg", out="tiktok.jpg",
-             focus=0.42, tag="נתניה · לבוגרי צבא")
+             focus=0.42, eyebrow="נתניה · לבוגרי צבא")
