@@ -40,9 +40,9 @@ done
 CHOSEN=11
 if [[ "$CHOSEN" == "11" ]]; then
   # og:url must point at the root, not at v11.html
-  sed 's|/yeshiva-landing/v11\.html|/yeshiva-landing/|' .v11.norm > index.html
+  sed 's|yeshiva\.yarenunissim\.app/v11\.html|yeshiva.yarenunissim.app/|' .v11.norm > index.html
 else
-  sed 's|/yeshiva-landing/v'"$CHOSEN"'\.html|/yeshiva-landing/|' "v$CHOSEN.html" > index.html
+  sed 's|yeshiva\.yarenunissim\.app/v'"$CHOSEN"'\.html|yeshiva.yarenunissim.app/|' "v$CHOSEN.html" > index.html
 fi
 printf 'index.html   %s lines  (= v%s, og:url → site root)\n' "$(wc -l < index.html)" "$CHOSEN"
 
