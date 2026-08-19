@@ -8,7 +8,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ישיבת יראנו ניסים" />
 <meta property="og:title" content="תן לעצמך שנה · ישיבת יראנו ניסים" />
-<meta property="og:description" content="ישיבה לבוגרי צבא 21–24, בבית שצומח בנתניה כבר עשרים שנה. ראיונות קבלה במהלך אלול · ההרשמה נסגרת בכ׳ באלול." />
+<meta property="og:description" content="ישיבה לבוגרי צבא 21+, בבית שצומח בנתניה כבר עשרים שנה. ראיונות קבלה במהלך אלול · ההרשמה נסגרת בכ׳ באלול." />
 <meta property="og:url" content="https://yeshiva.yarenunissim.app/v15.html" />
 <meta property="og:image" content="https://yeshiva.yarenunissim.app/img/social/og-share.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -149,6 +149,9 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .card .ico{width:3.4rem;height:3.4rem;margin:0 auto 1.3rem;display:grid;place-items:center;border:1px solid var(--gold);border-radius:50%;color:var(--gold)}
 .card .ico svg{width:1.5rem;height:1.5rem}
 .card h3{font-family:var(--serif);font-weight:700;font-size:1.22rem;margin:0 0 .55rem;line-height:1.35}
+/* the age "+" — small superscript, same colour & font as the number */
+.card h3 .age{unicode-bidi:isolate}
+.card h3 .age .pl{font-size:.58em;font-weight:inherit;color:inherit;vertical-align:.42em;margin-inline-start:.02em}
 .card p{margin:0;color:var(--faint);font-size:.95rem;line-height:1.7}
 /* soft note under the "who it's for" grid — requirements without a threatening checklist */
 .softnote{margin:2.4rem auto 0;max-width:44rem;color:var(--faint);font-size:.98rem;
@@ -367,7 +370,7 @@ nav.scrolled{background:rgba(12,35,28,.92)}
     <p class="prose rv">שלוש שנים ידעת בדיוק לאן אתה קם בבוקר. עכשיו כולם שואלים "מה התוכניות" — ואף אחד לא שואל את השאלה האמיתית: <strong>מי אתה, כשאף אחד לא אומר לך מי להיות?</strong></p>
     <div class="cards">
       <div class="card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div><h3>אחרי שירות צבאי</h3><p>סיימת שירות ובידך תעודת שחרור. השנה הקרובה פתוחה לפניך — וזה בדיוק הרגע.</p></div>
-      <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><h3>בגילאי 21–24</h3><p>הקבוצה נבנית מבחורים בשלב חיים דומה — לא תלמיד קטן ולא מספר בכיתה.</p></div>
+      <div class="card rv d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><h3>בגילאי <span class="age" dir="ltr">21<span class="pl">+</span></span></h3><p>הקבוצה נבנית מבחורים בשלב חיים דומה — לא תלמיד קטן ולא מספר בכיתה.</p></div>
       <div class="card rv d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3c1 3 4 4 4 8a4 4 0 11-8 0c0-4 3-5 4-8z"/><path d="M12 15v6"/></svg></div><h3>רצון אמיתי לגדול</h3><p>רקע ישיבתי? לא חובה. רצון כן להשתלב, ללמוד ולהיות חלק — כן.</p></div>
       <div class="card rv d3"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div><h3>התאמה לבית</h3><p>מסגרת עם סדר יום, ערכים ואופי משלה. מי שמתחבר לזה — מרגיש כאן בבית מהיום הראשון.</p></div>
     </div>
