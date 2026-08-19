@@ -138,6 +138,22 @@ h1,.lede{text-shadow:0 2px 18px rgba(10,22,38,.65)}
 .stat .statnum{direction:ltr;unicode-bidi:isolate}
 .stat .plus{font-size:.5em;font-weight:800;vertical-align:.55em;margin-inline-start:.03em}
 .stat > span{display:block;text-align:center;color:var(--soft);font-size:1.2rem;margin-top:.7rem;letter-spacing:.01em}
+/* desktop only: take the + out of flow so the digits "20" centre in the cell
+   exactly like the single-digit "3"/"4" — this both aligns the label under the
+   number (not the number+plus group) and makes the inter-column spacing uniform */
+@media (min-width:641px){
+  .stat .statnum{position:relative}
+  .stat .plus{position:absolute;left:100%;top:.12em;margin-inline-start:.04em;vertical-align:baseline}
+  /* equal WHITE-SPACE between the numbers (not equal centres): size each block to
+     its digit width and lay them out with one shared gap. flex gap == the gap
+     between number boxes, so 3↔4 and 4↔20 come out identical despite 20 being wider */
+  .stats .wrap{display:flex;justify-content:center;align-items:flex-start;gap:clamp(3rem,9vw,9rem)}
+  /* each block sizes to its digit width; the label is taken out of flow so its
+     (wider) text can't stretch the block, and is centred on the block's midline
+     = the number's centre. padding-bottom reserves the label's vertical space */
+  .stat{flex:0 0 auto;position:relative;padding-bottom:2.7rem}
+  .stat > span{position:absolute;left:50%;bottom:0;transform:translateX(-50%);white-space:nowrap;margin-top:0}
+}
 @media (max-width:640px){.stats .wrap{grid-template-columns:1fr;row-gap:2.2rem}
   /* numbers were 144px edge-to-edge on a phone; scale them down for mobile only */
   .stat b{font-size:clamp(3rem,13vw,4.5rem)}}
